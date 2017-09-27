@@ -14,7 +14,7 @@ Edit your Gemfile and add:
 
         $ gem 'conics'
                 
-Update your gemset with bundle.
+Now you can update your gemset with bundle.
 
 ## Coverage
 Test coverage at 100%.
