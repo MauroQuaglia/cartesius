@@ -28,7 +28,7 @@ describe Point do
       expect(point.y).to eq(0)
     end
 
-    it 'should be the generic point' do
+    it 'should be a generic point' do
       point = described_class.new(x: -2, y: 2, k: 2)
 
       expect(point.x).to eq(1)

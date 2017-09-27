@@ -29,7 +29,7 @@ describe Line do
       expect(line.known_term).to eq(0)
     end
 
-    it 'should be the generic line' do
+    it 'should be a generic line' do
       line = described_class.new(x: -2, y: 1, k: 3)
 
       expect(line.slope).to eq(2)
