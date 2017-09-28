@@ -12,32 +12,39 @@ class Line < Conic
     build
   end
 
-  # TODO: Usare un case.
   def self.create(slope:, known_term:)
-    if slope == HORIZONTAL_SLOPE
-      return self.new(x: 0, y: 1, k: -known_term)
+    case slope
+      when HORIZONTAL_SLOPE
+        self.new(x: 0, y: 1, k: -known_term)
+      when VERTICAL_SLOPE
+        self.new(x: 1, y: 0, k: -known_term)
+      else
+        self.new(x: -slope, y: 1, k: -known_term)
     end
-
-    if slope == VERTICAL_SLOPE
-      return self.new(x: 1, y: 0, k: -known_term)
-    end
-
-    self.new(x: -slope, y: 1, k: -known_term)
   end
 
   def self.horizontal(known_term:)
+    create(slope: HORIZONTAL_SLOPE, known_term: known_term)
   end
 
   def self.vertical(known_term:)
+    create(slope: VERTICAL_SLOPE, known_term: known_term)
   end
 
   def horizontal?
+    @slope == HORIZONTAL_SLOPE
   end
 
   def vertical?
+    @slope == VERTICAL_SLOPE
   end
 
-  def inclined?
+  def ascending?
+    @slope > 0
+  end
+
+  def descending?
+    @slope < 0
   end
 
   def == (line)
