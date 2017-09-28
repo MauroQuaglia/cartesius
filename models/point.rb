@@ -10,6 +10,22 @@ class Point < Conic
     build
   end
 
+  def self.create(x:, y:)
+    self.new(x: -2 * x, y: -2 * y, k: (x ** 2) + (y ** 2))
+  end
+
+  def self.origin
+    create(x: 0, y: 0)
+  end
+
+  def origin?
+    self == Point.origin
+  end
+
+  def == (point)
+    point.instance_of?(Point) and point.x == @x and point.y == @y
+  end
+
   private
 
   def build
