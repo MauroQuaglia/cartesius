@@ -123,5 +123,4 @@ describe Point do
 
   end
 
-
 end
