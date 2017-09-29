@@ -99,7 +99,7 @@ describe Line do
 
   end
 
-  describe 'slope' do
+  describe 'gradient' do
 
     it 'should be horizontal' do
       line = described_class.horizontal(known_term: 1)
@@ -113,6 +113,65 @@ describe Line do
 
       expect(line.horizontal?).to be_falsey
       expect(line.vertical?).to be_truthy
+    end
+
+  end
+
+  describe '.x_axis' do
+
+    it 'should be the x axis' do
+      line = Line.x_axis
+
+      expect(line.slope).to eq(0)
+      expect(line.known_term).to eq(0)
+    end
+
+  end
+
+  describe '.y_axis' do
+
+    it 'should be the y axis' do
+      line = Line.y_axis
+
+      expect(line.slope).to eq(Float::INFINITY)
+      expect(line.known_term).to eq(0)
+    end
+
+  end
+
+  describe '#==' do
+
+    it 'should be false when not line' do
+      expect(
+          described_class.x_axis == NilClass
+      ).to be_falsey
+    end
+
+    it 'should be false when different slope' do
+      line1 = described_class.create(slope: 1, known_term: 2)
+      line2 = described_class.create(slope: -1, known_term: 2)
+
+      expect(
+          line1 == line2
+      ).to be_falsey
+    end
+
+    it 'should be false when different known term' do
+      line1 = described_class.create(slope: 1, known_term: 2)
+      line2 = described_class.create(slope: 1, known_term: -2)
+
+      expect(
+          line1 == line2
+      ).to be_falsey
+    end
+
+    it 'should be true' do
+      line1 = described_class.create(slope: 1, known_term: 2)
+      line2 = described_class.create(slope: 1, known_term: 2)
+
+      expect(
+          line1 == line2
+      ).to be_truthy
     end
 
   end

@@ -13,15 +13,23 @@ class Line < Conic
   end
 
   def self.create(slope:, known_term:)
-    self.new(x: -slope.to_r, y: 1, k: -known_term.to_r)
+    new(x: -slope.to_r, y: 1, k: -known_term.to_r)
   end
 
   def self.horizontal(known_term:)
-    self.new(x: 0, y: 1, k: -known_term.to_r)
+    new(x: 0, y: 1, k: -known_term.to_r)
   end
 
   def self.vertical(known_term:)
-    self.new(x: 1, y: 0, k: -known_term.to_r)
+    new(x: 1, y: 0, k: -known_term.to_r)
+  end
+
+  def self.x_axis
+    horizontal(known_term: 0)
+  end
+
+  def self.y_axis
+    vertical(known_term: 0)
   end
 
   def horizontal?
@@ -33,7 +41,7 @@ class Line < Conic
   end
 
   def == (line)
-    #line.instance_of?(Line)
+    line.instance_of?(Line) and line.slope == @slope and line.known_term == @known_term
   end
 
   private
