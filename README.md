@@ -35,6 +35,10 @@ vertical
 ``` 
 method for horizontal or vertical lines.  
 
+#Circumference
+You can create all circumferences in the plane. 
+
+
 ## Getting Started
 Edit your Gemfile and add:
 

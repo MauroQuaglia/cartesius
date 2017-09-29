@@ -38,4 +38,25 @@ describe Circumference do
 
   end
 
+  describe '.unitary'do
+
+    it 'should be the unitary circumference' do
+      circumference = described_class.unitary
+
+      expect(circumference.center).to eq(Point.origin)
+      expect(circumference.radius).to eq(1)
+    end
+
+  end
+
+  describe '#==' do
+
+    it 'should be false when not circumference' do
+      expect(
+          described_class.unitary == NilClass
+      ).to be_falsey
+    end
+
+  end
+
 end

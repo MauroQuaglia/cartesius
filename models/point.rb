@@ -24,7 +24,8 @@ class Point < Conic
   end
 
   def == (point)
-    point.instance_of?(Point) and point.x == @x and point.y == @y
+    point.instance_of?(Point) and
+        point.x == @x and point.y == @y
   end
 
   private

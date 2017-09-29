@@ -49,7 +49,8 @@ class Line < Conic
   end
 
   def == (line)
-    line.instance_of?(Line) and line.slope == @slope and line.known_term == @known_term
+    line.instance_of?(Line) and
+        line.slope == @slope and line.known_term == @known_term
   end
 
   private
