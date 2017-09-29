@@ -45,10 +45,10 @@ class Line < Conic
 
     if @y_coeff == 0
       @slope = VERTICAL_SLOPE
-      @known_term = numberfy(Rational(-@k_coeff, @x_coeff))
+      @known_term = numberfy(-@k_coeff, @x_coeff)
     else
-      @slope = numberfy(Rational(-@x_coeff, @y_coeff))
-      @known_term = numberfy(Rational(-@k_coeff, @y_coeff))
+      @slope = numberfy(-@x_coeff, @y_coeff)
+      @known_term = numberfy(-@k_coeff, @y_coeff)
     end
   end
 
