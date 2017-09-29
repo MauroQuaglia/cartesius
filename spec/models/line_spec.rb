@@ -139,6 +139,28 @@ describe Line do
 
   end
 
+  describe '.ascending_bisector' do
+
+    it 'should be the ascending bisector' do
+      line = Line.ascending_bisector
+
+      expect(line.slope).to eq(1)
+      expect(line.known_term).to eq(0)
+    end
+
+  end
+  
+  describe '.descending_bisector' do
+
+    it 'should be the descending bisector' do
+      line = Line.descending_bisector
+
+      expect(line.slope).to eq(-1)
+      expect(line.known_term).to eq(0)
+    end
+
+  end
+
   describe '#==' do
 
     it 'should be false when not line' do

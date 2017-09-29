@@ -32,6 +32,14 @@ class Line < Conic
     vertical(known_term: 0)
   end
 
+  def self.ascending_bisector
+    new(x: -1, y: 1, k: 0)
+  end
+
+  def self.descending_bisector
+    new(x: 1, y: 1, k: 0)
+  end
+
   def horizontal?
     @slope == HORIZONTAL_SLOPE
   end
