@@ -9,6 +9,24 @@ The conics you are:
 * Hyperbola
 * Homographic function
 
+
+#Line
+You can create all lines in the plane. 
+You should use
+```ruby 
+create
+``` 
+to get a general inclined lines and
+```ruby 
+horizonal
+``` 
+or
+
+```ruby 
+vertical
+``` 
+method for horizontal or vertical lines.  
+
 ## Getting Started
 Edit your Gemfile and add:
 

@@ -149,7 +149,7 @@ describe Line do
     end
 
   end
-  
+
   describe '.descending_bisector' do
 
     it 'should be the descending bisector' do

@@ -11,11 +11,12 @@ class Point < Conic
   end
 
   def self.create(x:, y:)
-    self.new(x: -2 * x, y: -2 * y, k: (x ** 2) + (y ** 2))
+    x, y = x.to_r, y.to_r
+    new(x: -2 * x, y: -2 * y, k: (x ** 2) + (y ** 2))
   end
 
   def self.origin
-    create(x: 0, y: 0)
+    new(x: 0, y: 0, k: 0)
   end
 
   def origin?
@@ -29,7 +30,7 @@ class Point < Conic
   private
 
   def build
-    discriminant = Rational(@x_coeff ** 2, 4) + Rational(@y_coeff ** 2, 4) - @k_coeff
+    discriminant = numberfy(@x_coeff ** 2, 4) + numberfy(@y_coeff ** 2, 4) - @k_coeff
 
     if discriminant < 0
       raise ArgumentError.new('Empty set!')
@@ -39,8 +40,8 @@ class Point < Conic
       raise ArgumentError.new('Circumference!')
     end
 
-    @x = Rational(-@x_coeff, 2)
-    @y = Rational(-@y_coeff, 2)
+    @x = numberfy(-@x_coeff, 2)
+    @y = numberfy(-@y_coeff, 2)
   end
 
 end

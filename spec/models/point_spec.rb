@@ -53,6 +53,12 @@ describe Point do
       expect(point.y).to eq(-1)
     end
 
+    it 'should be a generic point with string parameters' do
+      point = described_class.create(x: '1', y: '-1')
+
+      expect(point.x).to eq(1)
+      expect(point.y).to eq(-1)
+    end
   end
 
   describe '.origin' do
