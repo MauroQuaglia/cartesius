@@ -13,22 +13,15 @@ class Line < Conic
   end
 
   def self.create(slope:, known_term:)
-    case slope
-      when HORIZONTAL_SLOPE
-        self.new(x: 0, y: 1, k: -known_term)
-      when VERTICAL_SLOPE
-        self.new(x: 1, y: 0, k: -known_term)
-      else
-        self.new(x: -slope, y: 1, k: -known_term)
-    end
+    self.new(x: -slope.to_r, y: 1, k: -known_term.to_r)
   end
 
   def self.horizontal(known_term:)
-    create(slope: HORIZONTAL_SLOPE, known_term: known_term)
+    self.new(x: 0, y: 1, k: -known_term.to_r)
   end
 
   def self.vertical(known_term:)
-    create(slope: VERTICAL_SLOPE, known_term: known_term)
+    self.new(x: 1, y: 0, k: -known_term.to_r)
   end
 
   def horizontal?
@@ -37,14 +30,6 @@ class Line < Conic
 
   def vertical?
     @slope == VERTICAL_SLOPE
-  end
-
-  def ascending?
-    @slope > 0
-  end
-
-  def descending?
-    @slope < 0
   end
 
   def == (line)
@@ -60,10 +45,10 @@ class Line < Conic
 
     if @y_coeff == 0
       @slope = VERTICAL_SLOPE
-      @known_term = Rational(-@k_coeff, @x_coeff)
+      @known_term = numberfy(Rational(-@k_coeff, @x_coeff))
     else
-      @slope = Rational(-@x_coeff, @y_coeff)
-      @known_term = Rational(-@k_coeff, @y_coeff)
+      @slope = numberfy(Rational(-@x_coeff, @y_coeff))
+      @known_term = numberfy(Rational(-@k_coeff, @y_coeff))
     end
   end
 

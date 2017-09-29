@@ -47,22 +47,15 @@ describe Line do
 
   describe '.create' do
 
-    it 'should be a horizontal line' do
-      line = described_class.create(slope: 0, known_term: 1)
-
-      expect(line.slope).to eq(0)
-      expect(line.known_term).to eq(1)
-    end
-
-    it 'should be a vertical line' do
-      line = described_class.create(slope: Float::INFINITY, known_term: 1)
-
-      expect(line.slope).to eq(Float::INFINITY)
-      expect(line.known_term).to eq(1)
-    end
-
     it 'should be a generic line' do
       line = described_class.create(slope: 2, known_term: -3)
+
+      expect(line.slope).to eq(2)
+      expect(line.known_term).to eq(-3)
+    end
+
+    it 'should be a generic line with string parameters' do
+      line = described_class.create(slope: '2', known_term: '-3')
 
       expect(line.slope).to eq(2)
       expect(line.known_term).to eq(-3)
@@ -79,12 +72,26 @@ describe Line do
       expect(line.known_term).to eq(1)
     end
 
+    it 'should be a horizontal line with string parameters' do
+      line = described_class.horizontal(known_term: '1')
+
+      expect(line.slope).to eq(0)
+      expect(line.known_term).to eq(1)
+    end
+
   end
 
   describe '.vertical' do
 
     it 'should be a vertical line' do
       line = described_class.vertical(known_term: 1)
+
+      expect(line.slope).to eq(Float::INFINITY)
+      expect(line.known_term).to eq(1)
+    end
+
+    it 'should be a vertical line with string parameters' do
+      line = described_class.vertical(known_term: '1')
 
       expect(line.slope).to eq(Float::INFINITY)
       expect(line.known_term).to eq(1)
@@ -97,10 +104,15 @@ describe Line do
     it 'should be horizontal' do
       line = described_class.horizontal(known_term: 1)
 
-      expect(line.descending?).to be_falsey
       expect(line.horizontal?).to be_truthy
-      expect(line.ascending?).to be_falsey
       expect(line.vertical?).to be_falsey
+    end
+
+    it 'should be vertical' do
+      line = described_class.vertical(known_term: 1)
+
+      expect(line.horizontal?).to be_falsey
+      expect(line.vertical?).to be_truthy
     end
 
   end
