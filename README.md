@@ -9,6 +9,14 @@ The conics you are:
 * Hyperbola
 * Homographic function
 
+# Note
+The new method is reserved for initialize the conic by equation. 
+So, is better for you to use alternative methods (eg: create, by_points, by_definition, ...) to build the conic you want.
+You can use number or string for your creation, for example you can use indifferently -1, '-1', 0, '1/2'.
+i work with rationals so i get the maximum precision possible.  
+
+#Point
+You can create all points in the plane.
 
 #Line
 You can create all lines in the plane. 
