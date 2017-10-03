@@ -33,7 +33,7 @@ class Point < Conic
   end
 
   def to_coordinates
-    "(#{x}; #{y})"
+    "(#{stringfy(x)}; #{stringfy(y)})"
   end
 
   def == (point)

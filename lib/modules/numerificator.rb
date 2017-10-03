@@ -1,14 +1,14 @@
 module Numerificator
 
   def numberfy(numerator, denominator)
-    if denominator == 1
-      numerator
-    else
-      Rational(numerator, denominator)
-    end
+    Rational(numerator, denominator)
   end
 
   def stringfy(number)
+    if number.denominator == 1
+      return number.numerator.to_s
+    end
+    number.to_s
   end
-  
+
 end

@@ -94,16 +94,22 @@ describe Point do
 
   describe '.to_coordinates' do
 
-    xit 'should be the origin' do
+    it 'should be the origin' do
       expect(
           described_class.origin.to_coordinates
       ).to eq('(0; 0)')
     end
 
-    xit 'should be general' do
+    it 'should be general' do
       expect(
           described_class.create(x: -1, y: +1).to_coordinates
       ).to eq('(-1; 1)')
+    end
+
+    it 'should be rational' do
+      expect(
+          described_class.create(x: '1/2', y: '-4/5').to_coordinates
+      ).to eq('(1/2; -4/5)')
     end
 
   end
