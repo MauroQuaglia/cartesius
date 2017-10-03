@@ -1,4 +1,4 @@
-module NumberSupport
+module Numerificator
 
   def numberfy(numerator, denominator)
     if denominator == 1

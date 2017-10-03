@@ -1,7 +1,7 @@
-require_relative('../lib/number_support')
+require_relative('../lib/modules/numerificator')
 
 class Conic
-  include NumberSupport
+  include Numerificator
 
   # Conic equation type: ax^2 + by^2 + cxy + dx + ey + f = 0
   def initialize(x2:, y2:, xy:, x:, y:, k:)

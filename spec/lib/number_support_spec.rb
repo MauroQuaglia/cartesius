@@ -1,11 +1,11 @@
 require_relative('../../spec/spec_helper')
-require_relative('../../lib/number_support')
+require_relative('../../lib/modules/numerificator')
 
 class IncludingClass
-  include NumberSupport
+  include Numerificator
 end
 
-describe NumberSupport do
+describe Numerificator do
   subject {IncludingClass.new}
 
   describe '.numberfy' do
