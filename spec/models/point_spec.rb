@@ -92,6 +92,22 @@ describe Point do
 
   end
 
+  describe '.to_coordinates' do
+
+    xit 'should be the origin' do
+      expect(
+          described_class.origin.to_coordinates
+      ).to eq('(0; 0)')
+    end
+
+    xit 'should be general' do
+      expect(
+          described_class.create(x: -1, y: +1).to_coordinates
+      ).to eq('(-1; 1)')
+    end
+
+  end
+
   describe '#==' do
 
     it 'should be false when not point' do

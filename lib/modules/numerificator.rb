@@ -8,4 +8,7 @@ module Numerificator
     end
   end
 
+  def stringfy(number)
+  end
+  
 end

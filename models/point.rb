@@ -32,6 +32,10 @@ class Point < Conic
     self == Point.origin
   end
 
+  def to_coordinates
+    "(#{x}; #{y})"
+  end
+
   def == (point)
     point.instance_of?(Point) and
         point.x == self.x and point.y == self.y
