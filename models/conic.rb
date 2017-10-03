@@ -10,4 +10,10 @@ class Conic
     @k_coeff = k.to_r
   end
 
+  private
+
+  def coefficients_error
+    raise ArgumentError.new('Invalid coefficients!')
+  end
+
 end

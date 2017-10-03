@@ -11,13 +11,13 @@ describe Circumference do
       it 'should fail when empty set' do
         expect {
           described_class.new(x: 2, y: -2, k: 3)
-        }.to raise_error(ArgumentError, 'Empty set!')
+        }.to raise_error(ArgumentError, 'Invalid coefficients!')
       end
 
       it 'should fail when point' do
         expect {
           described_class.new(x: 0, y: 0, k: 0)
-        }.to raise_error(ArgumentError, 'Point!')
+        }.to raise_error(ArgumentError, 'Invalid coefficients!')
       end
 
     end
