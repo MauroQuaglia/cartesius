@@ -82,7 +82,7 @@ describe Point do
       ).to be_falsey
     end
 
-    it 'should be false' do
+    it 'should be true' do
       point = Point.origin
 
       expect(

@@ -47,6 +47,22 @@ class Line < Conic
     @y_coeff == 0 ? numberfy(-@k_coeff, @x_coeff) : numberfy(-@k_coeff, @y_coeff)
   end
 
+  def x_axis?
+    self == Line.x_axis
+  end
+
+  def y_axis?
+    self == Line.y_axis
+  end
+
+  def ascending_bisector?
+    self == Line.ascending_bisector
+  end
+
+  def descending_bisector?
+    self == Line.descending_bisector
+  end
+
   def horizontal?
     slope == HORIZONTAL_SLOPE
   end

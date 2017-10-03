@@ -40,11 +40,9 @@ class Point < Conic
   private
 
   def validation
-
     if determinator != @k_coeff
       coefficients_error
     end
-
   end
 
 end

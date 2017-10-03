@@ -23,6 +23,10 @@ class Circumference < Conic
     Math.sqrt(x_half_axis_squared)
   end
 
+  def unitary?
+    self == Circumference.unitary
+  end
+
   # TODO: To test when i can create some circunferences.
   def == (circumference)
     circumference.instance_of?(Circumference) and
@@ -32,11 +36,9 @@ class Circumference < Conic
   private
 
   def validation
-
     if determinator <= @k_coeff
       coefficients_error
     end
-
   end
 
 end

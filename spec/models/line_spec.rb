@@ -198,4 +198,89 @@ describe Line do
 
   end
 
+
+
+
+
+  describe '.x_axis?' do
+
+    it 'should be false' do
+      line = Line.y_axis
+
+      expect(
+          line.x_axis?
+      ).to be_falsey
+    end
+
+    it 'should be true' do
+      line = Line.x_axis
+
+      expect(
+          line.x_axis?
+      ).to be_truthy
+    end
+
+  end
+
+  describe '.y_axis?' do
+
+    it 'should be false' do
+      line = Line.x_axis
+
+      expect(
+          line.y_axis?
+      ).to be_falsey
+    end
+
+    it 'should be true' do
+      line = Line.y_axis
+
+      expect(
+          line.y_axis?
+      ).to be_truthy
+    end
+
+  end
+
+  describe '.ascending_bisector?' do
+
+    it 'should be false' do
+      line = Line.x_axis
+
+      expect(
+          line.ascending_bisector?
+      ).to be_falsey
+    end
+
+    it 'should be true' do
+      line = Line.ascending_bisector
+
+      expect(
+          line.ascending_bisector?
+      ).to be_truthy
+    end
+
+  end
+
+  describe '.descending_bisector?' do
+
+    it 'should be false' do
+      line = Line.x_axis
+
+      expect(
+          line.descending_bisector?
+      ).to be_falsey
+    end
+
+    it 'should be true' do
+      line = Line.descending_bisector
+
+      expect(
+          line.descending_bisector?
+      ).to be_truthy
+    end
+
+  end
+
+
 end

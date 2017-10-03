@@ -59,4 +59,25 @@ describe Circumference do
 
   end
 
+  describe '.unitary?' do
+
+    it 'should be false' do
+      circumference = described_class.new(x: -2, y: 2, k: -2)
+
+      expect(
+          circumference.unitary?
+      ).to be_falsey
+    end
+
+    it 'should be true' do
+      circumference = described_class.unitary
+
+      expect(
+          circumference.unitary?
+      ).to be_truthy
+    end
+
+  end
+
+
 end
