@@ -10,7 +10,7 @@ describe Line do
       it 'should fail when neither x nor y' do
         expect {
           described_class.new(x: 0, y: 0, k: 1)
-        }.to raise_error(ArgumentError, 'Invalid parameters!')
+        }.to raise_error(ArgumentError, 'Invalid coefficients!')
       end
 
     end

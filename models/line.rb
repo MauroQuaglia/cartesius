@@ -1,7 +1,6 @@
 require_relative('../models/conic')
 
 class Line < Conic
-  attr_reader :slope, :known_term
   VERTICAL_SLOPE = Float::INFINITY
   HORIZONTAL_SLOPE = 0
 
@@ -9,7 +8,7 @@ class Line < Conic
   # Conic equation type: dx + ey + f = 0
   def initialize(x:, y:, k:)
     super(x2: 0, y2: 0, xy: 0, x: x, y: y, k: k)
-    build
+    validation
   end
 
   def self.create(slope:, known_term:)
@@ -40,32 +39,32 @@ class Line < Conic
     new(x: 1, y: 1, k: 0)
   end
 
+  def slope
+    @y_coeff == 0 ? VERTICAL_SLOPE : numberfy(-@x_coeff, @y_coeff)
+  end
+
+  def known_term
+    @y_coeff == 0 ? numberfy(-@k_coeff, @x_coeff) : numberfy(-@k_coeff, @y_coeff)
+  end
+
   def horizontal?
-    @slope == HORIZONTAL_SLOPE
+    slope == HORIZONTAL_SLOPE
   end
 
   def vertical?
-    @slope == VERTICAL_SLOPE
+    slope == VERTICAL_SLOPE
   end
 
   def == (line)
     line.instance_of?(Line) and
-        line.slope == @slope and line.known_term == @known_term
+        line.slope == self.slope and line.known_term == self.known_term
   end
 
   private
 
-  def build
+  def validation
     if (@x_coeff == 0 and @y_coeff == 0)
-      raise ArgumentError.new('Invalid parameters!')
-    end
-
-    if @y_coeff == 0
-      @slope = VERTICAL_SLOPE
-      @known_term = numberfy(-@k_coeff, @x_coeff)
-    else
-      @slope = numberfy(-@x_coeff, @y_coeff)
-      @known_term = numberfy(-@k_coeff, @y_coeff)
+      coefficients_error
     end
   end
 
