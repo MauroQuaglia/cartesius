@@ -106,6 +106,8 @@ describe Line do
 
       expect(line.horizontal?).to be_truthy
       expect(line.vertical?).to be_falsey
+      expect(line.ascending?).to be_falsey
+      expect(line.descending?).to be_falsey
     end
 
     it 'should be vertical' do
@@ -113,8 +115,27 @@ describe Line do
 
       expect(line.horizontal?).to be_falsey
       expect(line.vertical?).to be_truthy
+      expect(line.ascending?).to be_falsey
+      expect(line.descending?).to be_falsey
     end
 
+    it 'should be ascending' do
+      line = described_class.ascending_bisector
+
+      expect(line.horizontal?).to be_falsey
+      expect(line.vertical?).to be_falsey
+      expect(line.ascending?).to be_truthy
+      expect(line.descending?).to be_falsey
+    end
+
+    it 'should be descending' do
+      line = described_class.descending_bisector
+
+      expect(line.horizontal?).to be_falsey
+      expect(line.vertical?).to be_falsey
+      expect(line.ascending?).to be_falsey
+      expect(line.descending?).to be_truthy
+    end
   end
 
   describe '.x_axis' do
@@ -199,9 +220,6 @@ describe Line do
   end
 
 
-
-
-
   describe '.x_axis?' do
 
     it 'should be false' do
@@ -281,6 +299,5 @@ describe Line do
     end
 
   end
-
 
 end

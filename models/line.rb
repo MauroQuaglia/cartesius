@@ -71,6 +71,14 @@ class Line < Conic
     slope == VERTICAL_SLOPE
   end
 
+  def ascending?
+    slope != VERTICAL_SLOPE and slope > 0
+  end
+
+  def descending?
+    slope < 0
+  end
+
   def == (line)
     line.instance_of?(Line) and
         line.slope == self.slope and line.known_term == self.known_term

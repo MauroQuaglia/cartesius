@@ -72,6 +72,22 @@ describe Point do
 
   end
 
+  describe '.mid' do
+
+    it 'should be the same when points are the same' do
+      expect(
+          described_class.mid(point1: Point.origin, point2: Point.origin)
+      ).to eq(Point.origin)
+    end
+
+    it 'should be the mid point' do
+      expect(
+          described_class.mid(point1: Point.origin, point2: Point.create(x: 2, y: 2))
+      ).to eq(Point.create(x: 1, y: 1))
+    end
+
+  end
+
   describe '.origin?' do
 
     it 'should be false' do

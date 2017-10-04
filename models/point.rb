@@ -3,6 +3,7 @@ require_relative('../models/modules/determinator')
 
 class Point < Conic
   include Determinator
+  attr_reader :y
 
   # Degenerate conic
   # Conic equation type: x^2 + y^2 + dx + ey + f = 0
@@ -24,12 +25,12 @@ class Point < Conic
     centrum[:xc]
   end
 
-  def y
-    centrum[:yc]
-  end
-
   def origin?
     self == Point.origin
+  end
+
+  def self.mid(point1:, point2:)
+    create(x: Rational(point1.x + point2.x, 2), y: Rational(point1.y + point2.y, 2))
   end
 
   def to_coordinates
@@ -47,6 +48,9 @@ class Point < Conic
     if determinator != @k_coeff
       coefficients_error
     end
+
+    # To avoid the override of a Kernel method.
+    @y = centrum[:yc]
   end
 
 end
