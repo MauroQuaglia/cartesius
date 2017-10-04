@@ -40,11 +40,11 @@ class Line < Conic
   end
 
   def slope
-    @y_coeff == 0 ? VERTICAL_SLOPE : numberfy(-@x_coeff, @y_coeff)
+    @y_coeff == 0 ? VERTICAL_SLOPE : Rational(-@x_coeff, @y_coeff)
   end
 
   def known_term
-    @y_coeff == 0 ? numberfy(-@k_coeff, @x_coeff) : numberfy(-@k_coeff, @y_coeff)
+    @y_coeff == 0 ? Rational(-@k_coeff, @x_coeff) : Rational(-@k_coeff, @y_coeff)
   end
 
   def x_axis?
