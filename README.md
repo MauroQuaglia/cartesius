@@ -37,7 +37,7 @@ x^2 + y^2 + dx + ey + f = 0
 ```
 
 #Parabola
-You can create all parabola in the plane with axis of simmetry parallel to the y-axis.
+You can create all parabola in the plane with axis of symmetry parallel to the y-axis.
 Remember that parabola is a conic and its equation is like this:
 ```ruby 
 ax^2 + dx - y + f = 0
