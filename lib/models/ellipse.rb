@@ -18,6 +18,11 @@ class Ellipse < Conic
   private
 
   def validation
+
+    if @x2_coeff <= 0 or @y2_coeff <= 0 or @x2_coeff == @y2_coeff or determinator <= @k_coeff
+      coefficients_error
+    end
+
   end
 
 end
