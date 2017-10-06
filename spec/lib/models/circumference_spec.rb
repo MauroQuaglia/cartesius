@@ -1,6 +1,6 @@
-require_relative('../../spec/spec_helper')
-require_relative('../../models/circumference')
-require_relative('../../models/point')
+require_relative('../../spec_helper')
+require_relative('../../../lib/models/circumference')
+require_relative('../../../lib/models/point')
 
 describe Circumference do
 

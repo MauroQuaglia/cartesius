@@ -1,5 +1,5 @@
-require_relative('../../spec/spec_helper')
-require_relative('../../models/parabola')
+require_relative('../../spec_helper')
+require_relative('../../../lib/models/parabola')
 
 describe Parabola do
 

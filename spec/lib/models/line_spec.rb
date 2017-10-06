@@ -1,5 +1,5 @@
-require_relative('../../spec/spec_helper')
-require_relative('../../models/line')
+require_relative('../../spec_helper')
+require_relative('../../../lib/models/line')
 
 describe Line do
 
