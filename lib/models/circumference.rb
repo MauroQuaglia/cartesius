@@ -1,5 +1,5 @@
 require_relative('../models/conic')
-require_relative('../models/modules/determinator')
+require_relative('../../lib/modules/determinator')
 
 class Circumference < Conic
   include Determinator
