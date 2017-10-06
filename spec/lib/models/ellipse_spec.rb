@@ -97,7 +97,7 @@ describe Ellipse do
       end
 
       it 'should reject a general equation' do
-        # (x - 1)^2 - (y - 1)^2 / 2 = 1
+        # (x + 1)^2 - (y - 1)^2 / 2 = 1
         expect {described_class.new(x2: 2, y2: -1, x: 4, y: 2, k: -1)}.to raise_error(ArgumentError)
       end
 

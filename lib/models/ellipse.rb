@@ -11,10 +11,6 @@ class Ellipse < Conic
     validation
   end
 
-  # TODO: To test when i can create some circunferences.
-  def == (ellipse)
-  end
-
   private
 
   def validation

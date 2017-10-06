@@ -8,7 +8,7 @@ end
 describe Numerificator do
   subject {IncludingClass.new}
 
-  describe '.stringfy' do
+  describe '#stringfy' do
 
     it 'should be 0 when integer' do
       expect(subject.stringfy(0)).to eq('0')
@@ -29,5 +29,21 @@ describe Numerificator do
     it 'should be rational' do
       expect(subject.stringfy(Rational(2, 3))).to eq('2/3')
     end
+  end
+
+  describe '#signum' do
+
+    it 'should be -1 for negative number' do
+      expect(subject.signum(-2)).to eq(-1)
+    end
+
+    it 'should be 1 for zero' do
+      expect(subject.signum(0)).to eq(+1)
+    end
+
+    it 'should be +1 for positive number' do
+      expect(subject.signum(+2)).to eq(+1)
+    end
+
   end
 end

@@ -8,6 +8,7 @@ class Conic
     @x2_coeff, @y2_coeff, @xy_coeff = x2.to_r, y2.to_r, xy.to_r
     @x_coeff, @y_coeff = x.to_r, y.to_r
     @k_coeff = k.to_r
+    #TODO add signum(@x2_coeff) normalization.
   end
 
   private

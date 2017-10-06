@@ -7,4 +7,8 @@ module Numerificator
     number.to_s
   end
 
+  def signum(number)
+    number < 0 ? -1 : 1
+  end
+
 end
