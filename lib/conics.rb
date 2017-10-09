@@ -8,4 +8,3 @@ require('lib/conics/models/parabola')
 require('lib/conics/models/ellipse')
 require('lib/conics/models/hyperbola')
 require('lib/conics/models/homography')
-
