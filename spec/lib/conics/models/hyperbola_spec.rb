@@ -1,7 +1,7 @@
-require_relative('../../spec_helper')
-require_relative('../../../lib/models/hyperbola')
+require_relative('../../../spec_helper')
+require_relative('../../../../lib/conics/models/hyperbola')
 
-describe Hyperbola do
+describe Conics::Hyperbola do
 
   describe '.new' do
 

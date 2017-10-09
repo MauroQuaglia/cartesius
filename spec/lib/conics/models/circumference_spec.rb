@@ -1,8 +1,8 @@
-require_relative('../../spec_helper')
-require_relative('../../../lib/models/circumference')
-require_relative('../../../lib/models/point')
+require_relative('../../../spec_helper')
+require_relative('../../../../lib/conics/models/circumference')
+require_relative('../../../../lib/conics/models/point')
 
-describe Circumference do
+describe Conics::Circumference do
 
   describe '.new' do
 
@@ -25,14 +25,14 @@ describe Circumference do
     it 'should be the simplest circumference' do
       circumference = described_class.new(x: 0, y: 0, k: -1)
 
-      expect(circumference.center).to eq(Point.origin)
+      expect(circumference.center).to eq(Conics::Point.origin)
       expect(circumference.radius).to eq(1)
     end
 
     it 'should be a generic circumference' do
       circumference = described_class.new(x: -2, y: 2, k: -2)
 
-      expect(circumference.center).to eq(Point.create(x: 1, y: -1))
+      expect(circumference.center).to eq(Conics::Point.create(x: 1, y: -1))
       expect(circumference.radius).to eq(2)
     end
 
@@ -43,7 +43,7 @@ describe Circumference do
     it 'should be the unitary circumference' do
       circumference = described_class.unitary
 
-      expect(circumference.center).to eq(Point.origin)
+      expect(circumference.center).to eq(Conics::Point.origin)
       expect(circumference.radius).to eq(1)
     end
 

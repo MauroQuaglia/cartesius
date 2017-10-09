@@ -1,7 +1,7 @@
-require_relative('../../spec_helper')
-require_relative('../../../lib/models/point')
+require_relative('../../../spec_helper')
+require_relative('../../../../lib/conics/models/point')
 
-describe Point do
+describe Conics::Point do
 
   describe '.new' do
 
@@ -76,14 +76,14 @@ describe Point do
 
     it 'should be the same when points are the same' do
       expect(
-          described_class.mid(point1: Point.origin, point2: Point.origin)
-      ).to eq(Point.origin)
+          described_class.mid(point1: described_class.origin, point2: described_class.origin)
+      ).to eq(described_class.origin)
     end
 
     it 'should be the mid point' do
       expect(
-          described_class.mid(point1: Point.origin, point2: Point.create(x: 2, y: 2))
-      ).to eq(Point.create(x: 1, y: 1))
+          described_class.mid(point1: described_class.origin, point2: described_class.create(x: 2, y: 2))
+      ).to eq(described_class.create(x: 1, y: 1))
     end
 
   end
@@ -91,7 +91,7 @@ describe Point do
   describe '.origin?' do
 
     it 'should be false' do
-      point = Point.create(x: 0, y: 1)
+      point = described_class.create(x: 0, y: 1)
 
       expect(
           point.origin?
@@ -99,7 +99,7 @@ describe Point do
     end
 
     it 'should be true' do
-      point = Point.origin
+      point = described_class.origin
 
       expect(
           point.origin?

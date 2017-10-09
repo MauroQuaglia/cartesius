@@ -1,5 +1,5 @@
-require_relative('../../spec_helper')
-require_relative('../../../lib/modules/numerificator')
+require_relative('../../../spec_helper')
+require_relative('../../../../lib/conics/modules/numerificator')
 
 class IncludingClass
   include Numerificator

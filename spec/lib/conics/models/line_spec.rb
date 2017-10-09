@@ -1,7 +1,7 @@
-require_relative('../../spec_helper')
-require_relative('../../../lib/models/line')
+require_relative('../../../spec_helper')
+require_relative('../../../../lib/conics/models/line')
 
-describe Line do
+describe Conics::Line do
 
   describe '.new' do
 
@@ -141,7 +141,7 @@ describe Line do
   describe '.x_axis' do
 
     it 'should be the x axis' do
-      line = Line.x_axis
+      line = described_class.x_axis
 
       expect(line.slope).to eq(0)
       expect(line.known_term).to eq(0)
@@ -152,7 +152,7 @@ describe Line do
   describe '.y_axis' do
 
     it 'should be the y axis' do
-      line = Line.y_axis
+      line = described_class.y_axis
 
       expect(line.slope).to eq(Float::INFINITY)
       expect(line.known_term).to eq(0)
@@ -163,7 +163,7 @@ describe Line do
   describe '.ascending_bisector' do
 
     it 'should be the ascending bisector' do
-      line = Line.ascending_bisector
+      line = described_class.ascending_bisector
 
       expect(line.slope).to eq(1)
       expect(line.known_term).to eq(0)
@@ -174,7 +174,7 @@ describe Line do
   describe '.descending_bisector' do
 
     it 'should be the descending bisector' do
-      line = Line.descending_bisector
+      line = described_class.descending_bisector
 
       expect(line.slope).to eq(-1)
       expect(line.known_term).to eq(0)
@@ -223,7 +223,7 @@ describe Line do
   describe '.x_axis?' do
 
     it 'should be false' do
-      line = Line.y_axis
+      line = described_class.y_axis
 
       expect(
           line.x_axis?
@@ -231,7 +231,7 @@ describe Line do
     end
 
     it 'should be true' do
-      line = Line.x_axis
+      line = described_class.x_axis
 
       expect(
           line.x_axis?
@@ -243,7 +243,7 @@ describe Line do
   describe '.y_axis?' do
 
     it 'should be false' do
-      line = Line.x_axis
+      line = described_class.x_axis
 
       expect(
           line.y_axis?
@@ -251,7 +251,7 @@ describe Line do
     end
 
     it 'should be true' do
-      line = Line.y_axis
+      line = described_class.y_axis
 
       expect(
           line.y_axis?
@@ -263,7 +263,7 @@ describe Line do
   describe '.ascending_bisector?' do
 
     it 'should be false' do
-      line = Line.x_axis
+      line = described_class.x_axis
 
       expect(
           line.ascending_bisector?
@@ -271,7 +271,7 @@ describe Line do
     end
 
     it 'should be true' do
-      line = Line.ascending_bisector
+      line = described_class.ascending_bisector
 
       expect(
           line.ascending_bisector?
@@ -283,7 +283,7 @@ describe Line do
   describe '.descending_bisector?' do
 
     it 'should be false' do
-      line = Line.x_axis
+      line = described_class.x_axis
 
       expect(
           line.descending_bisector?
@@ -291,7 +291,7 @@ describe Line do
     end
 
     it 'should be true' do
-      line = Line.descending_bisector
+      line = described_class.descending_bisector
 
       expect(
           line.descending_bisector?

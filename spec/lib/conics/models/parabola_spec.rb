@@ -1,7 +1,7 @@
-require_relative('../../spec_helper')
-require_relative('../../../lib/models/parabola')
+require_relative('../../../spec_helper')
+require_relative('../../../../lib/conics/models/parabola')
 
-describe Parabola do
+describe Conics::Parabola do
 
   describe '.new' do
 
@@ -18,19 +18,19 @@ describe Parabola do
     it 'should be the simplest parabola' do
       parabola = described_class.new(x2: 1, x: 0, k: 0)
 
-      expect(parabola.focus).to eq(Point.create(x: 0, y: '1/4'))
-      expect(parabola.vertex).to eq(Point.origin)
-      expect(parabola.directrix).to eq(Line.horizontal(known_term: '-1/4'))
-      expect(parabola.symmetry_axis).to eq(Line.y_axis)
+      expect(parabola.focus).to eq(Conics::Point.create(x: 0, y: '1/4'))
+      expect(parabola.vertex).to eq(Conics::Point.origin)
+      expect(parabola.directrix).to eq(Conics::Line.horizontal(known_term: '-1/4'))
+      expect(parabola.symmetry_axis).to eq(Conics::Line.y_axis)
     end
 
     it 'should be the generic parabola' do
       parabola = described_class.new(x2: -2, x: 3, k: -4)
 
-      expect(parabola.focus).to eq(Point.create(x: '3/4', y: -3))
-      expect(parabola.vertex).to eq(Point.create(x: '3/4', y: '-23/8'))
-      expect(parabola.directrix).to eq(Line.horizontal(known_term: '-11/4'))
-      expect(parabola.symmetry_axis).to eq(Line.vertical(known_term: '3/4'))
+      expect(parabola.focus).to eq(Conics::Point.create(x: '3/4', y: -3))
+      expect(parabola.vertex).to eq(Conics::Point.create(x: '3/4', y: '-23/8'))
+      expect(parabola.directrix).to eq(Conics::Line.horizontal(known_term: '-11/4'))
+      expect(parabola.symmetry_axis).to eq(Conics::Line.vertical(known_term: '3/4'))
     end
 
   end
@@ -40,10 +40,10 @@ describe Parabola do
     it 'should be the unitary convex parabola' do
       parabola = described_class.unitary_convex
 
-      expect(parabola.focus).to eq(Point.create(x: 0, y: '1/4'))
-      expect(parabola.vertex).to eq(Point.origin)
-      expect(parabola.directrix).to eq(Line.horizontal(known_term: '-1/4'))
-      expect(parabola.symmetry_axis).to eq(Line.y_axis)
+      expect(parabola.focus).to eq(Conics::Point.create(x: 0, y: '1/4'))
+      expect(parabola.vertex).to eq(Conics::Point.origin)
+      expect(parabola.directrix).to eq(Conics::Line.horizontal(known_term: '-1/4'))
+      expect(parabola.symmetry_axis).to eq(Conics::Line.y_axis)
     end
 
   end
@@ -53,10 +53,10 @@ describe Parabola do
     it 'should be the unitary concave parabola' do
       parabola = described_class.unitary_concave
 
-      expect(parabola.focus).to eq(Point.create(x: 0, y: '-1/4'))
-      expect(parabola.vertex).to eq(Point.origin)
-      expect(parabola.directrix).to eq(Line.horizontal(known_term: '1/4'))
-      expect(parabola.symmetry_axis).to eq(Line.y_axis)
+      expect(parabola.focus).to eq(Conics::Point.create(x: 0, y: '-1/4'))
+      expect(parabola.vertex).to eq(Conics::Point.origin)
+      expect(parabola.directrix).to eq(Conics::Line.horizontal(known_term: '1/4'))
+      expect(parabola.symmetry_axis).to eq(Conics::Line.y_axis)
     end
 
   end

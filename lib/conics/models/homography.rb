@@ -1,0 +1,3 @@
+module Conics
+
+end

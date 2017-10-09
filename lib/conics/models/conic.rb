@@ -1,4 +1,4 @@
-require_relative('../../lib/modules/numerificator')
+require_relative('../../../lib/conics/modules/numerificator')
 
 class Conic
   include Numerificator
@@ -18,3 +18,4 @@ class Conic
   end
 
 end
+

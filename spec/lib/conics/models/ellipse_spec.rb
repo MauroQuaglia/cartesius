@@ -1,7 +1,7 @@
-require_relative('../../spec_helper')
-require_relative('../../../lib/models/ellipse')
+require_relative('../../../spec_helper')
+require_relative('../../../../lib/conics/models/ellipse')
 
-describe Ellipse do
+describe Conics::Ellipse do
 
   describe '.new' do
 
