@@ -5,34 +5,46 @@ describe Conics::Point do
 
   describe '.new' do
 
-    context 'invalid parameters' do
+    describe 'empty set' do
 
-      it 'should fail when empty set' do
-        expect {
-          described_class.new(x: 2, y: -2, k: 3)
-        }.to raise_error(ArgumentError, 'Invalid coefficients!')
+      it 'should reject a simple equation' do
+        # x^2 + y^2 = -1 --> x^2 + y^2 + 1 = 0
+        expect {described_class.new(x: 0, y: 0, k: 1)}.to raise_error(ArgumentError)
       end
 
-      it 'should fail when circumference' do
-        expect {
-          described_class.new(x: 2, y: -2, k: 0)
-        }.to raise_error(ArgumentError, 'Invalid coefficients!')
+      it 'should reject a general equation' do
+        # (x + 1)^2 + (y - 1)^2 = -1 --> x^2 + y^2 + 2x - 2y + 3 = 0
+        expect {described_class.new(x: 2, y: -2, k: 3)}.to raise_error(ArgumentError)
       end
 
     end
 
-    it 'should be the origin' do
-      point = described_class.new(x: 0, y: 0, k: 0)
+    describe 'point' do
 
-      expect(point.x).to eq(0)
-      expect(point.y).to eq(0)
+      it 'should accept a simple equation' do
+        # x^2 + y^2 = 0
+        expect {described_class.new(x: 0, y: 0, k: 0)}.not_to raise_error
+      end
+
+      it 'should accept a general equation' do
+        # (x + 1)^2 + (y - 1)^2 = 0 --> x^2 + y^2 + 2x - 2y + 2 = 0
+        expect {described_class.new(x: 2, y: -2, k: 2)}.not_to raise_error
+      end
+
     end
 
-    it 'should be a generic point' do
-      point = described_class.new(x: -2, y: 2, k: 2)
+    describe 'circumference' do
 
-      expect(point.x).to eq(1)
-      expect(point.y).to eq(-1)
+      it 'should reject a simple equation' do
+        # x^2 + y^2 = 1 --> x^2 + y^2 - 1 = 0
+        expect {described_class.new(x: 0, y: 0, k: -1)}.to raise_error(ArgumentError)
+      end
+
+      it 'should reject a general equation' do
+        # (x + 1)^2 + (y - 1)^2 = 1 --> x^2 + y^2 + 2x - 2y + 1 = 0
+        expect {described_class.new(x2: 1, y2: 1, x: 2, y: -2, k: 1)}.to raise_error(ArgumentError)
+      end
+
     end
 
   end
