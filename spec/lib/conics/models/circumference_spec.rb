@@ -49,7 +49,7 @@ describe Conics::Circumference do
     end
 
   end
-  
+
   describe '.unitary'do
 
     it 'should be the unitary circumference' do
