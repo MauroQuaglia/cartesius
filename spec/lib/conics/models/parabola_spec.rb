@@ -5,6 +5,39 @@ describe Conics::Parabola do
 
   describe '.new' do
 
+    describe 'line' do
+
+      it 'should reject a simple equation' do
+        # y = 0
+        expect {described_class.new(x2: 0, x: 0, k: 0)}.to raise_error(ArgumentError)
+      end
+
+      it 'should reject a general equation' do
+        # y = x + 1 --> x - y + 1 = 0
+        expect {described_class.new(x2: 0, x: 1, k: 1)}.to raise_error(ArgumentError)
+      end
+
+    end
+
+    describe 'parabola' do
+
+      it 'should reject a simple equation' do
+        # y = x^2 --> x^2 - y = 0
+        expect {described_class.new(x2: 1, x: 0, k: 0)}.to raise_error(ArgumentError)
+      end
+
+      it 'should reject a general equation' do
+        # y = x^2 + x + 1 --> x^2 + x - y + 1 = 0
+        expect {described_class.new(x2: 1, x: 1, k: 1)}.to raise_error(ArgumentError)
+      end
+
+    end
+    
+  end
+
+
+  describe '.new' do
+
     context 'invalid parameters' do
 
       it 'should fail when line' do
