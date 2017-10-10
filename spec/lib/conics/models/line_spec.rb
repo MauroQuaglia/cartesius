@@ -5,46 +5,40 @@ describe Conics::Line do
 
   describe '.new' do
 
-    context 'invalid parameters' do
+    describe 'empty set' do
 
-      it 'should fail when neither x nor y' do
-        expect {
-          described_class.new(x: 0, y: 0, k: 1)
-        }.to raise_error(ArgumentError, 'Invalid coefficients!')
+      it 'should reject a simple equation' do
+        # 1 = 0
+        expect {described_class.new(x: 0, y: 0, k: 1)}.to raise_error(ArgumentError)
       end
 
     end
 
-    it 'should be the x axis' do
-      line = described_class.new(x: 0, y: 1, k: 0)
+    describe 'line' do
 
-      expect(line.slope).to eq(0)
-      expect(line.known_term).to eq(0)
+      it 'should accept a simple equation' do
+        # y = 0
+        expect {described_class.new(x: 0, y: 1, k: 0)}.not_to raise_error
+      end
+
+      it 'should accept a general equation' do
+        # y = -x - 1 --> x + y + 1 = 0
+        expect {described_class.new(x: 1, y: 1, k: 1)}.not_to raise_error
+      end
+
     end
 
-    it 'should be the y axis' do
-      line = described_class.new(x: 1, y: 0, k: 0)
+    describe 'plane' do
 
-      expect(line.slope).to eq(Float::INFINITY)
-      expect(line.known_term).to eq(0)
-    end
+      it 'should reject the equation' do
+        # 0 = 0
+        expect {described_class.new(x: 0, y: 0, k: 0)}.to raise_error(ArgumentError)
+      end
 
-    it 'should be a generic line' do
-      line = described_class.new(x: -2, y: 1, k: 3)
-
-      expect(line.slope).to eq(2)
-      expect(line.known_term).to eq(-3)
-    end
-
-    it 'should be equivalent to the generic line' do
-      line = described_class.new(x: -4, y: 2, k: 6)
-
-      expect(line.slope).to eq(2)
-      expect(line.known_term).to eq(-3)
     end
 
   end
-
+  
   describe '.create' do
 
     it 'should be a generic line' do
