@@ -6,38 +6,50 @@ describe Conics::Circumference do
 
   describe '.new' do
 
-    context 'invalid parameters' do
+    describe 'empty set' do
 
-      it 'should fail when empty set' do
-        expect {
-          described_class.new(x: 2, y: -2, k: 3)
-        }.to raise_error(ArgumentError, 'Invalid coefficients!')
+      it 'should reject a simple equation' do
+        # x^2 + y^2 = -1 --> x^2 + y^2 + 1 = 0
+        expect {described_class.new(x: 0, y: 0, k: 1)}.to raise_error(ArgumentError)
       end
 
-      it 'should fail when point' do
-        expect {
-          described_class.new(x: 0, y: 0, k: 0)
-        }.to raise_error(ArgumentError, 'Invalid coefficients!')
+      it 'should reject a general equation' do
+        # (x + 1)^2 + (y - 1)^2 = -1 --> x^2 + y^2 + 2x - 2y + 3 = 0
+        expect {described_class.new(x: 2, y: -2, k: 3)}.to raise_error(ArgumentError)
       end
 
     end
 
-    it 'should be the simplest circumference' do
-      circumference = described_class.new(x: 0, y: 0, k: -1)
+    describe 'point' do
 
-      expect(circumference.center).to eq(Conics::Point.origin)
-      expect(circumference.radius).to eq(1)
+      it 'should reject a simple equation' do
+        # x^2 + y^2 = 0
+        expect {described_class.new(x: 0, y: 0, k: 0)}.to raise_error(ArgumentError)
+      end
+
+      it 'should reject a general equation' do
+        # (x + 1)^2 + (y - 1)^2 = 0 --> x^2 + y^2 + 2x - 2y + 2 = 0
+        expect {described_class.new(x: 2, y: -2, k: 2)}.to raise_error(ArgumentError)
+      end
+
     end
 
-    it 'should be a generic circumference' do
-      circumference = described_class.new(x: -2, y: 2, k: -2)
+    describe 'circumference' do
 
-      expect(circumference.center).to eq(Conics::Point.create(x: 1, y: -1))
-      expect(circumference.radius).to eq(2)
+      it 'should accept a simple equation' do
+        # x^2 + y^2 = 1 --> x^2 + y^2 - 1 = 0
+        expect {described_class.new(x: 0, y: 0, k: -1)}.not_to raise_error
+      end
+
+      it 'should accept a general equation' do
+        # (x + 1)^2 + (y - 1)^2 = 1 --> x^2 + y^2 + 2x - 2y + 1 = 0
+        expect {described_class.new(x: 2, y: -2, k: 1)}.not_to raise_error
+      end
+
     end
 
   end
-
+  
   describe '.unitary'do
 
     it 'should be the unitary circumference' do

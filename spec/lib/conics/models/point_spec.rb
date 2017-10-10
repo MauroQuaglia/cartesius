@@ -42,7 +42,7 @@ describe Conics::Point do
 
       it 'should reject a general equation' do
         # (x + 1)^2 + (y - 1)^2 = 1 --> x^2 + y^2 + 2x - 2y + 1 = 0
-        expect {described_class.new(x2: 1, y2: 1, x: 2, y: -2, k: 1)}.to raise_error(ArgumentError)
+        expect {described_class.new(x: 2, y: -2, k: 1)}.to raise_error(ArgumentError)
       end
 
     end
