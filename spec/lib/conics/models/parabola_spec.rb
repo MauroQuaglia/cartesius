@@ -21,53 +21,21 @@ describe Conics::Parabola do
 
     describe 'parabola' do
 
-      it 'should reject a simple equation' do
+      it 'should accept a simple equation' do
         # y = x^2 --> x^2 - y = 0
-        expect {described_class.new(x2: 1, x: 0, k: 0)}.to raise_error(ArgumentError)
+        expect {described_class.new(x2: 1, x: 0, k: 0)}.not_to raise_error
       end
 
-      it 'should reject a general equation' do
+      it 'should accept a general equation' do
         # y = x^2 + x + 1 --> x^2 + x - y + 1 = 0
-        expect {described_class.new(x2: 1, x: 1, k: 1)}.to raise_error(ArgumentError)
-      end
-
-    end
-    
-  end
-
-
-  describe '.new' do
-
-    context 'invalid parameters' do
-
-      it 'should fail when line' do
-        expect {
-          described_class.new(x2: 0, x: 1, k: 1)
-        }.to raise_error(ArgumentError, 'Invalid coefficients!')
+        expect {described_class.new(x2: 1, x: 1, k: 1)}.not_to raise_error
       end
 
     end
 
-    it 'should be the simplest parabola' do
-      parabola = described_class.new(x2: 1, x: 0, k: 0)
-
-      expect(parabola.focus).to eq(Conics::Point.create(x: 0, y: '1/4'))
-      expect(parabola.vertex).to eq(Conics::Point.origin)
-      expect(parabola.directrix).to eq(Conics::Line.horizontal(known_term: '-1/4'))
-      expect(parabola.symmetry_axis).to eq(Conics::Line.y_axis)
-    end
-
-    it 'should be the generic parabola' do
-      parabola = described_class.new(x2: -2, x: 3, k: -4)
-
-      expect(parabola.focus).to eq(Conics::Point.create(x: '3/4', y: -3))
-      expect(parabola.vertex).to eq(Conics::Point.create(x: '3/4', y: '-23/8'))
-      expect(parabola.directrix).to eq(Conics::Line.horizontal(known_term: '-11/4'))
-      expect(parabola.symmetry_axis).to eq(Conics::Line.vertical(known_term: '3/4'))
-    end
-
   end
 
+  
   describe '.unitary_convex' do
 
     it 'should be the unitary convex parabola' do
