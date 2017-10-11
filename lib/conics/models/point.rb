@@ -31,6 +31,14 @@ module Conics
       self == Point.origin
     end
 
+    def aligned_horizontally_with?(point)
+      self.y == point.y
+    end
+
+    def aligned_vertically_with?(point)
+      self.x == point.x
+    end
+
     def self.mid(point1:, point2:)
       create(x: Rational(point1.x + point2.x, 2), y: Rational(point1.y + point2.y, 2))
     end

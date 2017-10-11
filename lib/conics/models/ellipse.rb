@@ -13,6 +13,11 @@ module Conics
       validation
     end
 
+    def self.by_definition(focus1:, focus2:, sum_of_distances:)
+      # TODO add pre-execution
+
+    end
+
     private
 
     def validation

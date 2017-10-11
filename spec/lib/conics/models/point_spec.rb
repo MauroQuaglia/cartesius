@@ -120,6 +120,50 @@ describe Conics::Point do
 
   end
 
+  describe 'aligned_horizontally_with?' do
+
+    it 'should be aligned horizontally' do
+      point1 = described_class.create(x: -1, y: 1)
+      point2 = described_class.create(x: 1, y: 1)
+
+      expect(
+          point1.aligned_horizontally_with?(point2)
+      ).to be_truthy
+    end
+
+    it 'should not be aligned horizontally' do
+      point1 = described_class.create(x: -1, y: 2)
+      point2 = described_class.create(x: 1, y: 1)
+
+      expect(
+          point1.aligned_horizontally_with?(point2)
+      ).to be_falsey
+    end
+
+  end
+
+  describe 'aligned_vertically_with?' do
+
+    it 'should be aligned vertically' do
+      point1 = described_class.create(x: 1, y: -1)
+      point2 = described_class.create(x: 1, y: 1)
+
+      expect(
+          point1.aligned_vertically_with?(point2)
+      ).to be_truthy
+    end
+
+    it 'should not be aligned vertically' do
+      point1 = described_class.create(x: 1, y: -1)
+      point2 = described_class.create(x: 2, y: 1)
+
+      expect(
+          point1.aligned_vertically_with?(point2)
+      ).to be_falsey
+    end
+
+  end
+
   describe '.to_coordinates' do
 
     it 'should be the origin' do
