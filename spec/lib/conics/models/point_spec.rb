@@ -120,7 +120,7 @@ describe Conics::Point do
 
   end
 
-  describe 'aligned_horizontally_with?' do
+  describe '#aligned_horizontally_with?' do
 
     it 'should be aligned horizontally' do
       point1 = described_class.create(x: -1, y: 1)
@@ -142,7 +142,7 @@ describe Conics::Point do
 
   end
 
-  describe 'aligned_vertically_with?' do
+  describe '#aligned_vertically_with?' do
 
     it 'should be aligned vertically' do
       point1 = described_class.create(x: 1, y: -1)
@@ -160,6 +160,25 @@ describe Conics::Point do
       expect(
           point1.aligned_vertically_with?(point2)
       ).to be_falsey
+    end
+
+  end
+
+  describe '.distance' do
+
+    it 'should be 0 for same points' do
+      point1 = described_class.origin
+      point2 = described_class.origin
+
+      expect(Conics::Point.distance(point1: point1, point2: point2)).to eq(0)
+    end
+
+    it 'should be the same from the points' do
+      point1 = described_class.origin
+      point2 = described_class.create(x: 3, y: 4)
+
+      expect(Conics::Point.distance(point1: point1, point2: point2)).to eq(5)
+      expect(Conics::Point.distance(point1: point2, point2: point1)).to eq(5)
     end
 
   end
