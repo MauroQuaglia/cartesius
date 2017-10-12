@@ -135,7 +135,7 @@ describe Conics::Ellipse do
       }.to raise_error(ArgumentError, 'Sum of distances must be greater than focal distance!')
     end
 
-    xit 'should create a simple ellipse with focus on x axis' do
+    it 'should create a simple ellipse with focus on x axis' do
       ellipse = described_class.by_definition(focus1: Conics::Point.create(x: 4, y: 0), focus2: Conics::Point.create(x: -4, y: 0), sum_of_distances: 10)
 
       expect(ellipse.focus1).to eq(Conics::Point.create(x: 4, y: 0))
@@ -144,13 +144,29 @@ describe Conics::Ellipse do
     end
 
     it 'should create a simple ellipse with focus on y axis' do
+      ellipse = described_class.by_definition(focus1: Conics::Point.create(x: 0, y: 4), focus2: Conics::Point.create(x: 0, y: -4), sum_of_distances: 10)
+
+      expect(ellipse.focus1).to eq(Conics::Point.create(x: 0, y: 4))
+      expect(ellipse.focus2).to eq(Conics::Point.create(x: 0, y: -4))
+      expect(ellipse.sum_of_distances).to eq(10)
     end
 
     it 'should create a general ellipse with focus on x axis' do
+      ellipse = described_class.by_definition(focus1: Conics::Point.create(x: 5, y: 1), focus2: Conics::Point.create(x: -3, y: 1), sum_of_distances: 10)
+
+      expect(ellipse.focus1).to eq(Conics::Point.create(x: 5, y: 1))
+      expect(ellipse.focus2).to eq(Conics::Point.create(x: -3, y: 1))
+      expect(ellipse.sum_of_distances).to eq(10)
     end
 
     it 'should create a general ellipse with focus on y axis' do
+      ellipse = described_class.by_definition(focus1: Conics::Point.create(x: 1, y: 5), focus2: Conics::Point.create(x: 1, y: -3), sum_of_distances: 10)
+
+      expect(ellipse.focus1).to eq(Conics::Point.create(x: 1, y: 5))
+      expect(ellipse.focus2).to eq(Conics::Point.create(x: 1, y: -3))
+      expect(ellipse.sum_of_distances).to eq(10)
     end
+
   end
 
 end

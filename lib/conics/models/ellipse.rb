@@ -42,23 +42,37 @@ module Conics
     end
 
     def focus1
+      if a2 > b2
+        Point.create(x: centrum[:xc] + Math.sqrt(a2 - b2), y: centrum[:yc])
+      else
+        Point.create(x: centrum[:xc], y: centrum[:yc] + Math.sqrt(b2 - a2))
+      end
     end
 
     def focus2
+      if a2 > b2
+        Point.create(x: centrum[:xc] - Math.sqrt(a2 - b2), y: centrum[:yc])
+      else
+        Point.create(x: centrum[:xc], y: centrum[:yc] - Math.sqrt(b2 - a2))
+      end
     end
 
     def sum_of_distances
+      if a2 > b2
+        2 * Math.sqrt(a2)
+      else
+        2 * Math.sqrt(b2)
+      end
     end
 
     private
 
     def validation
-
       if @x2_coeff <= 0 or @y2_coeff <= 0 or @x2_coeff == @y2_coeff or determinator <= @k_coeff
         coefficients_error
       end
-
     end
+
   end
 
 end

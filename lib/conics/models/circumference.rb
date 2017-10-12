@@ -22,7 +22,7 @@ module Conics
     end
 
     def radius
-      Math.sqrt(x_half_axis_squared)
+      Math.sqrt(a2)
     end
 
     def unitary?
