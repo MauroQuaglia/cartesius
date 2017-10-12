@@ -1,5 +1,6 @@
 require_relative('../../../spec_helper')
 require_relative('../../../../lib/conics/models/ellipse')
+require_relative('../../../../lib/conics/models/point')
 
 describe Conics::Ellipse do
 
@@ -112,6 +113,44 @@ describe Conics::Ellipse do
 
     end
 
+  end
+
+  describe '.by_definition' do
+
+    it 'should fail when focus are the same' do
+      expect {
+        described_class.by_definition(focus1: Conics::Point.origin, focus2: Conics::Point.origin, sum_of_distances: 1)
+      }.to raise_error(ArgumentError, 'Focus points must be different!')
+    end
+
+    it 'should fail when focus are not aligned to axis' do
+      expect {
+        described_class.by_definition(focus1: Conics::Point.origin, focus2: Conics::Point.create(x: 1, y: 1), sum_of_distances: 2)
+      }.to raise_error(ArgumentError, 'Focus must be aligned to axis!')
+    end
+
+    it 'should fail when sum of distances is not greater than focal distance' do
+      expect {
+        described_class.by_definition(focus1: Conics::Point.create(x: -1, y: 0), focus2: Conics::Point.create(x: 1, y: 0), sum_of_distances: 2)
+      }.to raise_error(ArgumentError, 'Sum of distances must be greater than focal distance!')
+    end
+
+    xit 'should create a simple ellipse with focus on x axis' do
+      ellipse = described_class.by_definition(focus1: Conics::Point.create(x: 4, y: 0), focus2: Conics::Point.create(x: -4, y: 0), sum_of_distances: 10)
+
+      expect(ellipse.focus1).to eq(Conics::Point.create(x: 4, y: 0))
+      expect(ellipse.focus2).to eq(Conics::Point.create(x: -4, y: 0))
+      expect(ellipse.sum_of_distances).to eq(10)
+    end
+
+    it 'should create a simple ellipse with focus on y axis' do
+    end
+
+    it 'should create a general ellipse with focus on x axis' do
+    end
+
+    it 'should create a general ellipse with focus on y axis' do
+    end
   end
 
 end

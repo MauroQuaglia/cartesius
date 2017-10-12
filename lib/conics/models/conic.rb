@@ -13,6 +13,10 @@ class Conic
 
   private
 
+  def self.power2(number)
+    number ** 2
+  end
+
   def coefficients_error
     raise ArgumentError.new('Invalid coefficients!')
   end
