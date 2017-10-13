@@ -107,6 +107,48 @@ module Conics
       end
     end
 
+    #TODO test
+    def x_semi_axis_length
+      Math.sqrt(a2)
+    end
+
+    #TODO test
+    def y_semi_axis_length
+      Math.sqrt(b2)
+    end
+
+    #TODO test
+    def major_semi_axis
+      [x_semi_axis_length, y_semi_axis_length].max
+    end
+
+    #TODO test
+    def minor_semi_axis
+      [x_semi_axis_length, y_semi_axis_length].min
+    end
+
+    #TODO test
+    def vertices
+      [
+          Point.create(x: centrum[:xc] + x_semi_axis_length, y: centrum[:yc]),
+          Point.create(x: centrum[:xc], y: centrum[:yc] - y_semi_axis_length),
+          Point.create(x: centrum[:xc] - x_semi_axis_length, y: centrum[:yc]),
+          Point.create(x: centrum[:xc], y: centrum[:yc] + y_semi_axis_length)
+      ]
+    end
+
+    #TODO test
+    def eccentricity
+    end
+
+    #TODO test
+    def congruent?(ellipse)
+    end
+
+    #TODO test
+    def == (ellipse)
+    end
+
     private
 
     def validation

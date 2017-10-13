@@ -290,4 +290,8 @@ describe Conics::Ellipse do
 
   end
 
+  describe 'characteristics' do
+
+  end
+
 end
