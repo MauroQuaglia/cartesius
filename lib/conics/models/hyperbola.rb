@@ -1,14 +1,16 @@
 require_relative('../models/conic')
 require_relative('../../../lib/conics/modules/determinator')
+require_relative('../../../lib/conics/modules/normalizator')
 
 module Conics
 
   class Hyperbola < Conic
-    include Determinator
+    include Determinator, Normalizator
 
     # Conic
     # Conic equation type: ax^2 + by^2 + dx + ey + f = 0
     def initialize(x2:, y2:, x:, y:, k:)
+      normalize(x2, y2, x, y, k)
       super(x2: x2, y2: y2, xy: 0, x: x, y: y, k: k)
       validation
     end

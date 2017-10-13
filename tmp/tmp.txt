@@ -1,7 +1,0 @@
-Conic normalization
-
-def initialize(x2:, y2:, xy:, x:, y:, k:)
-  sign = signum(x2.to_r)
-  @x2_coeff, @y2_coeff, @xy_coeff, @x_coeff, @y_coeff, @k_coeff =
-     [x2.to_r, y2.to_r, xy.to_r, x.to_r, y.to_r, k.to_r].map {|coefficient| sign * coefficient}
-end
