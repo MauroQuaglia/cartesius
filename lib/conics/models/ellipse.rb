@@ -28,15 +28,30 @@ module Conics
       end
 
       center = Point.mid(point1: focus1, point2: focus2)
-      c2 = power2(Rational(focal_distance, 2))
+      c2 = Rational(focal_distance, 2) ** 2
       if focus1.aligned_horizontally_with?(focus2)
-        a2 = power2(Rational(sum_of_distances, 2))
+        a2 = Rational(sum_of_distances, 2) ** 2
         b2 = a2 - c2
       end
       if focus1.aligned_vertically_with?(focus2)
-        b2 = power2(Rational(sum_of_distances, 2))
+        b2 = Rational(sum_of_distances, 2) ** 2
         a2 = b2 - c2
       end
+
+      self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
+    end
+
+    def self.by_canonical(center:, x_semi_axis:, y_semi_axis:)
+      if x_semi_axis <= 0 or y_semi_axis <= 0
+        raise ArgumentError.new('Semi axis length must be positive!')
+      end
+
+      if x_semi_axis == y_semi_axis
+        raise ArgumentError.new('Semi axis length must be different!')
+      end
+
+      b2 = y_semi_axis ** 2
+      a2 = x_semi_axis ** 2
 
       self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
     end

@@ -136,6 +136,7 @@ describe Conics::Ellipse do
     end
 
     it 'should create a simple ellipse with focus on x axis' do
+      # x^2/25 + y^2/9 = 1
       ellipse = described_class.by_definition(focus1: Conics::Point.create(x: 4, y: 0), focus2: Conics::Point.create(x: -4, y: 0), sum_of_distances: 10)
 
       expect(ellipse.focus1).to eq(Conics::Point.create(x: 4, y: 0))
@@ -144,6 +145,7 @@ describe Conics::Ellipse do
     end
 
     it 'should create a simple ellipse with focus on y axis' do
+      # x^2/9 + y^2/25 = 1
       ellipse = described_class.by_definition(focus1: Conics::Point.create(x: 0, y: 4), focus2: Conics::Point.create(x: 0, y: -4), sum_of_distances: 10)
 
       expect(ellipse.focus1).to eq(Conics::Point.create(x: 0, y: 4))
@@ -152,6 +154,7 @@ describe Conics::Ellipse do
     end
 
     it 'should create a general ellipse with focus on x axis' do
+      # (x - 1)^2/25 + (y - 1)^2/9 = 1
       ellipse = described_class.by_definition(focus1: Conics::Point.create(x: 5, y: 1), focus2: Conics::Point.create(x: -3, y: 1), sum_of_distances: 10)
 
       expect(ellipse.focus1).to eq(Conics::Point.create(x: 5, y: 1))
@@ -160,7 +163,60 @@ describe Conics::Ellipse do
     end
 
     it 'should create a general ellipse with focus on y axis' do
+      # (x - 1)^2/9 + (y - 1)^2/25 = 1
       ellipse = described_class.by_definition(focus1: Conics::Point.create(x: 1, y: 5), focus2: Conics::Point.create(x: 1, y: -3), sum_of_distances: 10)
+
+      expect(ellipse.focus1).to eq(Conics::Point.create(x: 1, y: 5))
+      expect(ellipse.focus2).to eq(Conics::Point.create(x: 1, y: -3))
+      expect(ellipse.sum_of_distances).to eq(10)
+    end
+
+  end
+
+  describe '.by_canonical' do
+
+    it 'should fail when semi axis length is not positive' do
+      expect {
+        described_class.by_canonical(center: Conics::Point.origin, x_semi_axis: 0, y_semi_axis: 0)
+      }.to raise_error(ArgumentError, 'Semi axis length must be positive!')
+    end
+
+    it 'should fail when semi axis length is the same' do
+      expect {
+        described_class.by_canonical(center: Conics::Point.origin, x_semi_axis: 1, y_semi_axis: 1)
+      }.to raise_error(ArgumentError, 'Semi axis length must be different!')
+    end
+
+    it 'should create a simple ellipse with focus on x axis' do
+      # x^2/25 + y^2/9 = 1
+      ellipse = described_class.by_canonical(center: Conics::Point.origin, x_semi_axis: 5, y_semi_axis: 3)
+
+      expect(ellipse.focus1).to eq(Conics::Point.create(x: 4, y: 0))
+      expect(ellipse.focus2).to eq(Conics::Point.create(x: -4, y: 0))
+      expect(ellipse.sum_of_distances).to eq(10)
+    end
+
+    it 'should create a simple ellipse with focus on y axis' do
+      # x^2/9 + y^2/25 = 1
+      ellipse = described_class.by_canonical(center: Conics::Point.origin, x_semi_axis: 3, y_semi_axis: 5)
+
+      expect(ellipse.focus1).to eq(Conics::Point.create(x: 0, y: 4))
+      expect(ellipse.focus2).to eq(Conics::Point.create(x: 0, y: -4))
+      expect(ellipse.sum_of_distances).to eq(10)
+    end
+
+    it 'should create a general ellipse with focus on x axis' do
+      # (x - 1)^2/25 + (y - 1)^2/9 = 1
+      ellipse = described_class.by_canonical(center: Conics::Point.create(x: 1, y: 1), x_semi_axis: 5, y_semi_axis: 3)
+
+      expect(ellipse.focus1).to eq(Conics::Point.create(x: 5, y: 1))
+      expect(ellipse.focus2).to eq(Conics::Point.create(x: -3, y: 1))
+      expect(ellipse.sum_of_distances).to eq(10)
+    end
+
+    it 'should create a simple ellipse with focus on y axis' do
+      # (x - 1)^2/9 + (y - 1)^2/25 = 1
+      ellipse = described_class.by_canonical(center: Conics::Point.create(x: 1, y: 1), x_semi_axis: 3, y_semi_axis: 5)
 
       expect(ellipse.focus1).to eq(Conics::Point.create(x: 1, y: 5))
       expect(ellipse.focus2).to eq(Conics::Point.create(x: 1, y: -3))
