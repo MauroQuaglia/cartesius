@@ -13,19 +13,19 @@ describe Normalizator do
 
     it 'should normalize coefficients by first negative coefficient' do
       expect(
-          subject.normalize(-1, -1, 0, 1)
+          subject.send(:normalize, -1, -1, 0, 1)
       ).to eq([1, 1, 0, -1])
     end
 
     it 'should normalize coefficients by first zero coefficient' do
       expect(
-          subject.normalize(0, -1, 0, 1)
+          subject.send(:normalize, 0, -1, 0, 1)
       ).to eq([0, -1, 0, 1])
     end
 
     it 'should normalize coefficients by first positive coefficient' do
       expect(
-          subject.normalize(1, -1, 0, 1)
+          subject.send(:normalize, 1, -1, 0, 1)
       ).to eq([1, -1, 0, 1])
     end
 
