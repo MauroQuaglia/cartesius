@@ -1,5 +1,6 @@
 require_relative('../models/conic')
 require_relative('../../../lib/conics/modules/determinator')
+require_relative('../../../lib/conics/support/cramer')
 
 module Conics
 
@@ -52,6 +53,30 @@ module Conics
 
       b2 = y_semi_axis ** 2
       a2 = x_semi_axis ** 2
+
+      self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
+    end
+
+    def self.by_points(center:, point1:, point2:)
+      if center == point1 or center == point2 or point1 == point2
+        raise ArgumentError.new('Points must be different!')
+      end
+
+      shifted1 = Point.create(x: point1.x - center.x, y: point1.y - center.y)
+      shifted2 = Point.create(x: point2.x - center.x, y: point2.y - center.y)
+
+      begin
+        alfa, beta = Cramer.solution2(
+            [shifted1.x ** 2, shifted1.y ** 2],
+            [shifted2.x ** 2, shifted2.y ** 2],
+            [1, 1]
+        )
+      rescue
+        raise ArgumentError.new('No Ellipse for these points!')
+      end
+
+      a2 = Rational(1, alfa)
+      b2 = Rational(1, beta)
 
       self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
     end
