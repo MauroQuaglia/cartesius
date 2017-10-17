@@ -144,12 +144,18 @@ module Cartesius
       Rational(focal_distance, 2 * major_semi_axis)
     end
 
-    #TODO test
     def congruent?(ellipse)
+      ellipse.instance_of?(Ellipse) and
+          ellipse.eccentricity == self.eccentricity
+    end
+
+    def == (ellipse)
+      ellipse.instance_of?(Ellipse) and
+          ellipse.focus1 == self.focus1 and ellipse.focus2 == self.focus2 and ellipse.sum_of_distances == self.sum_of_distances
     end
 
     #TODO test
-    def == (ellipse)
+    def to_equation
     end
 
     private

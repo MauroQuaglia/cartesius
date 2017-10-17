@@ -290,7 +290,57 @@ describe Cartesius::Ellipse do
 
   end
 
-  describe 'characteristics' do
+  describe 'congruent?' do
+
+    let(:ellipse1) {
+      described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), sum_of_distances: 10)
+    }
+
+    it 'should be false when not ellipse' do
+      expect(ellipse1.congruent?(NilClass)).to be_falsey
+    end
+
+    it 'should be false when different eccentricity' do
+      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 3, y: 0), focus2: Cartesius::Point.create(x: -3, y: 0), sum_of_distances: 10)
+
+      expect(ellipse1.congruent?(ellipse2)).to be_falsey
+    end
+
+    it 'should be true when same eccentricity' do
+      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 0, y: 4), focus2: Cartesius::Point.create(x: 0, y: -4), sum_of_distances: 10)
+
+      expect(ellipse1.congruent?(ellipse2)).to be_truthy
+    end
+
+  end
+
+  describe '==?' do
+
+    let(:ellipse1) {
+      described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), sum_of_distances: 10)
+    }
+
+    it 'should be false when not ellipse' do
+      expect(ellipse1 == NilClass).to be_falsey
+    end
+
+    it 'should be false when different focus' do
+      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 0, y: 4), focus2: Cartesius::Point.create(x: 0, y: -4), sum_of_distances: 10)
+
+      expect(ellipse1 == ellipse2).to be_falsey
+    end
+
+    it 'should be false when different distance' do
+      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), sum_of_distances: 20)
+
+      expect(ellipse1 == ellipse2).to be_falsey
+    end
+
+    it 'should be true when same focus and distance' do
+      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), sum_of_distances: 10)
+
+      expect(ellipse1 == ellipse2).to be_truthy
+    end
 
   end
 
