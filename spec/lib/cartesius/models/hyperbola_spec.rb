@@ -1,5 +1,5 @@
 require_relative('../../../spec_helper')
-require_relative('../../../../lib/conics/models/hyperbola')
+require_relative('../../../../lib/cartesius/models/hyperbola')
 
 describe Conics::Hyperbola do
 

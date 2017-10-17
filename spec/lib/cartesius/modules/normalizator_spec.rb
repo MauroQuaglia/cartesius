@@ -1,6 +1,6 @@
 require_relative('../../../spec_helper')
-require_relative('../../../../lib/conics/modules/normalizator')
-require_relative('../../../../lib/conics/modules/numerificator')
+require_relative('../../../../lib/cartesius/modules/normalizator')
+require_relative('../../../../lib/cartesius/modules/numerificator')
 
 class IncludingClass
   include Normalizator, Numerificator

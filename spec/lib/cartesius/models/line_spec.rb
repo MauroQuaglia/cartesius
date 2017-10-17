@@ -1,5 +1,5 @@
 require_relative('../../../spec_helper')
-require_relative('../../../../lib/conics/models/line')
+require_relative('../../../../lib/cartesius/models/line')
 
 describe Conics::Line do
 

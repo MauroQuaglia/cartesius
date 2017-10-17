@@ -1,4 +1,4 @@
-# conics
+# cartesius
 Conics is a Ruby gem which allows you to solve some problems related to the conics in the cartesian plane.
 The conics you are:
 * Point

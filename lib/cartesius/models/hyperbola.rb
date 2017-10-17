@@ -1,6 +1,6 @@
 require_relative('../models/conic')
-require_relative('../../../lib/conics/modules/determinator')
-require_relative('../../../lib/conics/modules/normalizator')
+require_relative('../../../lib/cartesius/modules/determinator')
+require_relative('../../../lib/cartesius/modules/normalizator')
 
 module Conics
 

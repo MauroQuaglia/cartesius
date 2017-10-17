@@ -1,5 +1,5 @@
 require_relative('../../../spec_helper')
-require_relative('../../../../lib/conics/support/cramer')
+require_relative('../../../../lib/cartesius/support/cramer')
 
 describe Cramer do
 

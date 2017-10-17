@@ -1,5 +1,5 @@
 require_relative('../../../spec_helper')
-require_relative('../../../../lib/conics/models/point')
+require_relative('../../../../lib/cartesius/models/point')
 
 describe Conics::Point do
 

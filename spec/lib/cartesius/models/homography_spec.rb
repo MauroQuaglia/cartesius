@@ -1,5 +1,5 @@
 require_relative('../../../spec_helper')
-require_relative('../../../../lib/conics/models/homography')
+require_relative('../../../../lib/cartesius/models/homography')
 
 describe Conics::Homography do
 

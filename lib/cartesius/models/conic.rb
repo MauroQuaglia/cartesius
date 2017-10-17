@@ -1,4 +1,4 @@
-require_relative('../../../lib/conics/modules/numerificator')
+require_relative('../../../lib/cartesius/modules/numerificator')
 
 class Conic
   include Numerificator

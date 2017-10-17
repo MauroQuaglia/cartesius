@@ -1,6 +1,6 @@
 require_relative('../../../spec_helper')
-require_relative('../../../../lib/conics/models/ellipse')
-require_relative('../../../../lib/conics/models/point')
+require_relative('../../../../lib/cartesius/models/ellipse')
+require_relative('../../../../lib/cartesius/models/point')
 
 describe Conics::Ellipse do
 

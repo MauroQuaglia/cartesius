@@ -1,5 +1,5 @@
 require_relative('../../../spec_helper')
-require_relative('../../../../lib/conics/models/parabola')
+require_relative('../../../../lib/cartesius/models/parabola')
 
 describe Conics::Parabola do
 
