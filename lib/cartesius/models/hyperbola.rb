@@ -2,7 +2,7 @@ require_relative('../models/conic')
 require_relative('../../../lib/cartesius/modules/determinator')
 require_relative('../../../lib/cartesius/modules/normalizator')
 
-module Conics
+module Cartesius
 
   class Hyperbola < Conic
     include Determinator, Normalizator

@@ -2,7 +2,7 @@ require_relative('../models/conic')
 require_relative('../models/point')
 require_relative('../models/line')
 
-module Conics
+module Cartesius
 
   class Parabola < Conic
 

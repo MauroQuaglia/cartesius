@@ -1,6 +1,6 @@
 require_relative('../models/conic')
 
-module Conics
+module Cartesius
 
   class Homography < Conic
 

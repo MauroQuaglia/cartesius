@@ -2,7 +2,7 @@ require_relative('../../../spec_helper')
 require_relative('../../../../lib/cartesius/models/circumference')
 require_relative('../../../../lib/cartesius/models/point')
 
-describe Conics::Circumference do
+describe Cartesius::Circumference do
 
   describe '.new' do
 
@@ -55,7 +55,7 @@ describe Conics::Circumference do
     it 'should be the unitary circumference' do
       circumference = described_class.unitary
 
-      expect(circumference.center).to eq(Conics::Point.origin)
+      expect(circumference.center).to eq(Cartesius::Point.origin)
       expect(circumference.radius).to eq(1)
     end
 

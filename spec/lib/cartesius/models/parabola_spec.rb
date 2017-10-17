@@ -1,7 +1,7 @@
 require_relative('../../../spec_helper')
 require_relative('../../../../lib/cartesius/models/parabola')
 
-describe Conics::Parabola do
+describe Cartesius::Parabola do
 
   describe '.new' do
 
@@ -41,10 +41,10 @@ describe Conics::Parabola do
     it 'should be the unitary convex parabola' do
       parabola = described_class.unitary_convex
 
-      expect(parabola.focus).to eq(Conics::Point.create(x: 0, y: '1/4'))
-      expect(parabola.vertex).to eq(Conics::Point.origin)
-      expect(parabola.directrix).to eq(Conics::Line.horizontal(known_term: '-1/4'))
-      expect(parabola.symmetry_axis).to eq(Conics::Line.y_axis)
+      expect(parabola.focus).to eq(Cartesius::Point.create(x: 0, y: '1/4'))
+      expect(parabola.vertex).to eq(Cartesius::Point.origin)
+      expect(parabola.directrix).to eq(Cartesius::Line.horizontal(known_term: '-1/4'))
+      expect(parabola.symmetry_axis).to eq(Cartesius::Line.y_axis)
     end
 
   end
@@ -54,10 +54,10 @@ describe Conics::Parabola do
     it 'should be the unitary concave parabola' do
       parabola = described_class.unitary_concave
 
-      expect(parabola.focus).to eq(Conics::Point.create(x: 0, y: '-1/4'))
-      expect(parabola.vertex).to eq(Conics::Point.origin)
-      expect(parabola.directrix).to eq(Conics::Line.horizontal(known_term: '1/4'))
-      expect(parabola.symmetry_axis).to eq(Conics::Line.y_axis)
+      expect(parabola.focus).to eq(Cartesius::Point.create(x: 0, y: '-1/4'))
+      expect(parabola.vertex).to eq(Cartesius::Point.origin)
+      expect(parabola.directrix).to eq(Cartesius::Line.horizontal(known_term: '1/4'))
+      expect(parabola.symmetry_axis).to eq(Cartesius::Line.y_axis)
     end
 
   end

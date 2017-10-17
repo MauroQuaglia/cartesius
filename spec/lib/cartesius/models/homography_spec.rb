@@ -1,7 +1,7 @@
 require_relative('../../../spec_helper')
 require_relative('../../../../lib/cartesius/models/homography')
 
-describe Conics::Homography do
+describe Cartesius::Homography do
 
   describe '.new' do
 

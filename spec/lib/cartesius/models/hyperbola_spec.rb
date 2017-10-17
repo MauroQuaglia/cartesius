@@ -1,7 +1,7 @@
 require_relative('../../../spec_helper')
 require_relative('../../../../lib/cartesius/models/hyperbola')
 
-describe Conics::Hyperbola do
+describe Cartesius::Hyperbola do
 
   describe '.new' do
 

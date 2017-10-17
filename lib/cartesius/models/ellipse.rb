@@ -3,7 +3,7 @@ require_relative('../../../lib/cartesius/modules/determinator')
 require_relative('../../../lib/cartesius/modules/normalizator')
 require_relative('../../../lib/cartesius/support/cramer')
 
-module Conics
+module Cartesius
 
   class Ellipse < Conic
     include Determinator, Normalizator
@@ -99,6 +99,14 @@ module Conics
       end
     end
 
+    def focal_distance
+      Point.distance(point1: focus1, point2: focus2)
+    end
+
+    def center
+      Point.create(x: centrum[:xc], y: centrum[:yc])
+    end
+
     def sum_of_distances
       if a2 > b2
         2 * Math.sqrt(a2)
@@ -107,27 +115,22 @@ module Conics
       end
     end
 
-    #TODO test
     def x_semi_axis_length
       Math.sqrt(a2)
     end
 
-    #TODO test
     def y_semi_axis_length
       Math.sqrt(b2)
     end
 
-    #TODO test
     def major_semi_axis
       [x_semi_axis_length, y_semi_axis_length].max
     end
 
-    #TODO test
     def minor_semi_axis
       [x_semi_axis_length, y_semi_axis_length].min
     end
 
-    #TODO test
     def vertices
       [
           Point.create(x: centrum[:xc] + x_semi_axis_length, y: centrum[:yc]),
@@ -137,8 +140,8 @@ module Conics
       ]
     end
 
-    #TODO test
     def eccentricity
+      Rational(focal_distance, 2 * major_semi_axis)
     end
 
     #TODO test

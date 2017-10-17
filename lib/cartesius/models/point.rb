@@ -1,7 +1,7 @@
 require_relative('../models/conic')
 require_relative('../../../lib/cartesius/modules/determinator')
 
-module Conics
+module Cartesius
 
   class Point < Conic
     include Determinator

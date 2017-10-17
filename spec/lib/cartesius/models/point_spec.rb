@@ -1,7 +1,7 @@
 require_relative('../../../spec_helper')
 require_relative('../../../../lib/cartesius/models/point')
 
-describe Conics::Point do
+describe Cartesius::Point do
 
   describe '.new' do
 
@@ -170,15 +170,15 @@ describe Conics::Point do
       point1 = described_class.origin
       point2 = described_class.origin
 
-      expect(Conics::Point.distance(point1: point1, point2: point2)).to eq(0)
+      expect(described_class.distance(point1: point1, point2: point2)).to eq(0)
     end
 
     it 'should be the same from the points' do
       point1 = described_class.origin
       point2 = described_class.create(x: 3, y: 4)
 
-      expect(Conics::Point.distance(point1: point1, point2: point2)).to eq(5)
-      expect(Conics::Point.distance(point1: point2, point2: point1)).to eq(5)
+      expect(described_class.distance(point1: point1, point2: point2)).to eq(5)
+      expect(described_class.distance(point1: point2, point2: point1)).to eq(5)
     end
 
   end
