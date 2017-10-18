@@ -85,17 +85,17 @@ module Cartesius
 
     def focus1
       if a2 > b2
-        Point.create(x: centrum[:xc] + Math.sqrt(a2 - b2), y: centrum[:yc])
+        Point.create(x: center.x + Math.sqrt(a2 - b2), y: center.y)
       else
-        Point.create(x: centrum[:xc], y: centrum[:yc] + Math.sqrt(b2 - a2))
+        Point.create(x: center.x, y: center.y + Math.sqrt(b2 - a2))
       end
     end
 
     def focus2
       if a2 > b2
-        Point.create(x: centrum[:xc] - Math.sqrt(a2 - b2), y: centrum[:yc])
+        Point.create(x: center.x - Math.sqrt(a2 - b2), y: center.y)
       else
-        Point.create(x: centrum[:xc], y: centrum[:yc] - Math.sqrt(b2 - a2))
+        Point.create(x: center.x, y: center.y - Math.sqrt(b2 - a2))
       end
     end
 
@@ -133,10 +133,10 @@ module Cartesius
 
     def vertices
       [
-          Point.create(x: centrum[:xc] + x_semi_axis_length, y: centrum[:yc]),
-          Point.create(x: centrum[:xc], y: centrum[:yc] - y_semi_axis_length),
-          Point.create(x: centrum[:xc] - x_semi_axis_length, y: centrum[:yc]),
-          Point.create(x: centrum[:xc], y: centrum[:yc] + y_semi_axis_length)
+          Point.create(x: center.x + x_semi_axis_length, y: center.y),
+          Point.create(x: center.x, y: center.y - y_semi_axis_length),
+          Point.create(x: center.x - x_semi_axis_length, y: center.y),
+          Point.create(x: center.x, y: center.y + y_semi_axis_length)
       ]
     end
 
