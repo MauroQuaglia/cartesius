@@ -22,6 +22,7 @@ describe Cartesius::Ellipse do
         Cartesius::Point.create(x: -5, y: 0), Cartesius::Point.create(x: 0, y: 3)
     ])
     expect(ellipse.eccentricity).to eq(Rational(4, 5))
+    expect(ellipse.to_equation).to eq('+9x^2 +25y^2 -225 = 0')
   end
 
   it 'should validate the characteristics of a simple equation with focus on y axis' do
@@ -42,6 +43,7 @@ describe Cartesius::Ellipse do
         Cartesius::Point.create(x: -3, y: 0), Cartesius::Point.create(x: 0, y: 5)
     ])
     expect(ellipse.eccentricity).to eq(Rational(4, 5))
+    expect(ellipse.to_equation).to eq('+25x^2 +9y^2 -225 = 0')
   end
 
   it 'should validate the characteristics of a general equation with focus on x axis' do
@@ -62,6 +64,7 @@ describe Cartesius::Ellipse do
         Cartesius::Point.create(x: -4, y: 1), Cartesius::Point.create(x: 1, y: 4)
     ])
     expect(ellipse.eccentricity).to eq(Rational(4, 5))
+    expect(ellipse.to_equation).to eq('+9x^2 +25y^2 -18x -50y -191 = 0')
   end
 
   it 'should validate the characteristics of a general equation with focus on y axis' do
@@ -82,6 +85,7 @@ describe Cartesius::Ellipse do
         Cartesius::Point.create(x: -2, y: 1), Cartesius::Point.create(x: 1, y: 6)
     ])
     expect(ellipse.eccentricity).to eq(Rational(4, 5))
+    expect(ellipse.to_equation).to eq('+25x^2 +9y^2 -50x -18y -191 = 0')
   end
 
 end

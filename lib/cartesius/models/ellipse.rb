@@ -153,11 +153,7 @@ module Cartesius
       ellipse.instance_of?(Ellipse) and
           ellipse.focus1 == self.focus1 and ellipse.focus2 == self.focus2 and ellipse.sum_of_distances == self.sum_of_distances
     end
-
-    #TODO test
-    def to_equation
-    end
-
+    
     private
 
     def validation

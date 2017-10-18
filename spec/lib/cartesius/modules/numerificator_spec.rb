@@ -46,4 +46,41 @@ describe Numerificator do
     end
 
   end
+
+  describe '#monomial' do
+
+    it 'should be integer with positive sign' do
+      expect(subject.send(:monomial, 2, 'x')).to eq('+2x')
+    end
+
+    it 'should be integer with negative sign' do
+      expect(subject.send(:monomial, -2, 'x')).to eq('-2x')
+    end
+
+    it 'should be rational with positive sign' do
+      expect(subject.send(:monomial, Rational(3, 2), 'x')).to eq('+(3/2)x')
+    end
+
+    it 'should be rational with negative sign' do
+      expect(subject.send(:monomial, -Rational(3, 2), 'x')).to eq('-(3/2)x')
+    end
+
+  end
+
+  describe '#signum_symbol' do
+
+    it 'should be + for positive number' do
+      expect(subject.send(:signum_symbol, 1)).to eq('+')
+    end
+
+    it 'should be + for zero' do
+      expect(subject.send(:signum_symbol, 0)).to eq('+')
+    end
+
+    it 'should be - for negative number' do
+      expect(subject.send(:signum_symbol, -1)).to eq('-')
+    end
+
+  end
+
 end

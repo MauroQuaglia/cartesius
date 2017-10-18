@@ -22,14 +22,14 @@ class Conic
     equation = []
     coefficients.each do |key, value|
       if key == '1'
-        equation << [stringfy(value)]
+        equation << [monomial(value)]
       else
-        equation << [stringfy(value), key]
+        equation << [monomial(value, key)]
       end
     end
     equation << ['=', '0']
 
-    equation.join('')
+    equation.join(' ')
   end
 
   private
