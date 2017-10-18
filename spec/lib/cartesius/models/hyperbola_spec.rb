@@ -114,4 +114,6 @@ describe Cartesius::Hyperbola do
 
   end
 
+
+
 end
