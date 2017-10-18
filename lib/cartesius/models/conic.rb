@@ -32,6 +32,10 @@ class Conic
     equation.join(' ')
   end
 
+  def to_s
+    "x^2: #{@x2_coeff}, y^2: #{@y2_coeff}, xy: #{@xy_coeff}, x: #{@x_coeff}, y: #{@y_coeff}, k: #{@k_coeff}"
+  end
+
   private
 
   def coefficients_error

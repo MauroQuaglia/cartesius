@@ -342,6 +342,20 @@ describe Cartesius::Ellipse do
       expect(ellipse1 == ellipse2).to be_truthy
     end
 
+    it 'should be true when equivalent (coefficients * 2)' do
+      ellipse1 = described_class.new(x2: 2, y2: 1, x: 4, y: -2, k: 1)
+
+      ellipse2 = described_class.new(x2: 4, y2: 2, x: 8, y: -4, k: 2)
+      expect(ellipse1 == ellipse2).to be_truthy
+    end
+
+    it 'should be true when equivalent (coefficients * -2)' do
+      ellipse1 = described_class.new(x2: 2, y2: 1, x: 4, y: -2, k: 1)
+
+      ellipse2 = described_class.new(x2: -4, y2: -2, x: -8, y: 4, k: -2)
+      expect(ellipse1 == ellipse2).to be_truthy
+    end
+
   end
 
 end

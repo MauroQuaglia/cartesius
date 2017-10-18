@@ -11,7 +11,7 @@ module Cartesius
     # Conic
     # Conic equation type: ax^2 + by^2 + dx + ey + f = 0
     def initialize(x2:, y2:, x:, y:, k:)
-      normalize(x2, y2, x, y, k)
+      x2, y2, x, y, k = normalize(x2, y2, x, y, k)
       super(x2: x2, y2: y2, xy: 0, x: x, y: y, k: k)
       validation
     end
@@ -153,7 +153,7 @@ module Cartesius
       ellipse.instance_of?(Ellipse) and
           ellipse.focus1 == self.focus1 and ellipse.focus2 == self.focus2 and ellipse.sum_of_distances == self.sum_of_distances
     end
-    
+
     private
 
     def validation
