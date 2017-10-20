@@ -16,7 +16,7 @@ module Cartesius
       validation
     end
 
-    def self.by_definition(focus1:, focus2:, sum_of_distances:)
+    def self.by_definition(focus1:, focus2:, distance:)
       if focus1 == focus2
         raise ArgumentError.new('Focus points must be different!')
       end
@@ -26,18 +26,18 @@ module Cartesius
       end
 
       focal_distance = Point.distance(point1: focus1, point2: focus2)
-      if sum_of_distances <= focal_distance
+      if distance <= focal_distance
         raise ArgumentError.new('Sum of distances must be greater than focal distance!')
       end
 
       center = Point.mid(point1: focus1, point2: focus2)
       c2 = Rational(focal_distance, 2) ** 2
       if focus1.aligned_horizontally_with?(focus2)
-        a2 = Rational(sum_of_distances, 2) ** 2
+        a2 = Rational(distance, 2) ** 2
         b2 = a2 - c2
       end
       if focus1.aligned_vertically_with?(focus2)
-        b2 = Rational(sum_of_distances, 2) ** 2
+        b2 = Rational(distance, 2) ** 2
         a2 = b2 - c2
       end
 

@@ -119,25 +119,25 @@ describe Cartesius::Ellipse do
 
     it 'should fail when focus are the same' do
       expect {
-        described_class.by_definition(focus1: Cartesius::Point.origin, focus2: Cartesius::Point.origin, sum_of_distances: 1)
+        described_class.by_definition(focus1: Cartesius::Point.origin, focus2: Cartesius::Point.origin, distance: 1)
       }.to raise_error(ArgumentError, 'Focus points must be different!')
     end
 
     it 'should fail when focus are not aligned to axis' do
       expect {
-        described_class.by_definition(focus1: Cartesius::Point.origin, focus2: Cartesius::Point.create(x: 1, y: 1), sum_of_distances: 2)
+        described_class.by_definition(focus1: Cartesius::Point.origin, focus2: Cartesius::Point.create(x: 1, y: 1), distance: 2)
       }.to raise_error(ArgumentError, 'Focus must be aligned to axis!')
     end
 
     it 'should fail when sum of distances is not greater than focal distance' do
       expect {
-        described_class.by_definition(focus1: Cartesius::Point.create(x: -1, y: 0), focus2: Cartesius::Point.create(x: 1, y: 0), sum_of_distances: 2)
+        described_class.by_definition(focus1: Cartesius::Point.create(x: -1, y: 0), focus2: Cartesius::Point.create(x: 1, y: 0), distance: 2)
       }.to raise_error(ArgumentError, 'Sum of distances must be greater than focal distance!')
     end
 
     it 'should create a simple ellipse with focus on x axis' do
       # x^2/25 + y^2/9 = 1
-      ellipse = described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), sum_of_distances: 10)
+      ellipse = described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), distance: 10)
 
       expect(ellipse.focus1).to eq(Cartesius::Point.create(x: 4, y: 0))
       expect(ellipse.focus2).to eq(Cartesius::Point.create(x: -4, y: 0))
@@ -146,7 +146,7 @@ describe Cartesius::Ellipse do
 
     it 'should create a simple ellipse with focus on y axis' do
       # x^2/9 + y^2/25 = 1
-      ellipse = described_class.by_definition(focus1: Cartesius::Point.create(x: 0, y: 4), focus2: Cartesius::Point.create(x: 0, y: -4), sum_of_distances: 10)
+      ellipse = described_class.by_definition(focus1: Cartesius::Point.create(x: 0, y: 4), focus2: Cartesius::Point.create(x: 0, y: -4), distance: 10)
 
       expect(ellipse.focus1).to eq(Cartesius::Point.create(x: 0, y: 4))
       expect(ellipse.focus2).to eq(Cartesius::Point.create(x: 0, y: -4))
@@ -155,7 +155,7 @@ describe Cartesius::Ellipse do
 
     it 'should create a general ellipse with focus on x axis' do
       # (x - 1)^2/25 + (y - 1)^2/9 = 1
-      ellipse = described_class.by_definition(focus1: Cartesius::Point.create(x: 5, y: 1), focus2: Cartesius::Point.create(x: -3, y: 1), sum_of_distances: 10)
+      ellipse = described_class.by_definition(focus1: Cartesius::Point.create(x: 5, y: 1), focus2: Cartesius::Point.create(x: -3, y: 1), distance: 10)
 
       expect(ellipse.focus1).to eq(Cartesius::Point.create(x: 5, y: 1))
       expect(ellipse.focus2).to eq(Cartesius::Point.create(x: -3, y: 1))
@@ -164,7 +164,7 @@ describe Cartesius::Ellipse do
 
     it 'should create a general ellipse with focus on y axis' do
       # (x - 1)^2/9 + (y - 1)^2/25 = 1
-      ellipse = described_class.by_definition(focus1: Cartesius::Point.create(x: 1, y: 5), focus2: Cartesius::Point.create(x: 1, y: -3), sum_of_distances: 10)
+      ellipse = described_class.by_definition(focus1: Cartesius::Point.create(x: 1, y: 5), focus2: Cartesius::Point.create(x: 1, y: -3), distance: 10)
 
       expect(ellipse.focus1).to eq(Cartesius::Point.create(x: 1, y: 5))
       expect(ellipse.focus2).to eq(Cartesius::Point.create(x: 1, y: -3))
@@ -293,7 +293,7 @@ describe Cartesius::Ellipse do
   describe 'congruent?' do
 
     let(:ellipse1) {
-      described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), sum_of_distances: 10)
+      described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), distance: 10)
     }
 
     it 'should be false when not ellipse' do
@@ -301,13 +301,13 @@ describe Cartesius::Ellipse do
     end
 
     it 'should be false when different eccentricity' do
-      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 3, y: 0), focus2: Cartesius::Point.create(x: -3, y: 0), sum_of_distances: 10)
+      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 3, y: 0), focus2: Cartesius::Point.create(x: -3, y: 0), distance: 10)
 
       expect(ellipse1.congruent?(ellipse2)).to be_falsey
     end
 
     it 'should be true when same eccentricity' do
-      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 0, y: 4), focus2: Cartesius::Point.create(x: 0, y: -4), sum_of_distances: 10)
+      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 0, y: 4), focus2: Cartesius::Point.create(x: 0, y: -4), distance: 10)
 
       expect(ellipse1.congruent?(ellipse2)).to be_truthy
     end
@@ -317,7 +317,7 @@ describe Cartesius::Ellipse do
   describe '==?' do
 
     let(:ellipse1) {
-      described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), sum_of_distances: 10)
+      described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), distance: 10)
     }
 
     it 'should be false when not ellipse' do
@@ -325,19 +325,19 @@ describe Cartesius::Ellipse do
     end
 
     it 'should be false when different focus' do
-      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 0, y: 4), focus2: Cartesius::Point.create(x: 0, y: -4), sum_of_distances: 10)
+      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 0, y: 4), focus2: Cartesius::Point.create(x: 0, y: -4), distance: 10)
 
       expect(ellipse1 == ellipse2).to be_falsey
     end
 
     it 'should be false when different distance' do
-      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), sum_of_distances: 20)
+      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), distance: 20)
 
       expect(ellipse1 == ellipse2).to be_falsey
     end
 
     it 'should be true when same focus and distance' do
-      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), sum_of_distances: 10)
+      ellipse2 = described_class.by_definition(focus1: Cartesius::Point.create(x: 4, y: 0), focus2: Cartesius::Point.create(x: -4, y: 0), distance: 10)
 
       expect(ellipse1 == ellipse2).to be_truthy
     end

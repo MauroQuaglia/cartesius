@@ -15,7 +15,7 @@ module Cartesius
       validation
     end
 
-    def self.by_definition(focus1:, focus2:, difference_of_distances:)
+    def self.by_definition(focus1:, focus2:, distance:)
       if focus1 == focus2
         raise ArgumentError.new('Focus points must be different!')
       end
@@ -25,24 +25,62 @@ module Cartesius
       end
 
       focal_distance = Point.distance(point1: focus1, point2: focus2)
-      if difference_of_distances >= focal_distance
+      if distance >= focal_distance
         raise ArgumentError.new('Difference of distances must be less than focal distance!')
       end
 
       center = Point.mid(point1: focus1, point2: focus2)
       c2 = Rational(focal_distance, 2) ** 2
       if focus1.aligned_horizontally_with?(focus2)
-        a2 = Rational(difference_of_distances, 2) ** 2
+        a2 = Rational(distance, 2) ** 2
         b2 = c2 - a2
-        k = a2* b2
+        position = 1
       end
       if focus1.aligned_vertically_with?(focus2)
-        b2 = Rational(difference_of_distances, 2) ** 2
+        b2 = Rational(distance, 2) ** 2
         a2 = c2 - b2
-        k = -a2* b2
+        position = -1
       end
 
-      self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 + k)
+      self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
+    end
+
+    def focus1
+      if position == 1
+        return Point.create(x: center.x + Math.sqrt(a2 + b2), y: center.y)
+      end
+      if position == -1
+        return Point.create(x: center.x, y: center.y + Math.sqrt(a2 + b2))
+      end
+    end
+
+    def focus2
+      if position == 1
+        return Point.create(x: center.x - Math.sqrt(a2 + b2), y: center.y)
+      end
+      if position == -1
+        return Point.create(x: center.x, y: center.y - Math.sqrt(a2 + b2))
+      end
+    end
+
+    def focal_distance
+      Point.distance(point1: focus1, point2: focus2)
+    end
+
+    def center
+      Point.create(x: centrum[:xc], y: centrum[:yc])
+    end
+
+    def difference_of_distances
+      if position == 1
+        return 2 * Math.sqrt(a2)
+      end
+      if position == -1
+        return 2 * Math.sqrt(b2)
+      end
+    end
+
+    def equilateral?
     end
 
     private
@@ -53,6 +91,10 @@ module Cartesius
         coefficients_error
       end
 
+    end
+
+    def position
+      signum(determinator - @k_coeff)
     end
 
   end
