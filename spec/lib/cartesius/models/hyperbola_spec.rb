@@ -343,7 +343,6 @@ describe Cartesius::Hyperbola do
       expect(hyperbola.difference_of_distances).to eq(2)
     end
 
-
   end
 
 

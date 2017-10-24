@@ -72,7 +72,7 @@ module Cartesius
         raise ArgumentError.new('Points must be different!')
       end
 
-      if not(vertex.aligned_horizontally_with?(center) or vertex.aligned_vertically_with?(center))
+      unless vertex.aligned_horizontally_with?(center) or vertex.aligned_vertically_with?(center)
         raise ArgumentError.new('Vertex must be aligned with center!')
       end
 
@@ -138,7 +138,22 @@ module Cartesius
       end
     end
 
+    #TODO
     def equilateral?
+    end
+
+    #TODO
+    def eccentricity
+    end
+
+    def congruent?(hyperbola)
+      hyperbola.instance_of?(Hyperbola) and
+          hyperbola.eccentricity == self.eccentricity
+    end
+
+    def == (hyperbola)
+      hyperbola.instance_of?(Hyperbola) and
+          hyperbola.focus1 == self.focus1 and hyperbola.focus2 == self.focus2 and hyperbola.difference_of_distances == self.difference_of_distances
     end
 
     private
