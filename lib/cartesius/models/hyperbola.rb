@@ -45,6 +45,28 @@ module Cartesius
       self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
     end
 
+    def self.by_canonical(center:, transverse_axis:, not_transverse_axis:, position:)
+      if transverse_axis <= 0 or not_transverse_axis <= 0
+        raise ArgumentError.new('Axis length must be positive!')
+      end
+
+      unless [-1, 1].include?(position)
+        raise ArgumentError.new('Position must be up or right!')
+      end
+
+      if position == -1
+        a2 = not_transverse_axis ** 2
+        b2 = transverse_axis ** 2
+      end
+
+      if position == 1
+        a2 = transverse_axis ** 2
+        b2 = not_transverse_axis ** 2
+      end
+
+      self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
+    end
+
     def focus1
       if position == 1
         return Point.create(x: center.x + Math.sqrt(a2 + b2), y: center.y)
