@@ -67,6 +67,42 @@ module Cartesius
       self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
     end
 
+    def self.by_points(center:, vertex:, point:)
+      if center == vertex or center == point or vertex == point
+        raise ArgumentError.new('Points must be different!')
+      end
+
+      if not(vertex.aligned_horizontally_with?(center) or vertex.aligned_vertically_with?(center))
+        raise ArgumentError.new('Vertex must be aligned with center!')
+      end
+
+      if vertex.aligned_horizontally_with?(center)
+        position = 1
+      end
+
+      if vertex.aligned_vertically_with?(center)
+        position = -1
+      end
+
+      shifted1 = Point.create(x: vertex.x - center.x, y: vertex.y - center.y)
+      shifted2 = Point.create(x: point.x - center.x, y: point.y - center.y)
+
+      begin
+        alfa, beta = Cramer.solution2(
+            [shifted1.x ** 2, shifted1.y ** 2],
+            [shifted2.x ** 2, shifted2.y ** 2],
+            [1, 1]
+        )
+      rescue
+        raise ArgumentError.new('No Hyperbola for these points!')
+      end
+
+      a2 = Rational(1, alfa)
+      b2 = Rational(1, beta)
+
+      self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
+    end
+
     def focus1
       if position == 1
         return Point.create(x: center.x + Math.sqrt(a2 + b2), y: center.y)
