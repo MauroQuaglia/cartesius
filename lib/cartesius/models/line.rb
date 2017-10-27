@@ -110,11 +110,11 @@ module Cartesius
     end
 
     def congruent?(line)
-      #TODO
+      line.instance_of?(Line)
     end
 
     def == (line)
-      line.instance_of?(Line) and
+      congruent?(line) and
           line.slope == self.slope and line.known_term == self.known_term
     end
 

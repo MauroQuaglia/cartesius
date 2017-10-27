@@ -351,5 +351,26 @@ describe Cartesius::Line do
 
   end
 
+  describe '#congruent?' do
+
+    it 'should be false when not line' do
+      expect(described_class.x_axis == NilClass).to be_falsey
+    end
+
+    it 'should be true when same line' do
+      line1 = described_class.x_axis
+      line2 = described_class.x_axis
+
+      expect(line1.congruent?(line2)).to be_truthy
+    end
+
+    it 'should be true when generic points' do
+      line1 = described_class.x_axis
+      line2 = described_class.y_axis
+
+      expect(line1.congruent?(line2)).to be_truthy
+    end
+
+  end
 
 end

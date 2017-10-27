@@ -6,17 +6,13 @@ module Cartesius
   class Segment
     attr_reader :extreme1, :extreme2
 
-    def initialize(extreme1, extreme2)
+    def initialize(extreme1:, extreme2:)
       @extreme1, @extreme2 = extreme1, extreme2
       validation
     end
 
-    def horizontal?
-      line.horizontal?
-    end
-
-    def vertical?
-      line.vertical?
+    def line
+      Line.by_points(point1: @extreme1, point2: @extreme2)
     end
 
     def length
@@ -30,8 +26,22 @@ module Cartesius
       )
     end
 
-    def to_equation
-      line.to_equation
+    def extremes
+      [@extreme1, @extreme2]
+    end
+
+    def congruent?(segment)
+      segment.instance_of?(Segment) and
+          segment.length == self.length
+    end
+
+    def == (segment)
+      unless segment.instance_of?(Segment)
+        return false
+      end
+
+      (segment.extreme1 == self.extreme1 and segment.extreme2 == self.extreme2) or
+          (segment.extreme1 == self.extreme2 and segment.extreme2 == self.extreme1)
     end
 
     private
@@ -40,10 +50,6 @@ module Cartesius
       if @extreme1 == @extreme2
         raise ArgumentError.new('Extremes cannot be the same!')
       end
-    end
-
-    def line
-      Line.by_points(point1: @extreme1, point2: @extreme2)
     end
 
   end
