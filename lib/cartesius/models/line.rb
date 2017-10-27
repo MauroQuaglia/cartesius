@@ -1,6 +1,9 @@
+require_relative('../../../lib/cartesius/modules/numerificator')
+
 module Cartesius
 
   class Line
+    include Numerificator
     VERTICAL_SLOPE = Float::INFINITY
     HORIZONTAL_SLOPE = 0
 
@@ -88,6 +91,10 @@ module Cartesius
       slope == VERTICAL_SLOPE
     end
 
+    def inclined?
+      (not horizontal?) and (not vertical?)
+    end
+
     def ascending?
       slope != VERTICAL_SLOPE and slope > 0
     end
@@ -97,7 +104,9 @@ module Cartesius
     end
 
     def to_equation
-      #TODO
+      equationfy(
+          'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
+      )
     end
 
     def congruent?(line)

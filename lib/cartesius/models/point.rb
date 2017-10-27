@@ -25,11 +25,11 @@ module Cartesius
     end
 
     def aligned_horizontally_with?(point)
-      self.y == point.y
+      @y == point.y
     end
 
     def aligned_vertically_with?(point)
-      self.x == point.x
+      @x == point.x
     end
 
     def distance_from(point)
@@ -44,7 +44,7 @@ module Cartesius
 
     def to_equation
       equationfy(
-          'x^2' => 1, 'y^2' => 1, 'x' => -2 * self.x, 'y' => -2 * self.y, '1' => self.x ** 2 + self.y ** 2
+          'x^2' => 1, 'y^2' => 1, 'x' => -2 * @x, 'y' => -2 * @y, '1' => @x ** 2 + @y ** 2
       )
     end
 
@@ -54,7 +54,7 @@ module Cartesius
 
     def == (point)
       congruent?(point) and
-          point.x == self.x and point.y == self.y
+          point.x == @x and point.y == @y
     end
 
   end

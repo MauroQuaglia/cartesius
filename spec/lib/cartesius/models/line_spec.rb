@@ -131,6 +131,7 @@ describe Cartesius::Line do
 
       expect(line.horizontal?).to be_truthy
       expect(line.vertical?).to be_falsey
+      expect(line.inclined?).to be_falsey
       expect(line.ascending?).to be_falsey
       expect(line.descending?).to be_falsey
     end
@@ -140,6 +141,7 @@ describe Cartesius::Line do
 
       expect(line.horizontal?).to be_falsey
       expect(line.vertical?).to be_truthy
+      expect(line.inclined?).to be_falsey
       expect(line.ascending?).to be_falsey
       expect(line.descending?).to be_falsey
     end
@@ -149,6 +151,7 @@ describe Cartesius::Line do
 
       expect(line.horizontal?).to be_falsey
       expect(line.vertical?).to be_falsey
+      expect(line.inclined?).to be_truthy
       expect(line.ascending?).to be_truthy
       expect(line.descending?).to be_falsey
     end
@@ -158,6 +161,7 @@ describe Cartesius::Line do
 
       expect(line.horizontal?).to be_falsey
       expect(line.vertical?).to be_falsey
+      expect(line.inclined?).to be_truthy
       expect(line.ascending?).to be_falsey
       expect(line.descending?).to be_truthy
     end
@@ -324,5 +328,28 @@ describe Cartesius::Line do
     end
 
   end
+
+  describe '.to_equation' do
+
+    it 'should be horizontal equation' do
+      line = described_class.horizontal(known_term: 1)
+
+      expect(line.to_equation).to eq('+1y -1 = 0')
+    end
+
+    it 'should be vertical equation' do
+      line = described_class.vertical(known_term: 1)
+
+      expect(line.to_equation).to eq('+1x -1 = 0')
+    end
+
+    it 'should be the general equation' do
+      line = described_class.create(slope: 2, known_term: 1)
+
+      expect(line.to_equation).to eq('+2x -1y +1 = 0')
+    end
+
+  end
+
 
 end
