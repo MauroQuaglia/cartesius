@@ -1,6 +1,8 @@
 require_relative('../models/conic')
+require_relative('../../../lib/cartesius/models/segment')
 require_relative('../../../lib/cartesius/modules/determinator')
 require_relative('../../../lib/cartesius/modules/normalizator')
+require_relative('../../../lib/cartesius/support/cramer')
 
 module Cartesius
 
@@ -24,12 +26,12 @@ module Cartesius
         raise ArgumentError.new('Focus must be aligned to axis!')
       end
 
-      focal_distance = Point.distance(p1: focus1, p2: focus2)
+      focal_distance = Point.distance(focus1, focus2)
       if distance >= focal_distance
         raise ArgumentError.new('Difference of distances must be less than focal distance!')
       end
 
-      center = Point.mid(point1: focus1, point2: focus2)
+      center = Segment.new(extreme1: focus1, extreme2: focus2).mid
       c2 = Rational(focal_distance, 2) ** 2
       if focus1.aligned_horizontally_with?(focus2)
         a2 = Rational(distance, 2) ** 2
@@ -84,8 +86,8 @@ module Cartesius
         position = -1
       end
 
-      shifted1 = Point.create(x: vertex.x - center.x, y: vertex.y - center.y)
-      shifted2 = Point.create(x: point.x - center.x, y: point.y - center.y)
+      shifted1 = Point.new(x: vertex.x - center.x, y: vertex.y - center.y)
+      shifted2 = Point.new(x: point.x - center.x, y: point.y - center.y)
 
       begin
         alfa, beta = Cramer.solution2(
@@ -105,28 +107,28 @@ module Cartesius
 
     def focus1
       if position == 1
-        return Point.create(x: center.x + Math.sqrt(a2 + b2), y: center.y)
+        return Point.new(x: center.x + Math.sqrt(a2 + b2), y: center.y)
       end
       if position == -1
-        return Point.create(x: center.x, y: center.y + Math.sqrt(a2 + b2))
+        return Point.new(x: center.x, y: center.y + Math.sqrt(a2 + b2))
       end
     end
 
     def focus2
       if position == 1
-        return Point.create(x: center.x - Math.sqrt(a2 + b2), y: center.y)
+        return Point.new(x: center.x - Math.sqrt(a2 + b2), y: center.y)
       end
       if position == -1
-        return Point.create(x: center.x, y: center.y - Math.sqrt(a2 + b2))
+        return Point.new(x: center.x, y: center.y - Math.sqrt(a2 + b2))
       end
     end
 
     def focal_distance
-      Point.distance(p1: focus1, p2: focus2)
+      Point.distance(focus1, focus2)
     end
 
     def center
-      Point.create(x: centrum[:xc], y: centrum[:yc])
+      Point.new(x: centrum[:xc], y: centrum[:yc])
     end
 
     def difference_of_distances
