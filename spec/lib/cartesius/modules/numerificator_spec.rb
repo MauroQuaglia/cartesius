@@ -83,4 +83,20 @@ describe Numerificator do
 
   end
 
+  describe '#equationfy' do
+
+    it 'should return the equation with integer' do
+      expect(subject.send(:equationfy,
+                          {'x^2' => 1, 'y^2' => 1, 'xy' => 0, 'x' => 0, 'y' => 0, '1' => 2}
+      )).to eq('+1x^2 +1y^2 +2 = 0')
+    end
+
+    it 'should return the equation with rational' do
+      expect(subject.send(:equationfy,
+                          {'x^2' => Rational(1, 2), 'y^2' => Rational(-3, 2), 'xy' => 1, 'x' => 0, 'y' => -1, '1' => 0}
+      )).to eq('+(1/2)x^2 -(3/2)y^2 +1xy -1y = 0')
+    end
+  end
+
+
 end

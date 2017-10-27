@@ -2,12 +2,13 @@ require_relative('../models/conic')
 require_relative('../../../lib/cartesius/models/segment')
 require_relative('../../../lib/cartesius/modules/determinator')
 require_relative('../../../lib/cartesius/modules/normalizator')
+require_relative('../../../lib/cartesius/modules/numerificator')
 require_relative('../../../lib/cartesius/support/cramer')
 
 module Cartesius
 
   class Ellipse < Conic
-    include Determinator, Normalizator
+    include Determinator, Normalizator, Numerificator
 
     # Conic
     # Conic equation type: ax^2 + by^2 + dx + ey + f = 0
@@ -153,6 +154,12 @@ module Cartesius
     def == (ellipse)
       ellipse.instance_of?(Ellipse) and
           ellipse.focus1 == self.focus1 and ellipse.focus2 == self.focus2 and ellipse.sum_of_distances == self.sum_of_distances
+    end
+
+    def to_equation
+      equationfy(
+          'x^2' => @x2_coeff, 'y^2' => @y2_coeff, 'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
+      )
     end
 
     private

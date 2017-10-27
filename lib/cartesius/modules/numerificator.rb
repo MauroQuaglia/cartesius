@@ -1,5 +1,7 @@
 module Numerificator
 
+  private
+
   def equationfy(coefficients)
     coefficients.delete_if {|_, value| value.zero?}
 
@@ -19,8 +21,6 @@ module Numerificator
 
     equation.join(' ')
   end
-
-  private
 
   def stringfy(number)
     if number.denominator == 1
