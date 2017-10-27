@@ -26,11 +26,11 @@ module Cartesius
     end
 
     def focus
-      Point.create(x: Rational(-@x_coeff, 2 * @x2_coeff), y: Rational(1 - delta, 4 * @x2_coeff))
+      Point.new(x: Rational(-@x_coeff, 2 * @x2_coeff), y: Rational(1 - delta, 4 * @x2_coeff))
     end
 
     def vertex
-      Point.create(x: Rational(-@x_coeff, 2 * @x2_coeff), y: Rational(-delta, 4 * @x2_coeff))
+      Point.new(x: Rational(-@x_coeff, 2 * @x2_coeff), y: Rational(-delta, 4 * @x2_coeff))
     end
 
     def symmetry_axis
@@ -45,7 +45,6 @@ module Cartesius
       self == Parabola.unitary_concave
     end
 
-    # TODO: To test when i can create some circunferences.
     def == (parabola)
       parabola.instance_of?(Parabola) and
           parabola.focus == self.focus and parabola.directrix == self.directrix

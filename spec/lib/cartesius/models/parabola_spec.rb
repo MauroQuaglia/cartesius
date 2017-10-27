@@ -35,13 +35,12 @@ describe Cartesius::Parabola do
 
   end
 
-  
   describe '.unitary_convex' do
 
     it 'should be the unitary convex parabola' do
       parabola = described_class.unitary_convex
 
-      expect(parabola.focus).to eq(Cartesius::Point.create(x: 0, y: '1/4'))
+      expect(parabola.focus).to eq(Cartesius::Point.new(x: 0, y: '1/4'))
       expect(parabola.vertex).to eq(Cartesius::Point.origin)
       expect(parabola.directrix).to eq(Cartesius::Line.horizontal(known_term: '-1/4'))
       expect(parabola.symmetry_axis).to eq(Cartesius::Line.y_axis)
@@ -54,7 +53,7 @@ describe Cartesius::Parabola do
     it 'should be the unitary concave parabola' do
       parabola = described_class.unitary_concave
 
-      expect(parabola.focus).to eq(Cartesius::Point.create(x: 0, y: '-1/4'))
+      expect(parabola.focus).to eq(Cartesius::Point.new(x: 0, y: '-1/4'))
       expect(parabola.vertex).to eq(Cartesius::Point.origin)
       expect(parabola.directrix).to eq(Cartesius::Line.horizontal(known_term: '1/4'))
       expect(parabola.symmetry_axis).to eq(Cartesius::Line.y_axis)

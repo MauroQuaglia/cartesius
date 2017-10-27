@@ -18,7 +18,7 @@ module Cartesius
     end
 
     def center
-      Point.create(x: centrum[:xc], y: centrum[:yc])
+      Point.new(x: centrum[:xc], y: centrum[:yc])
     end
 
     def radius
