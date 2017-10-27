@@ -5,68 +5,22 @@ describe Cartesius::Point do
 
   describe '.new' do
 
-    describe 'empty set' do
-
-      it 'should reject a simple equation' do
-        # x^2 + y^2 = -1 --> x^2 + y^2 + 1 = 0
-        expect {described_class.new(x: 0, y: 0, k: 1)}.to raise_error(ArgumentError)
-      end
-
-      it 'should reject a general equation' do
-        # (x + 1)^2 + (y - 1)^2 = -1 --> x^2 + y^2 + 2x - 2y + 3 = 0
-        expect {described_class.new(x: 2, y: -2, k: 3)}.to raise_error(ArgumentError)
-      end
-
-    end
-
-    describe 'point' do
-
-      it 'should accept a simple equation' do
-        # x^2 + y^2 = 0
-        expect {described_class.new(x: 0, y: 0, k: 0)}.not_to raise_error
-      end
-
-      it 'should accept a general equation' do
-        # (x + 1)^2 + (y - 1)^2 = 0 --> x^2 + y^2 + 2x - 2y + 2 = 0
-        expect {described_class.new(x: 2, y: -2, k: 2)}.not_to raise_error
-      end
-
-    end
-
-    describe 'circumference' do
-
-      it 'should reject a simple equation' do
-        # x^2 + y^2 = 1 --> x^2 + y^2 - 1 = 0
-        expect {described_class.new(x: 0, y: 0, k: -1)}.to raise_error(ArgumentError)
-      end
-
-      it 'should reject a general equation' do
-        # (x + 1)^2 + (y - 1)^2 = 1 --> x^2 + y^2 + 2x - 2y + 1 = 0
-        expect {described_class.new(x: 2, y: -2, k: 1)}.to raise_error(ArgumentError)
-      end
-
-    end
-
-  end
-
-  describe '.create' do
-
     it 'should be the origin' do
-      point = described_class.create(x: 0, y: 0)
+      point = described_class.new(x: 0, y: 0)
 
       expect(point.x).to eq(0)
       expect(point.y).to eq(0)
     end
 
     it 'should be a generic point' do
-      point = described_class.create(x: 1, y: -1)
+      point = described_class.new(x: 1, y: -1)
 
       expect(point.x).to eq(1)
       expect(point.y).to eq(-1)
     end
 
     it 'should be a generic point with string parameters' do
-      point = described_class.create(x: '1', y: '-1')
+      point = described_class.new(x: '1', y: '-1')
 
       expect(point.x).to eq(1)
       expect(point.y).to eq(-1)
@@ -84,38 +38,37 @@ describe Cartesius::Point do
 
   end
 
-  describe '.mid' do
+  describe '.distance' do
 
-    it 'should be the same when points are the same' do
-      expect(
-          described_class.mid(point1: described_class.origin, point2: described_class.origin)
-      ).to eq(described_class.origin)
+    it 'should be 0 for same points' do
+      point1 = described_class.origin
+      point2 = described_class.origin
+
+      expect(described_class.distance(point1, point2)).to eq(0)
     end
 
-    it 'should be the mid point' do
-      expect(
-          described_class.mid(point1: described_class.origin, point2: described_class.create(x: 2, y: 2))
-      ).to eq(described_class.create(x: 1, y: 1))
+    it 'should be the same from the points' do
+      point1 = described_class.origin
+      point2 = described_class.new(x: 3, y: 4)
+
+      expect(described_class.distance(point1, point2)).to eq(5)
+      expect(described_class.distance(point2, point1)).to eq(5)
     end
 
   end
 
-  describe '.origin?' do
+  describe '#origin?' do
 
     it 'should be false' do
-      point = described_class.create(x: 0, y: 1)
+      point = described_class.new(x: 0, y: 1)
 
-      expect(
-          point.origin?
-      ).to be_falsey
+      expect(point.origin?).to be_falsey
     end
 
     it 'should be true' do
       point = described_class.origin
 
-      expect(
-          point.origin?
-      ).to be_truthy
+      expect(point.origin?).to be_truthy
     end
 
   end
@@ -123,21 +76,17 @@ describe Cartesius::Point do
   describe '#aligned_horizontally_with?' do
 
     it 'should be aligned horizontally' do
-      point1 = described_class.create(x: -1, y: 1)
-      point2 = described_class.create(x: 1, y: 1)
+      point1 = described_class.new(x: -1, y: 1)
+      point2 = described_class.new(x: 1, y: 1)
 
-      expect(
-          point1.aligned_horizontally_with?(point2)
-      ).to be_truthy
+      expect(point1.aligned_horizontally_with?(point2)).to be_truthy
     end
 
     it 'should not be aligned horizontally' do
-      point1 = described_class.create(x: -1, y: 2)
-      point2 = described_class.create(x: 1, y: 1)
+      point1 = described_class.new(x: -1, y: 2)
+      point2 = described_class.new(x: 1, y: 1)
 
-      expect(
-          point1.aligned_horizontally_with?(point2)
-      ).to be_falsey
+      expect(point1.aligned_horizontally_with?(point2)).to be_falsey
     end
 
   end
@@ -145,45 +94,41 @@ describe Cartesius::Point do
   describe '#aligned_vertically_with?' do
 
     it 'should be aligned vertically' do
-      point1 = described_class.create(x: 1, y: -1)
-      point2 = described_class.create(x: 1, y: 1)
+      point1 = described_class.new(x: 1, y: -1)
+      point2 = described_class.new(x: 1, y: 1)
 
-      expect(
-          point1.aligned_vertically_with?(point2)
-      ).to be_truthy
+      expect(point1.aligned_vertically_with?(point2)).to be_truthy
     end
 
     it 'should not be aligned vertically' do
-      point1 = described_class.create(x: 1, y: -1)
-      point2 = described_class.create(x: 2, y: 1)
+      point1 = described_class.new(x: 1, y: -1)
+      point2 = described_class.new(x: 2, y: 1)
 
-      expect(
-          point1.aligned_vertically_with?(point2)
-      ).to be_falsey
+      expect(point1.aligned_vertically_with?(point2)).to be_falsey
     end
 
   end
 
-  describe '.distance' do
+  describe '#distance_from' do
 
     it 'should be 0 for same points' do
       point1 = described_class.origin
       point2 = described_class.origin
 
-      expect(described_class.distance(point1: point1, point2: point2)).to eq(0)
+      expect(point1.distance_from(point2)).to eq(0)
     end
 
     it 'should be the same from the points' do
       point1 = described_class.origin
-      point2 = described_class.create(x: 3, y: 4)
+      point2 = described_class.new(x: 3, y: 4)
 
-      expect(described_class.distance(point1: point1, point2: point2)).to eq(5)
-      expect(described_class.distance(point1: point2, point2: point1)).to eq(5)
+      expect(point1.distance_from(point2)).to eq(5)
+      expect(point2.distance_from(point1)).to eq(5)
     end
 
   end
 
-  describe '.to_coordinates' do
+  describe '#to_coordinates' do
 
     it 'should be the origin' do
       expect(
@@ -193,14 +138,36 @@ describe Cartesius::Point do
 
     it 'should be general' do
       expect(
-          described_class.create(x: -1, y: +1).to_coordinates
+          described_class.new(x: -1, y: +1).to_coordinates
       ).to eq('(-1; 1)')
     end
 
     it 'should be rational' do
       expect(
-          described_class.create(x: '1/2', y: '-4/5').to_coordinates
+          described_class.new(x: '1/2', y: '-4/5').to_coordinates
       ).to eq('(1/2; -4/5)')
+    end
+
+  end
+
+  describe '#congruent?' do
+
+    it 'should be false when not point' do
+      expect(described_class.origin == NilClass).to be_falsey
+    end
+
+    it 'should be true when same point' do
+      point1 = described_class.origin
+      point2 = described_class.origin
+
+      expect(point1.congruent?(point2)).to be_truthy
+    end
+
+    it 'should be true when generic points' do
+      point1 = described_class.origin
+      point2 = described_class.new(x: 1, y: 1)
+
+      expect(point1.congruent?(point2)).to be_truthy
     end
 
   end
@@ -208,36 +175,41 @@ describe Cartesius::Point do
   describe '#==' do
 
     it 'should be false when not point' do
-      expect(
-          described_class.origin == NilClass
-      ).to be_falsey
+      expect(described_class.origin == NilClass).to be_falsey
     end
 
     it 'should be false when different x' do
-      point1 = described_class.create(x: 1, y: 0)
-      point2 = described_class.create(x: -1, y: 0)
+      point1 = described_class.new(x: 1, y: 0)
+      point2 = described_class.new(x: -1, y: 0)
 
-      expect(
-          point1 == point2
-      ).to be_falsey
+      expect(point1 == point2).to be_falsey
     end
 
     it 'should be false when different y' do
-      point1 = described_class.create(x: 0, y: 1)
-      point2 = described_class.create(x: 0, y: -1)
+      point1 = described_class.new(x: 0, y: 1)
+      point2 = described_class.new(x: 0, y: -1)
 
-      expect(
-          point1 == point2
-      ).to be_falsey
+      expect(point1 == point2).to be_falsey
     end
 
     it 'should be true' do
-      point1 = described_class.create(x: 1, y: -1)
-      point2 = described_class.create(x: 1, y: -1)
+      point1 = described_class.new(x: 1, y: -1)
+      point2 = described_class.new(x: 1, y: -1)
 
-      expect(
-          point1 == point2
-      ).to be_truthy
+      expect(point1 == point2).to be_truthy
+    end
+
+  end
+
+  describe '.to_equation' do
+
+    it 'should be the origin equation' do
+      expect(described_class.origin.to_equation).to eq('+1x^2 +1y^2 = 0')
+    end
+
+    it 'should be the general equation' do
+      point = described_class.new(x: 1, y: 1)
+      expect(point.to_equation).to eq('+1x^2 +1y^2 -2x -2y +2 = 0')
     end
 
   end

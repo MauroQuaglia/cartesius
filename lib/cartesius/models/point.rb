@@ -1,30 +1,23 @@
-require_relative('../models/conic')
-require_relative('../../../lib/cartesius/modules/determinator')
+require_relative('../../../lib/cartesius/modules/numerificator')
 
 module Cartesius
 
-  class Point < Conic
-    include Determinator
-    attr_reader :y
+  class Point
+    include Numerificator
+    attr_reader :x, :y
 
-    # Degenerate conic
-    # Conic equation type: x^2 + y^2 + dx + ey + f = 0
-    def initialize(x:, y:, k:)
-      super(x2: 1, y2: 1, xy: 0, x: x, y: y, k: k)
-      validation
-    end
-
-    def self.create(x:, y:)
-      x, y = x.to_r, y.to_r
-      new(x: -2 * x, y: -2 * y, k: (x ** 2) + (y ** 2))
+    def initialize(x:, y:)
+      @x, @y = x.to_r, y.to_r
     end
 
     def self.origin
-      new(x: 0, y: 0, k: 0)
+      new(x: 0, y: 0)
     end
 
-    def x
-      centrum[:xc]
+    def self.distance(point1, point2)
+      Math.sqrt(
+          (point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2
+      )
     end
 
     def origin?
@@ -39,32 +32,29 @@ module Cartesius
       self.x == point.x
     end
 
-    def self.distance(point1:, point2:)
-      Math.sqrt((point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2)
-    end
-
-    def self.mid(point1:, point2:)
-      create(x: Rational(point1.x + point2.x, 2), y: Rational(point1.y + point2.y, 2))
+    def distance_from(point)
+      Math.sqrt(
+          (@x - point.x) ** 2 + (@y - point.y) ** 2
+      )
     end
 
     def to_coordinates
       "(#{stringfy(x)}; #{stringfy(y)})"
     end
 
-    def == (point)
-      point.instance_of?(Point) and
-          point.x == self.x and point.y == self.y
+    def to_equation
+      equationfy(
+          'x^2' => 1, 'y^2' => 1, 'x' => -2 * self.x, 'y' => -2 * self.y, '1' => self.x ** 2 + self.y ** 2
+      )
     end
 
-    private
+    def congruent?(point)
+      point.instance_of?(Point)
+    end
 
-    def validation
-      if determinator != @k_coeff
-        coefficients_error
-      end
-
-      # To avoid the override of a Kernel method.
-      @y = centrum[:yc]
+    def == (point)
+      congruent?(point) and
+          point.x == self.x and point.y == self.y
     end
 
   end

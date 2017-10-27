@@ -24,7 +24,7 @@ module Cartesius
         raise ArgumentError.new('Focus must be aligned to axis!')
       end
 
-      focal_distance = Point.distance(point1: focus1, point2: focus2)
+      focal_distance = Point.distance(p1: focus1, p2: focus2)
       if distance >= focal_distance
         raise ArgumentError.new('Difference of distances must be less than focal distance!')
       end
@@ -122,7 +122,7 @@ module Cartesius
     end
 
     def focal_distance
-      Point.distance(point1: focus1, point2: focus2)
+      Point.distance(p1: focus1, p2: focus2)
     end
 
     def center

@@ -1,15 +1,11 @@
-require_relative('../models/conic')
-
 module Cartesius
 
-  class Line < Conic
+  class Line
     VERTICAL_SLOPE = Float::INFINITY
     HORIZONTAL_SLOPE = 0
 
-    # Degenerate conic
-    # Conic equation type: dx + ey + f = 0
     def initialize(x:, y:, k:)
-      super(x2: 0, y2: 0, xy: 0, x: x, y: y, k: k)
+      @x_coeff, @y_coeff, @k_coeff = x.to_r, y.to_r, k.to_r
       validation
     end
 
@@ -23,6 +19,25 @@ module Cartesius
 
     def self.vertical(known_term:)
       new(x: 1, y: 0, k: -known_term.to_r)
+    end
+
+    def self.by_points(point1:, point2:)
+      if point1 == point2
+        raise ArgumentError.new('Points must be different!')
+      end
+
+      if point1.aligned_horizontally_with?(point2)
+        return horizontal(known_term: point1.y)
+      end
+
+      if point1.aligned_vertically_with?(point2)
+        return vertical(known_term: point1.x)
+      end
+
+      slope = Rational(point2.y - point1.y, point2.x - point1.x)
+      known_term = point1.y - slope * point1.x
+
+      create(slope: slope, known_term: known_term)
     end
 
     def self.x_axis
@@ -81,6 +96,14 @@ module Cartesius
       slope < 0
     end
 
+    def to_equation
+      #TODO
+    end
+
+    def congruent?(line)
+      #TODO
+    end
+
     def == (line)
       line.instance_of?(Line) and
           line.slope == self.slope and line.known_term == self.known_term
@@ -90,7 +113,7 @@ module Cartesius
 
     def validation
       if (@x_coeff == 0 and @y_coeff == 0)
-        coefficients_error
+        raise ArgumentError.new('Invalid coefficients!')
       end
     end
 

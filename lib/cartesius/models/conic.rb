@@ -10,27 +10,6 @@ class Conic
     @k_coeff = k.to_r
   end
 
-  def to_equation
-    coefficients = {
-        'x^2' => @x2_coeff, 'y^2' => @y2_coeff, 'xy' => @xy_coeff, 'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
-    }.delete_if {|_, value| value.zero?}
-
-    if coefficients.first.last < 0
-      coefficients.transform_values! {|value| -value}
-    end
-
-    equation = []
-    coefficients.each do |key, value|
-      if key == '1'
-        equation << [monomial(value)]
-      else
-        equation << [monomial(value, key)]
-      end
-    end
-    equation << ['=', '0']
-
-    equation.join(' ')
-  end
 
   def to_s
     "x^2: #{@x2_coeff}, y^2: #{@y2_coeff}, xy: #{@xy_coeff}, x: #{@x_coeff}, y: #{@y_coeff}, k: #{@k_coeff}"

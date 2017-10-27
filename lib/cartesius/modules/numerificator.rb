@@ -1,5 +1,25 @@
 module Numerificator
 
+  def equationfy(coefficients)
+    coefficients.delete_if {|_, value| value.zero?}
+
+    if coefficients.first.last < 0
+      coefficients.transform_values! {|value| -value}
+    end
+
+    equation = []
+    coefficients.each do |key, value|
+      if key == '1'
+        equation << [monomial(value)]
+      else
+        equation << [monomial(value, key)]
+      end
+    end
+    equation << ['=', '0']
+
+    equation.join(' ')
+  end
+
   private
 
   def stringfy(number)
