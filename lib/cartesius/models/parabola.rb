@@ -1,11 +1,13 @@
 require_relative('../models/conic')
 require_relative('../models/point')
 require_relative('../models/line')
+require_relative('../../../lib/cartesius/modules/numerificator')
 require_relative('../../../lib/cartesius/support/cramer')
 
 module Cartesius
 
   class Parabola < Conic
+    include Numerificator
 
     # Conic
     # Conic equation type: ax^2 + dx - y + f = 0
@@ -93,6 +95,12 @@ module Cartesius
     def == (parabola)
       parabola.instance_of?(Parabola) and
           parabola.focus == self.focus and parabola.directrix == self.directrix
+    end
+
+    def to_equation
+      equationfy(
+          'x^2' => @x2_coeff, 'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
+      )
     end
 
     private

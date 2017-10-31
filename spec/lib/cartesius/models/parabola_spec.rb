@@ -73,7 +73,7 @@ describe Cartesius::Parabola do
 
       it 'should be a generic concave parabola' do
         expect(
-            described_class.by_definition(directrix: Cartesius::Line.new(x: 0, y: 1, k:'11/4'), focus: Cartesius::Point.new(x: '3/4', y: -3))
+            described_class.by_definition(directrix: Cartesius::Line.new(x: 0, y: 1, k: '11/4'), focus: Cartesius::Point.new(x: '3/4', y: -3))
         ).to eq(described_class.new(x2: 2, x: -3, k: 4))
       end
 
@@ -195,6 +195,23 @@ describe Cartesius::Parabola do
     end
 
   end
+
+  describe '#to_equation' do
+
+    it 'should be the simplest' do
+      parabola = described_class.unitary_convex
+
+      expect(parabola.to_equation).to eq('+1x^2 -1y = 0')
+    end
+
+    it 'should be the generic' do
+      parabola = described_class.by_definition(directrix: Cartesius::Line.new(x: 0, y: 1, k: '11/4'), focus: Cartesius::Point.new(x: '3/4', y: -3))
+
+      expect(parabola.to_equation).to eq('+2x^2 -3x -1y +4 = 0')
+    end
+
+  end
+
 
 end
 

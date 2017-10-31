@@ -1,10 +1,13 @@
 require_relative('../models/conic')
+require_relative('../../cartesius/models/line')
 require_relative('../../../lib/cartesius/modules/determinator')
+require_relative('../../../lib/cartesius/modules/numerificator')
+require_relative('../../../lib/cartesius/support/cramer')
 
 module Cartesius
 
   class Circumference < Conic
-    include Determinator
+    include Determinator, Numerificator
 
     # Conic
     # Conic equation type: x^2 + y^2 + dx + ey + f = 0
@@ -12,6 +15,39 @@ module Cartesius
       super(x2: 1, y2: 1, xy: 0, x: x, y: y, k: k)
       validation
     end
+
+    def self.by_definition(focus:, radius:)
+      alfa = -2 * focus.x
+      beta = -2 * focus.y
+      gamma = focus.x ** 2 + focus.y ** 2 - radius.to_r ** 2
+
+      self.new(x: alfa, y: beta, k: gamma)
+    end
+
+    def self.by_canonical(focus:, radius:)
+      by_definition(focus: focus, radius: radius)
+    end
+
+    def self.by_points(point1:, point2:, point3:)
+      if point1 == point2 or point1 == point3 or point2 == point3
+        raise ArgumentError.new('Points must be distinct!')
+      end
+
+      line = Line.by_points(point1: point1, point2: point2)
+      if line.include?(point3)
+        raise ArgumentError.new('Points must not be aligned!')
+      end
+
+      alfa, beta, gamma = Cramer.solution3(
+          [point1.x, point1.y, 1],
+          [point2.x, point2.y, 1],
+          [point3.x, point3.y, 1],
+          [-(point1.x ** 2 + point1.y ** 2), -(point2.x ** 2 + point2.y ** 2), -(point3.x ** 2 + point3.y ** 2)]
+      )
+
+      self.new(x: alfa, y: beta, k: gamma)
+    end
+
 
     def self.unitary
       new(x: 0, y: 0, k: -1)
@@ -29,10 +65,23 @@ module Cartesius
       self == Circumference.unitary
     end
 
-    # TODO: To test when i can create some circunferences.
     def == (circumference)
       circumference.instance_of?(Circumference) and
           circumference.center == self.center and circumference.radius == self.radius
+    end
+
+    def congruent?(circumference)
+      unless circumference.instance_of?(self.class)
+        return false
+      end
+
+      circumference.radius == self.radius
+    end
+
+    def to_equation
+      equationfy(
+          'x^2' => 1, 'y^2' => 1, 'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
+      )
     end
 
     private

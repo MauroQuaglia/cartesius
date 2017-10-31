@@ -110,12 +110,10 @@ module Cartesius
       point.y == slope * point.x + known_term
     end
 
-    #test
     def x_intercept
       @x_coeff.zero? ? nil : -Rational(@k_coeff, @x_coeff)
     end
 
-    #test
     def y_intercept
       @y_coeff.zero? ? nil : -Rational(@k_coeff, @y_coeff)
     end
