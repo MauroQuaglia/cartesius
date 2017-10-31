@@ -103,6 +103,23 @@ module Cartesius
       slope < 0
     end
 
+    def include?(point)
+      if vertical?
+        return known_term == point.x
+      end
+      point.y == slope * point.x + known_term
+    end
+
+    #test
+    def x_intercept
+      @x_coeff.zero? ? nil : -Rational(@k_coeff, @x_coeff)
+    end
+
+    #test
+    def y_intercept
+      @y_coeff.zero? ? nil : -Rational(@k_coeff, @y_coeff)
+    end
+
     def to_equation
       equationfy(
           'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff

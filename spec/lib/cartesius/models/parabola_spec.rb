@@ -35,6 +35,76 @@ describe Cartesius::Parabola do
 
   end
 
+  describe '.by_definition' do
+
+    context 'directrix and focus' do
+
+      it 'should fail when focus belongs to directrix' do
+        expect {
+          described_class.by_definition(directrix: Cartesius::Line.x_axis, focus: Cartesius::Point.origin)
+        }.to raise_error(ArgumentError, 'Focus belongs to directrix!')
+      end
+
+      it 'should fail when directrix is not parallel to x-axis' do
+        expect {
+          described_class.by_definition(directrix: Cartesius::Line.ascending_bisector, focus: Cartesius::Point.new(x: -1, y: 1))
+        }.to raise_error(ArgumentError, 'Directrix is not parallel to x-axis!')
+      end
+
+      it 'should be the simplest convex parabola' do
+        expect(
+            described_class.by_definition(
+                directrix: Cartesius::Line.new(x: 0, y: 1, k: '1/4'), focus: Cartesius::Point.new(x: 0, y: '1/4'))
+        ).to eq(described_class.new(x2: -1, x: 0, k: 0))
+      end
+
+      it 'should be the simplest concave parabola' do
+        expect(
+            described_class.by_definition(
+                directrix: Cartesius::Line.new(x: 0, y: 1, k: '-1/4'), focus: Cartesius::Point.new(x: 0, y: '-1/4'))
+        ).to eq(described_class.new(x2: 1, x: 0, k: 0))
+      end
+
+      it 'should be a generic convex parabola' do
+        expect(
+            described_class.by_definition(directrix: Cartesius::Line.new(x: 0, y: 1, k: '-11/4'), focus: Cartesius::Point.new(x: '3/4', y: 3))
+        ).to eq(described_class.new(x2: -2, x: 3, k: -4))
+      end
+
+      it 'should be a generic concave parabola' do
+        expect(
+            described_class.by_definition(directrix: Cartesius::Line.new(x: 0, y: 1, k:'11/4'), focus: Cartesius::Point.new(x: '3/4', y: -3))
+        ).to eq(described_class.new(x2: 2, x: -3, k: 4))
+      end
+
+    end
+
+  end
+
+  describe '.by points' do
+
+    context 'bad parameters' do
+
+      it 'should fail when same points' do
+        expect {
+          described_class.by_points(point1: Cartesius::Point.origin, point2: Cartesius::Point.origin, point3: Cartesius::Point.new(x: 1, y: 1))
+        }.to raise_error(ArgumentError, 'Points must be distinct!')
+      end
+    end
+
+    it 'should be the simplest convex parabola' do
+      expect(
+          described_class.by_points(point1: Cartesius::Point.new(x: -1, y: 1), point2: Cartesius::Point.origin, point3: Cartesius::Point.new(x: 1, y: 1))
+      ).to eq(described_class.new(x2: -1, x: 0, k: 0))
+    end
+
+    it 'should be the simplest concave parabola' do
+      expect(
+          described_class.by_points(point1: Cartesius::Point.new(x: -1, y: -1), point2: Cartesius::Point.origin, point3: Cartesius::Point.new(x: 1, y: -1))
+      ).to eq(described_class.new(x2: 1, x: 0, k: 0))
+    end
+  end
+
   describe '.unitary_convex' do
 
     it 'should be the unitary convex parabola' do
@@ -126,5 +196,5 @@ describe Cartesius::Parabola do
 
   end
 
-
 end
+
