@@ -139,15 +139,7 @@ module Cartesius
         return 2 * Math.sqrt(b2)
       end
     end
-
-    #TODO
-    def equilateral?
-    end
-
-    #TODO
-    def eccentricity
-    end
-
+    
     def congruent?(hyperbola)
       hyperbola.instance_of?(Hyperbola) and
           hyperbola.eccentricity == self.eccentricity
