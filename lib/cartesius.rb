@@ -1,7 +1,7 @@
 module Cartesius
 end
 
-require('../lib/cartesius/models/point')
+require('cartesius/models/point')
 require('../lib/cartesius/models/line')
 require('../lib/cartesius/models/segment')
 require('../lib/cartesius/models/circumference')

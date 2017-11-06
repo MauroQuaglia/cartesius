@@ -46,4 +46,10 @@ module Numerificator
     number >= 0 ? '+' : '-'
   end
 
+  def normalize(*coefficients)
+    sign = signum(coefficients.first.to_r)
+    coefficients.map! {|coefficient| sign * coefficient.to_r}
+  end
+
+
 end

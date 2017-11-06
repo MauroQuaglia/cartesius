@@ -1,13 +1,12 @@
 require_relative('../../../lib/cartesius/models/segment')
 require_relative('../../../lib/cartesius/modules/determinator')
-require_relative('../../../lib/cartesius/modules/normalizator')
 require_relative('../../../lib/cartesius/modules/numerificator')
 require_relative('../../../lib/cartesius/support/cramer')
 
 module Cartesius
 
   class Ellipse
-    include Determinator, Normalizator, Numerificator
+    include Determinator, Numerificator
 
     # Conic
     # Conic equation type: ax^2 + by^2 + dx + ey + f = 0
