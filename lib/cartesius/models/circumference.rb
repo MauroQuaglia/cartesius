@@ -1,4 +1,3 @@
-require_relative('../models/conic')
 require_relative('../../cartesius/models/line')
 require_relative('../../../lib/cartesius/modules/determinator')
 require_relative('../../../lib/cartesius/modules/numerificator')
@@ -6,13 +5,13 @@ require_relative('../../../lib/cartesius/support/cramer')
 
 module Cartesius
 
-  class Circumference < Conic
+  class Circumference
     include Determinator, Numerificator
 
     # Conic
     # Conic equation type: x^2 + y^2 + dx + ey + f = 0
     def initialize(x:, y:, k:)
-      super(x2: 1, y2: 1, xy: 0, x: x, y: y, k: k)
+      @x2_coeff, @y2_coeff, @x_coeff, @y_coeff, @k_coeff = 1, 1, x.to_r, y.to_r, k.to_r
       validation
     end
 
@@ -80,7 +79,7 @@ module Cartesius
 
     def to_equation
       equationfy(
-          'x^2' => 1, 'y^2' => 1, 'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
+          'x^2' => @x2_coeff, 'y^2' => @y2_coeff, 'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
       )
     end
 
@@ -88,7 +87,7 @@ module Cartesius
 
     def validation
       if determinator <= @k_coeff
-        coefficients_error
+        raise ArgumentError.new('Invalid coefficients!')
       end
     end
 

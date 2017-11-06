@@ -1,4 +1,3 @@
-require_relative('../models/conic')
 require_relative('../../../lib/cartesius/models/segment')
 require_relative('../../../lib/cartesius/modules/determinator')
 require_relative('../../../lib/cartesius/modules/normalizator')
@@ -7,14 +6,14 @@ require_relative('../../../lib/cartesius/support/cramer')
 
 module Cartesius
 
-  class Ellipse < Conic
+  class Ellipse
     include Determinator, Normalizator, Numerificator
 
     # Conic
     # Conic equation type: ax^2 + by^2 + dx + ey + f = 0
     def initialize(x2:, y2:, x:, y:, k:)
       x2, y2, x, y, k = normalize(x2, y2, x, y, k)
-      super(x2: x2, y2: y2, xy: 0, x: x, y: y, k: k)
+      @x2_coeff, @y2_coeff, @x_coeff, @y_coeff, @k_coeff = x2.to_r, y2.to_r, x.to_r, y.to_r, k.to_r
       validation
     end
 
@@ -166,7 +165,7 @@ module Cartesius
 
     def validation
       if @x2_coeff <= 0 or @y2_coeff <= 0 or @x2_coeff == @y2_coeff or determinator <= @k_coeff
-        coefficients_error
+        raise ArgumentError.new('Invalid coefficients!')
       end
     end
 

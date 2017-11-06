@@ -10,4 +10,8 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
 end
 
-
+# eliminare cartella coverage
+# eliminare cartella idea
+#gemspec cartesius
+# lasciare sotto lib cartesius solo i file che mi interessano e spostare modules e support sotto altro ma non lib
+# nel gemspec specificare.files

@@ -1,4 +1,3 @@
-require_relative('../models/conic')
 require_relative('../models/point')
 require_relative('../models/line')
 require_relative('../../../lib/cartesius/modules/numerificator')
@@ -6,13 +5,13 @@ require_relative('../../../lib/cartesius/support/cramer')
 
 module Cartesius
 
-  class Parabola < Conic
+  class Parabola
     include Numerificator
 
     # Conic
     # Conic equation type: ax^2 + dx - y + f = 0
     def initialize(x2:, x:, k:)
-      super(x2: x2, y2: 0, xy: 0, x: x, y: -1, k: k)
+      @x2_coeff, @x_coeff, @y_coeff, @k_coeff = x2.to_r, x.to_r, -1, k.to_r
       validation
     end
 
@@ -107,7 +106,7 @@ module Cartesius
 
     def validation
       if @x2_coeff == 0
-        coefficients_error
+        raise ArgumentError.new('Invalid coefficients!')
       end
     end
 
