@@ -3,29 +3,72 @@ require_relative('../../../../lib/cartesius/models/segment')
 
 describe Cartesius::Segment do
 
-  describe '.new' do
-
-    describe 'point' do
-
-      it 'should be reject' do
-        expect {described_class.new(extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.origin)}.to raise_error(ArgumentError)
-      end
-
-    end
-
-  end
-
-  describe '#line' do
+  describe '#to_line' do
 
     it 'should get line which contains it' do
       segment = described_class.new(
           extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: 1)
       )
 
-      expect(segment.line == Cartesius::Line.ascending_bisector)
+      expect(segment.to_line == Cartesius::Line.ascending_bisector)
     end
 
   end
+
+  describe 'gradient' do
+
+    it 'should be horizontal' do
+      segment = described_class.new(
+          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: 0)
+      )
+
+      expect(segment.horizontal?).to be_truthy
+      expect(segment.vertical?).to be_falsey
+      expect(segment.inclined?).to be_falsey
+      expect(segment.ascending?).to be_falsey
+      expect(segment.descending?).to be_falsey
+    end
+
+    it 'should be vertical' do
+      segment = described_class.new(
+          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 0, y: 1)
+      )
+
+      expect(segment.horizontal?).to be_falsey
+      expect(segment.vertical?).to be_truthy
+      expect(segment.inclined?).to be_falsey
+      expect(segment.ascending?).to be_falsey
+      expect(segment.descending?).to be_falsey
+    end
+
+    it 'should be ascending' do
+      segment = described_class.new(
+          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: 1)
+      )
+
+      expect(segment.horizontal?).to be_falsey
+      expect(segment.vertical?).to be_falsey
+      expect(segment.inclined?).to be_truthy
+      expect(segment.ascending?).to be_truthy
+      expect(segment.descending?).to be_falsey
+    end
+
+    it 'should be descending' do
+      segment = described_class.new(
+          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: -1, y: 1)
+      )
+
+      expect(segment.horizontal?).to be_falsey
+      expect(segment.vertical?).to be_falsey
+      expect(segment.inclined?).to be_truthy
+      expect(segment.ascending?).to be_falsey
+      expect(segment.descending?).to be_truthy
+    end
+  end
+
+
+
+
 
   describe '#extremes' do
 
