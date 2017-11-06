@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.description = 'The cartesian plan and its elements.'
   s.author = 'Mauro Quaglia'
   s.email = 'mauroquaglia@libero.it'
-  s.files = Dir['lib/*.rb']
+  s.files = Dir['/lib/cartesius/models/parabola.rb']
   s.homepage = 'https://github.com/MauroQuaglia/cartesius'
   s.license = 'MIT'
 end
