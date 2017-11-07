@@ -115,82 +115,6 @@ describe Cartesius::Hyperbola do
 
   end
 
-  describe '.by_definition' do
-
-    it 'should fail when focus are the same' do
-      expect {
-        described_class.by_definition(focus1: Cartesius::Point.origin, focus2: Cartesius::Point.origin, distance: 1)
-      }.to raise_error(ArgumentError, 'Focus points must be different!')
-    end
-
-    it 'should fail when focus are not aligned to axis' do
-      expect {
-        described_class.by_definition(focus1: Cartesius::Point.origin, focus2: Cartesius::Point.new(x: 1, y: 1), distance: 2)
-      }.to raise_error(ArgumentError, 'Focus must be aligned to axis!')
-    end
-
-    it 'should fail when difference of distances is not less than focal distance' do
-      expect {
-        described_class.by_definition(focus1: Cartesius::Point.new(x: -1, y: 0), focus2: Cartesius::Point.new(x: 1, y: 0), distance: 2)
-      }.to raise_error(ArgumentError, 'Difference of distances must be less than focal distance!')
-    end
-
-    it 'should create a simple hyperbola with focus on x axis' do
-      # x^2/16 - y^2/9 = 1
-      hyperbola = described_class.by_definition(focus1: Cartesius::Point.new(x: 5, y: 0), focus2: Cartesius::Point.new(x: -5, y: 0), distance: 8)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 5, y: 0))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -5, y: 0))
-      expect(hyperbola.difference_of_distances).to eq(8)
-    end
-
-    it 'should create a simple hyperbola with focus on y axis' do
-      # x^2/16 - y^2/9 = -1
-      hyperbola = described_class.by_definition(focus1: Cartesius::Point.new(x: 0, y: 5), focus2: Cartesius::Point.new(x: 0, y: -5), distance: 8)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 0, y: 5))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 0, y: -5))
-      expect(hyperbola.difference_of_distances).to eq(8)
-    end
-
-    it 'should create a general hyperbola with focus on x axis' do
-      # (x - 1)^2/16 - (y - 1)^2/9 = 1
-      hyperbola = described_class.by_definition(focus1: Cartesius::Point.new(x: 6, y: 1), focus2: Cartesius::Point.new(x: -4, y: 1), distance: 8)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 6, y: 1))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -4, y: 1))
-      expect(hyperbola.difference_of_distances).to eq(8)
-    end
-
-    it 'should create a general hyperbola with focus on y axis' do
-      # (x - 1)^2/16 - (y - 1)^2/9 = -1
-      hyperbola = described_class.by_definition(focus1: Cartesius::Point.new(x: 1, y: 6), focus2: Cartesius::Point.new(x: 1, y: -4), distance: 8)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 1, y: 6))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 1, y: -4))
-      expect(hyperbola.difference_of_distances).to eq(8)
-    end
-
-    it 'should create a simple equilateral hyperbola with focus on x axis' do
-      # x^2 - y^2 = 1
-      hyperbola = described_class.by_definition(focus1: Cartesius::Point.new(x: Math.sqrt(2), y: 0), focus2: Cartesius::Point.new(x: -Math.sqrt(2), y: 0), distance: 2)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: Math.sqrt(2), y: 0))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -Math.sqrt(2), y: 0))
-      expect(hyperbola.difference_of_distances).to eq(2)
-    end
-
-    it 'should create a simple equilateral hyperbola with focus on y axis' do
-      # x^2 - y^2 = -1
-      hyperbola = described_class.by_definition(focus1: Cartesius::Point.new(x: 0, y: Math.sqrt(2)), focus2: Cartesius::Point.new(x: 0, y: -Math.sqrt(2)), distance: 2)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 0, y: Math.sqrt(2)))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 0, y: -Math.sqrt(2)))
-      expect(hyperbola.difference_of_distances).to eq(2)
-    end
-
-  end
-
   describe '.by_canonical' do
 
     it 'should fail when transverse axis length is not positive' do
@@ -211,7 +135,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 5, y: 0))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -5, y: 0))
-      expect(hyperbola.difference_of_distances).to eq(8)
+      expect(hyperbola.distance).to eq(8)
     end
 
     it 'should create a simple hyperbola with focus on y axis' do
@@ -220,7 +144,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 0, y: 5))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 0, y: -5))
-      expect(hyperbola.difference_of_distances).to eq(6)
+      expect(hyperbola.distance).to eq(6)
     end
 
     it 'should create a general hyperbola with focus on x axis' do
@@ -229,7 +153,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 6, y: 1))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -4, y: 1))
-      expect(hyperbola.difference_of_distances).to eq(8)
+      expect(hyperbola.distance).to eq(8)
     end
 
     it 'should create a general hyperbola with focus on y axis' do
@@ -238,7 +162,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 1, y: 6))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 1, y: -4))
-      expect(hyperbola.difference_of_distances).to eq(6)
+      expect(hyperbola.distance).to eq(6)
     end
 
     it 'should create a simple equilateral hyperbola with focus on x axis' do
@@ -247,7 +171,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: Math.sqrt(2), y: 0))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -Math.sqrt(2), y: 0))
-      expect(hyperbola.difference_of_distances).to eq(2)
+      expect(hyperbola.distance).to eq(2)
     end
 
     it 'should create a simple equilateral hyperbola with focus on y axis' do
@@ -256,7 +180,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 0, y: Math.sqrt(2)))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 0, y: -Math.sqrt(2)))
-      expect(hyperbola.difference_of_distances).to eq(2)
+      expect(hyperbola.distance).to eq(2)
     end
 
   end
@@ -291,7 +215,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 5, y: 0))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -5, y: 0))
-      expect(hyperbola.difference_of_distances).to eq(8)
+      expect(hyperbola.distance).to eq(8)
     end
 
     it 'should create a simple hyperbola with focus on y axis' do
@@ -301,7 +225,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 0, y: 5))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 0, y: -5))
-      expect(hyperbola.difference_of_distances).to eq(6)
+      expect(hyperbola.distance).to eq(6)
     end
 
     it 'should create a general hyperbola with focus on x axis' do
@@ -311,7 +235,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 6, y: 1))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -4, y: 1))
-      expect(hyperbola.difference_of_distances).to eq(8)
+      expect(hyperbola.distance).to eq(8)
     end
 
     it 'should create a general hyperbola with focus on y axis' do
@@ -321,7 +245,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 1, y: 6))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 1, y: -4))
-      expect(hyperbola.difference_of_distances).to eq(6)
+      expect(hyperbola.distance).to eq(6)
     end
 
     it 'should create a simple equilateral hyperbola with focus on x axis' do
@@ -331,7 +255,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: Math.sqrt(2), y: 0))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -Math.sqrt(2), y: 0))
-      expect(hyperbola.difference_of_distances).to eq(2)
+      expect(hyperbola.distance).to eq(2)
     end
 
     it 'should create a simple equilateral hyperbola with focus on y axis' do
@@ -341,7 +265,7 @@ describe Cartesius::Hyperbola do
 
       expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 0, y: Math.sqrt(2)))
       expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 0, y: -Math.sqrt(2)))
-      expect(hyperbola.difference_of_distances).to eq(2)
+      expect(hyperbola.distance).to eq(2)
     end
 
   end

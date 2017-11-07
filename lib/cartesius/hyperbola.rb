@@ -21,29 +21,35 @@ module Cartesius
         raise ArgumentError.new('Focus points must be different!')
       end
 
-      unless focus1.aligned_horizontally_with?(focus2) or focus1.aligned_vertically_with?(focus2)
-        raise ArgumentError.new('Focus must be aligned to axis!')
+      focal_axis = Cartesius::Segment.new(extreme1: focus1, extreme2: focus2)
+      if focal_axis.inclined?
+        raise ArgumentError.new('Focal axis must not be inclined!')
       end
 
-      focal_distance = Point.distance(focus1, focus2)
-      if distance >= focal_distance
-        raise ArgumentError.new('Difference of distances must be less than focal distance!')
+      if distance >= focal_axis.length
+        raise ArgumentError.new('Difference between distances must be less than focal distance!')
       end
 
-      center = Segment.new(extreme1: focus1, extreme2: focus2).mid
-      c2 = Rational(focal_distance, 2) ** 2
-      if focus1.aligned_horizontally_with?(focus2)
-        a2 = Rational(distance, 2) ** 2
+      c2 = Rational(focal_axis.length, 2)**2
+      if focal_axis.horizontal?
+        a2 = Rational(distance, 2)**2
         b2 = c2 - a2
         position = 1
-      end
-      if focus1.aligned_vertically_with?(focus2)
-        b2 = Rational(distance, 2) ** 2
+      else
+        b2 = Rational(distance, 2)**2
         a2 = c2 - b2
         position = -1
       end
 
-      self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
+      center = focal_axis.mid
+
+      self.new(
+          x2: b2,
+          y2: -a2,
+          x: -2 * b2 * center.x,
+          y: 2 * a2 * center.y,
+          k: b2 * center.x**2 - a2 * center.y**2 + -position * a2 * b2
+      )
     end
 
     def self.by_canonical(center:, transverse_axis:, not_transverse_axis:, position:)
@@ -130,7 +136,7 @@ module Cartesius
       Point.new(x: centrum[:xc], y: centrum[:yc])
     end
 
-    def difference_of_distances
+    def distance
       if position == 1
         return 2 * Math.sqrt(a2)
       end
@@ -146,7 +152,7 @@ module Cartesius
 
     def == (hyperbola)
       hyperbola.instance_of?(Hyperbola) and
-          hyperbola.focus1 == self.focus1 and hyperbola.focus2 == self.focus2 and hyperbola.difference_of_distances == self.difference_of_distances
+          hyperbola.focus1 == self.focus1 and hyperbola.focus2 == self.focus2 and hyperbola.distance == self.distance
     end
 
     private
