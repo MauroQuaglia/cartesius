@@ -1,5 +1,5 @@
-require_relative('../../../spec_helper')
-require_relative('../../../../lib/cartesius/models/point')
+require_relative('../../spec_helper')
+require('cartesius/point')
 
 describe Cartesius::Point do
 

@@ -1,5 +1,5 @@
-require_relative('../../../spec_helper')
-require_relative('../../../../lib/cartesius/models/parabola')
+require_relative('../../spec_helper')
+require('cartesius/parabola')
 
 describe Cartesius::Parabola do
 

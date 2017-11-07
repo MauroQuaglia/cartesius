@@ -1,5 +1,5 @@
-require_relative('../../../lib/cartesius/models/point')
-require_relative('../../../lib/cartesius/models/line')
+require('cartesius/point')
+require('cartesius/line')
 
 module Cartesius
 

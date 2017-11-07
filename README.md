@@ -3,7 +3,7 @@ Cartesius is a Ruby gem which allows you to solve some problems related to conic
 The models you are:
 * Point
 * Line
-* Segmemnt
+* Segment
 * Circumference
 * Parabola
 * Ellipse
@@ -39,7 +39,7 @@ ax^2 + dx - y + f = 0
 ## Getting Started
 Edit your Gemfile and add:
 ```ruby 
-gem 'conics'
+gem 'cartesius'
 ```
 Now you can update your gemset with bundle.
 

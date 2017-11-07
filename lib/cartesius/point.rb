@@ -1,4 +1,4 @@
-require_relative('../../../lib/cartesius/modules/numerificator')
+require('cartesius/numerificator')
 
 module Cartesius
 

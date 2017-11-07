@@ -1,7 +1,7 @@
-require_relative('../../cartesius/models/line')
-require_relative('../../../lib/cartesius/modules/determinator')
-require_relative('../../../lib/cartesius/modules/numerificator')
-require_relative('../../../lib/cartesius/support/cramer')
+require('cartesius/line')
+require('cartesius/determinator')
+require('cartesius/numerificator')
+require('cartesius/cramer')
 
 module Cartesius
 

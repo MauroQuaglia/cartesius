@@ -1,6 +1,6 @@
-require_relative('../../spec/spec_helper')
-require_relative('../../lib/cartesius/models/ellipse')
-require_relative('../../lib/cartesius/models/point')
+require_relative('../spec_helper')
+require('cartesius/ellipse')
+require('cartesius/point')
 
 describe Cartesius::Ellipse do
 

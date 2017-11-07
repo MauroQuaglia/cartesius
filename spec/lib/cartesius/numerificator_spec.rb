@@ -1,5 +1,5 @@
-require_relative('../../../spec_helper')
-require_relative('../../../../lib/cartesius/modules/numerificator')
+require_relative('../../spec_helper')
+require('cartesius/numerificator')
 
 class IncludingClass
   include Numerificator

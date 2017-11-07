@@ -1,5 +1,5 @@
-require_relative('../../../spec_helper')
-require_relative('../../../../lib/cartesius/models/segment')
+require_relative('../../spec_helper')
+require('cartesius/segment')
 
 describe Cartesius::Segment do
 

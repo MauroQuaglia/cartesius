@@ -1,6 +1,6 @@
-require_relative('../../../spec_helper')
-require_relative('../../../../lib/cartesius/models/circumference')
-require_relative('../../../../lib/cartesius/models/point')
+require_relative('../../spec_helper')
+require('cartesius/circumference')
+require('cartesius/point')
 
 describe Cartesius::Circumference do
 
