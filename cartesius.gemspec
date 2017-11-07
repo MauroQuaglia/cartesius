@@ -6,13 +6,13 @@ Gem::Specification.new do |s|
   s.author = 'Mauro Quaglia'
   s.email = 'mauroquaglia@libero.it'
   s.files = [
-      '/lib/cartesius/point.rb',
-      '/lib/cartesius/line.rb',
-      '/lib/cartesius/segment.rb',
-      '/lib/cartesius/circumference.rb',
-      '/lib/cartesius/parabola.rb',
-      '/lib/cartesius/ellipse.rb',
-      '/lib/cartesius/hyperbola.rb'
+      'lib/cartesius/point.rb',
+      'lib/cartesius/line.rb',
+      'lib/cartesius/segment.rb',
+      'lib/cartesius/circumference.rb',
+      'lib/cartesius/parabola.rb',
+      'lib/cartesius/ellipse.rb',
+      'lib/cartesius/hyperbola.rb'
   ]
   s.homepage = 'https://github.com/MauroQuaglia/cartesius'
   s.license = 'MIT'
