@@ -52,9 +52,13 @@ module Cartesius
       )
     end
 
-    def self.by_canonical(center:, transverse_axis:, not_transverse_axis:, position:)
-      if transverse_axis <= 0 or not_transverse_axis <= 0
-        raise ArgumentError.new('Axis length must be positive!')
+    def self.by_canonical(transverse_axis:, not_transverse_axis:)
+      if transverse_axis.inclined? or not_transverse_axis.inclined?
+        raise ArgumentError.new('Axes must not be inclined!')
+      end
+
+      if transverse_axis.mid !=  not_transverse_axis.mid
+        raise ArgumentError.new('Axes must be the same mid point!')
       end
 
       unless [-1, 1].include?(position)
