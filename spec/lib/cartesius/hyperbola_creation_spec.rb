@@ -267,8 +267,8 @@ describe Cartesius::Hyperbola do
 
       context 'when focus on x axis' do
         let(:center) {point.origin}
-        let(:vertex) {point.new(x: -4, y: 0)}
-        let(:point1) {point.new(x: 0, y: -3)}
+        let(:vertex) {point.new(x: 4, y: 0)}
+        let(:point1) {point.new(x: 5, y: '9/4')}
 
         it 'should be valid: x^2/16 - y^2/9 = 1' do
           expect(subject.focus1).to eq(point.new(x: 5, y: 0))
@@ -279,8 +279,8 @@ describe Cartesius::Hyperbola do
 
       context 'when focus on y axis' do
         let(:center) {point.origin}
-        let(:vertex) {point.new(x: 0, y: -3)}
-        let(:point1) {point.new(x: 4, y: 0)}
+        let(:vertex) {point.new(x: 0, y: 3)}
+        let(:point1) {point.new(x: '16/3', y: 5)}
 
         it 'should be valid: x^2/16 - y^2/9 = -1' do
           expect(subject.focus1).to eq(point.new(x: 0, y: 5))
@@ -291,8 +291,8 @@ describe Cartesius::Hyperbola do
 
       context 'when focus parallel to x axis' do
         let(:center) {point.new(x: 1, y: 1)}
-        let(:vertex) {point.new(x: -3, y: 1)}
-        let(:point1) {point.new(x: 1, y: -2)}
+        let(:vertex) {point.new(x: 5, y: 1)}
+        let(:point1) {point.new(x: 6, y: '13/4')}
 
         it 'should be valid: (x - 1)^2/16 - (y - 1)^2/9 = 1' do
           expect(subject.focus1).to eq(point.new(x: 6, y: 1))
@@ -303,8 +303,8 @@ describe Cartesius::Hyperbola do
 
       context 'when focus parallel to y axis' do
         let(:center) {point.new(x: 1, y: 1)}
-        let(:vertex) {point.new(x: 1, y: -2)}
-        let(:point1) {point.new(x: 5, y: 1)}
+        let(:vertex) {point.new(x: 1, y: 4)}
+        let(:point1) {point.new(x: '19/3', y: 6)}
 
         it 'should be valid: (x - 1)^2/16 - (y - 1)^2/9 = -1' do
           expect(subject.focus1).to eq(point.new(x: 1, y: 6))

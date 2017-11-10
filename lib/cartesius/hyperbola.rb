@@ -81,11 +81,11 @@ module Cartesius
         raise ArgumentError.new('Points must be different!')
       end
 
-      unless vertex.aligned_horizontally_with?(center) or vertex.aligned_vertically_with?(center)
+      semi_axis = Segment.new(extreme1: center, extreme2: vertex)
+      if semi_axis.inclined?
         raise ArgumentError.new('Vertex must be aligned with center!')
       end
 
-      semi_axis = Segment.new(extreme1: center, extreme2: vertex)
       if semi_axis.horizontal?
         position = 1
       else
@@ -97,9 +97,9 @@ module Cartesius
 
       begin
         alfa, beta = Cramer.solution2(
-            [shifted1.x ** 2, shifted1.y ** 2],
-            [shifted2.x ** 2, shifted2.y ** 2],
-            [1, 1]
+            [shifted1.x**2, -shifted1.y**2],
+            [shifted2.x**2, -shifted2.y**2],
+            [position, position]
         )
       rescue
         raise ArgumentError.new('No Hyperbola for these points!')
