@@ -130,70 +130,138 @@ describe Cartesius::Hyperbola do
         end
       end
 
+    end
+
+    context 'good parameters' do
+
+      context 'when focus on x axis' do
+        let(:transverse_axis) {segment.new(extreme1: point.new(x: -4, y: 0), extreme2: point.new(x: 4, y: 0))}
+        let(:not_transverse_axis) {segment.new(extreme1: point.new(x: 0, y: -3), extreme2: point.new(x: 0, y: 3))}
+
+        it 'should be valid: x^2/16 - y^2/9 = 1' do
+          expect(subject.focus1).to eq(point.new(x: 5, y: 0))
+          expect(subject.focus2).to eq(point.new(x: -5, y: 0))
+          expect(subject.distance).to eq(8)
+        end
+      end
+
+      context 'when focus on y axis' do
+        let(:transverse_axis) {segment.new(extreme1: point.new(x: 0, y: -3), extreme2: point.new(x: 0, y: 3))}
+        let(:not_transverse_axis) {segment.new(extreme1: point.new(x: -4, y: 0), extreme2: point.new(x: 4, y: 0))}
+
+        it 'should be valid: x^2/16 - y^2/9 = -1' do
+          expect(subject.focus1).to eq(point.new(x: 0, y: 5))
+          expect(subject.focus2).to eq(point.new(x: 0, y: -5))
+          expect(subject.distance).to eq(6)
+        end
+      end
+
+      context 'when focus parallel to x axis' do
+        let(:transverse_axis) {segment.new(extreme1: point.new(x: -3, y: 1), extreme2: point.new(x: 5, y: 1))}
+        let(:not_transverse_axis) {segment.new(extreme1: point.new(x: 1, y: -2), extreme2: point.new(x: 1, y: 4))}
+
+        it 'should be valid: (x - 1)^2/16 - (y - 1)^2/9 = 1' do
+          expect(subject.focus1).to eq(point.new(x: 6, y: 1))
+          expect(subject.focus2).to eq(point.new(x: -4, y: 1))
+          expect(subject.distance).to eq(8)
+        end
+      end
+
+      context 'when focus parallel to y axis' do
+        let(:transverse_axis) {segment.new(extreme1: point.new(x: 1, y: -2), extreme2: point.new(x: 1, y: 4))}
+        let(:not_transverse_axis) {segment.new(extreme1: point.new(x: -3, y: 1), extreme2: point.new(x: 5, y: 1))}
+
+        it 'should be valid: (x - 1)^2/16 - (y - 1)^2/9 = -1' do
+          expect(subject.focus1).to eq(point.new(x: 1, y: 6))
+          expect(subject.focus2).to eq(point.new(x: 1, y: -4))
+          expect(subject.distance).to eq(6)
+        end
+      end
 
     end
+
   end
+
+  describe '.by_points' do
+    subject {described_class.by_points(center: center, vertex: vertex, point: point1)}
+
+    context 'bad parameters' do
+
+      context 'when points are not distinct' do
+        let(:center) {point.origin}
+        let(:vertex) {point.origin}
+        let(:point1) {point.origin}
+
+        it 'should be fail' do
+          expect {subject}.to raise_error(ArgumentError, 'Points must be different!')
+        end
+      end
+
+      context 'when center-vertex line is inclined' do
+        let(:center) {point.origin}
+        let(:vertex) {point.new(x: 1, y: 1)}
+        let(:point1) {point.new(x: 2, y: 2)}
+
+        it 'should be fail' do
+          expect {subject}.to raise_error(ArgumentError, 'Vertex must be aligned with center!')
+        end
+      end
+
+    end
+
+    context 'good parameters' do
+
+      context 'when focus on x axis' do
+        let(:center) {point.origin}
+        let(:vertex) {point.new(x: -4, y: 0)}
+        let(:point1) {point.new(x: 0, y: -3)}
+
+        it 'should be valid: x^2/16 - y^2/9 = 1' do
+          expect(subject.focus1).to eq(point.new(x: 5, y: 0))
+          expect(subject.focus2).to eq(point.new(x: -5, y: 0))
+          expect(subject.distance).to eq(8)
+        end
+      end
+
+      context 'when focus on y axis' do
+        let(:center) {point.origin}
+        let(:vertex) {point.new(x: 0, y: -3)}
+        let(:point1) {point.new(x: 4, y: 0)}
+
+        it 'should be valid: x^2/16 - y^2/9 = -1' do
+          expect(subject.focus1).to eq(point.new(x: 0, y: 5))
+          expect(subject.focus2).to eq(point.new(x: 0, y: -5))
+          expect(subject.distance).to eq(6)
+        end
+      end
+
+      context 'when focus parallel to x axis' do
+        let(:center) {point.new(x: 1, y: 1)}
+        let(:vertex) {point.new(x: -3, y: 1)}
+        let(:point1) {point.new(x: 1, y: -2)}
+
+        it 'should be valid: (x - 1)^2/16 - (y - 1)^2/9 = 1' do
+          expect(subject.focus1).to eq(point.new(x: 6, y: 1))
+          expect(subject.focus2).to eq(point.new(x: -4, y: 1))
+          expect(subject.distance).to eq(8)
+        end
+      end
+
+      context 'when focus parallel to y axis' do
+        let(:center) {point.new(x: 1, y: 1)}
+        let(:vertex) {point.new(x: 1, y: -2)}
+        let(:point1) {point.new(x: 5, y: 1)}
+
+        it 'should be valid: (x - 1)^2/16 - (y - 1)^2/9 = -1' do
+          expect(subject.focus1).to eq(point.new(x: 1, y: 6))
+          expect(subject.focus2).to eq(point.new(x: 1, y: -4))
+          expect(subject.distance).to eq(6)
+        end
+      end
+
+    end
+
+  end
+
 end
-
-=begin
-  describe '.by_canonical' do
-
-
-
-    it 'should create a simple hyperbola with focus on x axis' do
-      # x^2/16 - y^2/9 = 1
-      hyperbola = described_class.by_canonical(center: Cartesius::Point.origin, transverse_axis: 4, not_transverse_axis: 3, position: 1)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 5, y: 0))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -5, y: 0))
-      expect(hyperbola.distance).to eq(8)
-    end
-
-    it 'should create a simple hyperbola with focus on y axis' do
-      # x^2/16 - y^2/9 = -1
-      hyperbola = described_class.by_canonical(center: Cartesius::Point.origin, transverse_axis: 3, not_transverse_axis: 4, position: -1)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 0, y: 5))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 0, y: -5))
-      expect(hyperbola.distance).to eq(6)
-    end
-
-    it 'should create a general hyperbola with focus on x axis' do
-      # (x - 1)^2/16 - (y - 1)^2/9 = 1
-      hyperbola = described_class.by_canonical(center: Cartesius::Point.new(x: 1, y: 1), transverse_axis: 4, not_transverse_axis: 3, position: 1)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 6, y: 1))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -4, y: 1))
-      expect(hyperbola.distance).to eq(8)
-    end
-
-    it 'should create a general hyperbola with focus on y axis' do
-      # (x - 1)^2/16 - (y - 1)^2/9 = -1
-      hyperbola = described_class.by_canonical(center: Cartesius::Point.new(x: 1, y: 1), transverse_axis: 3, not_transverse_axis: 4, position: -1)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 1, y: 6))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 1, y: -4))
-      expect(hyperbola.distance).to eq(6)
-    end
-
-    it 'should create a simple equilateral hyperbola with focus on x axis' do
-      # x^2 - y^2 = 1
-      hyperbola = described_class.by_canonical(center: Cartesius::Point.origin, transverse_axis: 1, not_transverse_axis: 1, position: 1)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: Math.sqrt(2), y: 0))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: -Math.sqrt(2), y: 0))
-      expect(hyperbola.distance).to eq(2)
-    end
-
-    it 'should create a simple equilateral hyperbola with focus on y axis' do
-      # x^2 - y^2 = -1
-      hyperbola = described_class.by_canonical(center: Cartesius::Point.origin, transverse_axis: 1, not_transverse_axis: 1, position: -1)
-
-      expect(hyperbola.focus1).to eq(Cartesius::Point.new(x: 0, y: Math.sqrt(2)))
-      expect(hyperbola.focus2).to eq(Cartesius::Point.new(x: 0, y: -Math.sqrt(2)))
-      expect(hyperbola.distance).to eq(2)
-    end
-
-  end
-=end
 

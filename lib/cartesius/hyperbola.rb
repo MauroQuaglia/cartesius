@@ -57,23 +57,21 @@ module Cartesius
         raise ArgumentError.new('Axes must not be inclined!')
       end
 
-      if transverse_axis.mid !=  not_transverse_axis.mid
+      if transverse_axis.mid != not_transverse_axis.mid
         raise ArgumentError.new('Axes must be the same mid point!')
       end
 
-      unless [-1, 1].include?(position)
-        raise ArgumentError.new('Position must be up or right!')
+      if transverse_axis.horizontal?
+        a2 = Rational(transverse_axis.length, 2)**2
+        b2 = Rational(not_transverse_axis.length, 2)**2
+        position = 1
+      else
+        a2 = Rational(not_transverse_axis.length, 2)**2
+        b2 = Rational(transverse_axis.length, 2)**2
+        position = -1
       end
 
-      if position == -1
-        a2 = not_transverse_axis ** 2
-        b2 = transverse_axis ** 2
-      end
-
-      if position == 1
-        a2 = transverse_axis ** 2
-        b2 = not_transverse_axis ** 2
-      end
+      center = transverse_axis.mid
 
       self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
     end
