@@ -7,6 +7,52 @@ describe Cartesius::Hyperbola do
   let(:point) {Cartesius::Point}
   let(:segment) {Cartesius::Segment}
 
+  describe '.new' do
+
+    it 'should be fail when coefficients are not valid' do
+      expect {described_class.new(x2: 0, y2: -16, x: 0, y: 0, k: -144)}.to raise_error(ArgumentError, 'Invalid coefficients!')
+      expect {described_class.new(x2: 9, y2: 0, x: 0, y: 0, k: -144)}.to raise_error(ArgumentError, 'Invalid coefficients!')
+
+      expect {described_class.new(x2: 9, y2: 16, x: 0, y: 0, k: -144)}.to raise_error(ArgumentError, 'Invalid coefficients!')
+      expect {described_class.new(x2: -9, y2: -16, x: 0, y: 0, k: 144)}.to raise_error(ArgumentError, 'Invalid coefficients!')
+
+      expect {described_class.new(x2: 9, y2: -16, x: 0, y: 0, k: 0)}.to raise_error(ArgumentError, 'Invalid coefficients!')
+    end
+
+    it 'should be valid: x^2/16 - y^2/9 = 1' do
+      hyperbola = described_class.new(x2: 9, y2: -16, x: 0, y: 0, k: -144)
+
+      expect(hyperbola.focus1).to eq(point.new(x: 5, y: 0))
+      expect(hyperbola.focus2).to eq(point.new(x: -5, y: 0))
+      expect(hyperbola.distance).to eq(8)
+    end
+
+    it 'should be valid: x^2/16 - y^2/9 = -1' do
+      hyperbola = described_class.new(x2: 9, y2: -16, x: 0, y: 0, k: 144)
+
+      expect(hyperbola.focus1).to eq(point.new(x: 0, y: 5))
+      expect(hyperbola.focus2).to eq(point.new(x: 0, y: -5))
+      expect(hyperbola.distance).to eq(6)
+    end
+
+    it 'should be valid: (x - 1)^2/16 - (y - 1)^2/9 = 1' do
+      hyperbola = described_class.new(x2: 9, y2: -16, x: -18, y: 32, k: -151)
+
+      expect(hyperbola.focus1).to eq(point.new(x: 6, y: 1))
+      expect(hyperbola.focus2).to eq(point.new(x: -4, y: 1))
+      expect(hyperbola.distance).to eq(8)
+    end
+
+    it 'should be valid: (x - 1)^2/16 - (y - 1)^2/9 = -1' do
+      hyperbola = described_class.new(x2: 9, y2: -16, x: -18, y: 32, k: 137)
+
+      expect(hyperbola.focus1).to eq(point.new(x: 1, y: 6))
+      expect(hyperbola.focus2).to eq(point.new(x: 1, y: -4))
+      expect(hyperbola.distance).to eq(6)
+    end
+
+  end
+
   describe '.by_definition' do
     subject {described_class.by_definition(focus1: focus1, focus2: focus2, distance: distance)}
 
@@ -61,12 +107,12 @@ describe Cartesius::Hyperbola do
       context 'when focus on y axis' do
         let(:focus1) {point.new(x: 0, y: 5)}
         let(:focus2) {point.new(x: 0, y: -5)}
-        let(:distance) {8}
+        let(:distance) {6}
 
         it 'should be valid: x^2/16 - y^2/9 = -1' do
           expect(subject.focus1).to eq(point.new(x: 0, y: 5))
           expect(subject.focus2).to eq(point.new(x: 0, y: -5))
-          expect(subject.distance).to eq(8)
+          expect(subject.distance).to eq(6)
         end
       end
 
@@ -85,17 +131,16 @@ describe Cartesius::Hyperbola do
       context 'when focus parallel to y axis' do
         let(:focus1) {point.new(x: 1, y: 6)}
         let(:focus2) {point.new(x: 1, y: -4)}
-        let(:distance) {8}
+        let(:distance) {6}
 
         it 'should be valid: (x - 1)^2/16 - (y - 1)^2/9 = -1' do
           expect(subject.focus1).to eq(point.new(x: 1, y: 6))
           expect(subject.focus2).to eq(point.new(x: 1, y: -4))
-          expect(subject.distance).to eq(8)
+          expect(subject.distance).to eq(6)
         end
       end
 
     end
-
   end
 
   describe '.by_canonical' do
@@ -179,7 +224,6 @@ describe Cartesius::Hyperbola do
       end
 
     end
-
   end
 
   describe '.by_points' do
@@ -204,6 +248,16 @@ describe Cartesius::Hyperbola do
 
         it 'should be fail' do
           expect {subject}.to raise_error(ArgumentError, 'Vertex must be aligned with center!')
+        end
+      end
+
+      context 'points are not enough' do
+        let(:center) {point.origin}
+        let(:vertex) {point.new(x: -4, y: 0)}
+        let(:point1) {point.new(x: 4, y: 0)}
+
+        it 'should be fail' do
+          expect {subject}.to raise_error(ArgumentError, 'No Hyperbola for these points!')
         end
       end
 
@@ -260,7 +314,6 @@ describe Cartesius::Hyperbola do
       end
 
     end
-
   end
 
 end

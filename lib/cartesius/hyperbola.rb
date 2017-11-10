@@ -85,11 +85,10 @@ module Cartesius
         raise ArgumentError.new('Vertex must be aligned with center!')
       end
 
-      if vertex.aligned_horizontally_with?(center)
+      semi_axis = Segment.new(extreme1: center, extreme2: vertex)
+      if semi_axis.horizontal?
         position = 1
-      end
-
-      if vertex.aligned_vertically_with?(center)
+      else
         position = -1
       end
 
