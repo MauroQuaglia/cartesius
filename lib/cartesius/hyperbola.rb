@@ -8,7 +8,6 @@ module Cartesius
   class Hyperbola
     include Determinator, Numerificator
 
-    # Conic
     # Conic equation type: ax^2 + by^2 + dx + ey + f = 0
     def initialize(x2:, y2:, x:, y:, k:)
       x2, y2, x, y, k = normalize(x2, y2, x, y, k)
@@ -43,13 +42,7 @@ module Cartesius
 
       center = focal_axis.mid
 
-      self.new(
-          x2: b2,
-          y2: -a2,
-          x: -2 * b2 * center.x,
-          y: 2 * a2 * center.y,
-          k: b2 * center.x**2 - a2 * center.y**2 + -position * a2 * b2
-      )
+      self.build_by(a2, b2, center, position)
     end
 
     def self.by_canonical(transverse_axis:, not_transverse_axis:)
@@ -73,7 +66,7 @@ module Cartesius
 
       center = transverse_axis.mid
 
-      self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
+      self.build_by(a2, b2, center, position)
     end
 
     def self.by_points(center:, vertex:, point:)
@@ -108,29 +101,25 @@ module Cartesius
       a2 = Rational(1, alfa)
       b2 = Rational(1, beta)
 
-      self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
+      self.build_by(a2, b2, center, position)
     end
 
     def focus1
-      if position == 1
-        return Point.new(x: center.x + Math.sqrt(a2 + b2), y: center.y)
-      end
-      if position == -1
-        return Point.new(x: center.x, y: center.y + Math.sqrt(a2 + b2))
-      end
+      discriminating(
+          Point.new(x: center.x + c, y: center.y),
+          Point.new(x: center.x, y: center.y + c)
+      )
     end
 
     def focus2
-      if position == 1
-        return Point.new(x: center.x - Math.sqrt(a2 + b2), y: center.y)
-      end
-      if position == -1
-        return Point.new(x: center.x, y: center.y - Math.sqrt(a2 + b2))
-      end
+      discriminating(
+          Point.new(x: center.x - c, y: center.y),
+          Point.new(x: center.x, y: center.y - c)
+      )
     end
 
     def focal_distance
-      Point.distance(focus1, focus2)
+      2 * c
     end
 
     def center
@@ -138,12 +127,31 @@ module Cartesius
     end
 
     def distance
-      if position == 1
-        return 2 * Math.sqrt(a2)
-      end
-      if position == -1
-        return 2 * Math.sqrt(b2)
-      end
+      discriminating(
+          2 * Math.sqrt(a2),
+          2 * Math.sqrt(b2)
+      )
+    end
+
+    def transverse_axis
+    end
+
+    def not_transverse_axis
+    end
+
+    def vertices
+    end
+
+    def eccentricity
+    end
+
+    def ascending_asymptote
+    end
+
+    def descending_asymptote
+    end
+
+    def equilateral?
     end
 
     def congruent?(hyperbola)
@@ -156,18 +164,31 @@ module Cartesius
           hyperbola.focus1 == self.focus1 and hyperbola.focus2 == self.focus2 and hyperbola.distance == self.distance
     end
 
+    def to_equation
+    end
+
     private
 
     def validation
-
       if signum(@x2_coeff * @y2_coeff) >= 0 or determinator == @k_coeff
         raise ArgumentError.new('Invalid coefficients!')
       end
-
     end
 
-    def position
-      signum(determinator - @k_coeff)
+    def self.build_by(a2, b2, center, position)
+      self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
+    end
+
+    def discriminating(up_condition, right_condition)
+      if signum(determinator - @k_coeff) == 1
+        up_condition
+      else
+        right_condition
+      end
+    end
+
+    def c
+      Math.sqrt(a2 + b2)
     end
 
   end
