@@ -29,6 +29,18 @@ describe Cartesius::Hyperbola do
       expect(hyperbola.congruent?(hyperbola1)).to be_truthy
     end
 
+    it 'should be true when same eccentricity (coefficients * 2)' do
+      hyperbola1 = described_class.new(x2: 18, y2: -32, x: -36, y: 64, k: -302)
+
+      expect(hyperbola.congruent?(hyperbola1)).to be_truthy
+    end
+
+    it 'should be true when same eccentricity (coefficients * -2)' do
+      hyperbola1 = described_class.new(x2: -18, y2: 32, x: 36, y: -64, k: 302)
+
+      expect(hyperbola.congruent?(hyperbola1)).to be_truthy
+    end
+
   end
 
   describe '==?' do
@@ -59,6 +71,18 @@ describe Cartesius::Hyperbola do
     it 'should be true' do
       # x^2/16 - y^2/9 = 1
       hyperbola1 =described_class.new(x2: 9, y2: -16, x: 0, y: 0, k: -144)
+
+      expect(hyperbola == hyperbola1).to be_truthy
+    end
+
+    it 'should be true (coefficients * 2)' do
+      hyperbola1 =described_class.new(x2: 18, y2: -32, x: 0, y: 0, k: -288)
+
+      expect(hyperbola == hyperbola1).to be_truthy
+    end
+
+    it 'should be true (coefficients * -2)' do
+      hyperbola1 =described_class.new(x2: -18, y2: 32, x: 0, y: 0, k: 288)
 
       expect(hyperbola == hyperbola1).to be_truthy
     end

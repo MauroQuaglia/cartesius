@@ -8,6 +8,12 @@ module Cartesius
   class Hyperbola
     include Determinator, Numerificator
 
+    RIGHT_POSITION = 1
+    UP_POSITION = -1
+
+    private_constant(:UP_POSITION)
+    private_constant(:RIGHT_POSITION)
+
     # Conic equation type: ax^2 + by^2 + dx + ey + f = 0
     def initialize(x2:, y2:, x:, y:, k:)
       x2, y2, x, y, k = normalize(x2, y2, x, y, k)
@@ -20,7 +26,7 @@ module Cartesius
         raise ArgumentError.new('Focus points must be different!')
       end
 
-      focal_axis = Cartesius::Segment.new(extreme1: focus1, extreme2: focus2)
+      focal_axis = Segment.new(extreme1: focus1, extreme2: focus2)
       if focal_axis.inclined?
         raise ArgumentError.new('Focal axis must not be inclined!')
       end
@@ -33,11 +39,11 @@ module Cartesius
       if focal_axis.horizontal?
         a2 = Rational(distance, 2)**2
         b2 = c2 - a2
-        position = 1
+        position = RIGHT_POSITION
       else
         b2 = Rational(distance, 2)**2
         a2 = c2 - b2
-        position = -1
+        position = UP_POSITION
       end
 
       center = focal_axis.mid
@@ -57,11 +63,11 @@ module Cartesius
       if transverse_axis.horizontal?
         a2 = Rational(transverse_axis.length, 2)**2
         b2 = Rational(not_transverse_axis.length, 2)**2
-        position = 1
+        position = RIGHT_POSITION
       else
         a2 = Rational(not_transverse_axis.length, 2)**2
         b2 = Rational(transverse_axis.length, 2)**2
-        position = -1
+        position = UP_POSITION
       end
 
       center = transverse_axis.mid
@@ -80,9 +86,9 @@ module Cartesius
       end
 
       if semi_axis.horizontal?
-        position = 1
+        position = RIGHT_POSITION
       else
-        position = -1
+        position = UP_POSITION
       end
 
       shifted1 = Point.new(x: vertex.x - center.x, y: vertex.y - center.y)
@@ -123,20 +129,20 @@ module Cartesius
     end
 
     def focal_axis
-      Cartesius::Segment.new(extreme1: focus1, extreme2: focus2)
+      Segment.new(extreme1: focus1, extreme2: focus2)
     end
 
     def transverse_axis
       discriminating(
-          Cartesius::Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y)),
-          Cartesius::Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
+          Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y)),
+          Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
       )
     end
 
     def not_transverse_axis
       discriminating(
-          Cartesius::Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
-          Cartesius::Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))
+          Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
+          Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))
       )
     end
 
@@ -152,11 +158,11 @@ module Cartesius
     end
 
     def ascending_asymptote
-      Cartesius::Line.create(slope: Rational(b, a), known_term: center.y - center.x * Rational(b, a))
+      Line.create(slope: Rational(b, a), known_term: center.y - center.x * Rational(b, a))
     end
 
     def descending_asymptote
-      Cartesius::Line.create(slope: -Rational(b, a), known_term: center.y + center.x * Rational(b, a))
+      Line.create(slope: -Rational(b, a), known_term: center.y + center.x * Rational(b, a))
     end
 
     def equilateral?
@@ -185,11 +191,11 @@ module Cartesius
       self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
     end
 
-    def discriminating(up_condition, right_condition)
+    def discriminating(right_position, up_position)
       if signum(determinator - @k_coeff) == 1
-        up_condition
+        right_position
       else
-        right_condition
+        up_position
       end
     end
 
