@@ -163,12 +163,6 @@ module Cartesius
       a2 == b2
     end
 
-    def to_equation
-      equationfy(
-          'x^2' => @x2_coeff, 'y^2' => @y2_coeff, 'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
-      )
-    end
-
     def congruent?(hyperbola)
       hyperbola.instance_of?(Hyperbola) and
           hyperbola.eccentricity == self.eccentricity

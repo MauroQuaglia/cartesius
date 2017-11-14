@@ -150,12 +150,6 @@ module Cartesius
           ellipse.focus1 == self.focus1 and ellipse.focus2 == self.focus2 and ellipse.sum_of_distances == self.sum_of_distances
     end
 
-    def to_equation
-      equationfy(
-          'x^2' => @x2_coeff, 'y^2' => @y2_coeff, 'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
-      )
-    end
-
     private
 
     def validation
