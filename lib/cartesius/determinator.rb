@@ -7,6 +7,8 @@ module Determinator
     )
   end
 
+  private
+
   def a2
     Rational((determinator - @k_coeff).abs, (@x2_coeff).abs)
   end

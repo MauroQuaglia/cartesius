@@ -119,34 +119,54 @@ module Cartesius
     end
 
     def distance
-      discriminating(
-          2 * Math.sqrt(a2),
-          2 * Math.sqrt(b2)
-      )
+      discriminating(2 * a, 2 * b)
     end
 
     def focal_axis
+      Cartesius::Segment.new(extreme1: focus1, extreme2: focus2)
     end
 
     def transverse_axis
+      discriminating(
+          Cartesius::Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y)),
+          Cartesius::Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
+      )
     end
 
     def not_transverse_axis
+      discriminating(
+          Cartesius::Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
+          Cartesius::Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))
+      )
     end
 
     def vertices
+      discriminating(
+          [Point.new(x: center.x - a, y: center.y), Point.new(x: center.x + a, y: center.y)],
+          [Point.new(x: center.x, y: center.y - b), Point.new(x: center.x, y: center.y + b)]
+      )
     end
 
     def eccentricity
+      Rational(focal_axis.length, transverse_axis.length)
     end
 
     def ascending_asymptote
+      Cartesius::Line.create(slope: Rational(b, a), known_term: center.y - center.x * Rational(b, a))
     end
 
     def descending_asymptote
+      Cartesius::Line.create(slope: -Rational(b, a), known_term: center.y + center.x * Rational(b, a))
     end
 
     def equilateral?
+      a2 == b2
+    end
+
+    def to_equation
+      equationfy(
+          'x^2' => @x2_coeff, 'y^2' => @y2_coeff, 'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
+      )
     end
 
     def congruent?(hyperbola)
@@ -157,9 +177,6 @@ module Cartesius
     def == (hyperbola)
       hyperbola.instance_of?(Hyperbola) and
           hyperbola.focus1 == self.focus1 and hyperbola.focus2 == self.focus2 and hyperbola.distance == self.distance
-    end
-
-    def to_equation
     end
 
     private
@@ -184,6 +201,14 @@ module Cartesius
 
     def c
       Math.sqrt(a2 + b2)
+    end
+
+    def a
+      Math.sqrt(a2)
+    end
+
+    def b
+      Math.sqrt(b2)
     end
 
   end
