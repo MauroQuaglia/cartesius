@@ -103,10 +103,6 @@ module Cartesius
       Point.distance(focus1, focus2)
     end
 
-    def center
-      Point.new(x: centrum[:xc], y: centrum[:yc])
-    end
-
     def sum_of_distances
       if a2 > b2
         2 * Math.sqrt(a2)

@@ -52,10 +52,6 @@ module Cartesius
       new(x: 0, y: 0, k: -1)
     end
 
-    def center
-      Point.new(x: centrum[:xc], y: centrum[:yc])
-    end
-
     def radius
       Math.sqrt(a2)
     end

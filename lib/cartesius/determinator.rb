@@ -1,9 +1,10 @@
 module Determinator
 
-  private
-
-  def centrum
-    {xc: Rational(-@x_coeff, (2 * @x2_coeff)), yc: Rational(-@y_coeff, (2 * @y2_coeff))}
+  def center
+    Cartesius::Point.new(
+        x: Rational(-@x_coeff, (2 * @x2_coeff)),
+        y: Rational(-@y_coeff, (2 * @y2_coeff))
+    )
   end
 
   def a2
@@ -15,7 +16,7 @@ module Determinator
   end
 
   def determinator
-    (@x2_coeff * (centrum[:xc] ** 2)) + (@y2_coeff * (centrum[:yc] ** 2))
+    (@x2_coeff * (center.x**2)) + (@y2_coeff * (center.y**2))
   end
 
 end

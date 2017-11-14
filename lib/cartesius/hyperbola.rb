@@ -118,19 +118,14 @@ module Cartesius
       )
     end
 
-    def focal_distance
-      2 * c
-    end
-
-    def center
-      Point.new(x: centrum[:xc], y: centrum[:yc])
-    end
-
     def distance
       discriminating(
           2 * Math.sqrt(a2),
           2 * Math.sqrt(b2)
       )
+    end
+
+    def focal_axis
     end
 
     def transverse_axis
