@@ -21,42 +21,61 @@ module Cartesius
         raise ArgumentError.new('Focus points must be different!')
       end
 
-      unless focus1.aligned_horizontally_with?(focus2) or focus1.aligned_vertically_with?(focus2)
-        raise ArgumentError.new('Focus must be aligned to axis!')
+      focal_axis = Segment.new(extreme1: focus1, extreme2: focus2)
+      if focal_axis.inclined?
+        raise ArgumentError.new('Focal axis must not be inclined!')
       end
 
-      focal_distance = Point.distance(focus1, focus2)
-      if distance <= focal_distance
+      if distance <= focal_axis.length
         raise ArgumentError.new('Sum of distances must be greater than focal distance!')
       end
 
-      center = Segment.new(extreme1: focus1, extreme2: focus2).mid
-      c2 = Rational(focal_distance, 2) ** 2
-      if focus1.aligned_horizontally_with?(focus2)
-        a2 = Rational(distance, 2) ** 2
+      c2 = Rational(focal_axis.length, 2)**2
+      if focal_axis.horizontal?
+        a2 = Rational(distance, 2)**2
         b2 = a2 - c2
-      end
-      if focus1.aligned_vertically_with?(focus2)
-        b2 = Rational(distance, 2) ** 2
+      else
+        b2 = Rational(distance, 2)**2
         a2 = b2 - c2
       end
 
-      self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
+      center = focal_axis.mid
+
+      self.build_by(a2, b2, center)
     end
 
-    def self.by_canonical(center:, x_semi_axis:, y_semi_axis:)
-      if x_semi_axis <= 0 or y_semi_axis <= 0
-        raise ArgumentError.new('Semi axis length must be positive!')
+    def self.by_canonical(major_axis:, minor_axis:)
+      if major_axis == minor_axis
+        raise ArgumentError.new('Axes must be different!')
       end
 
-      if x_semi_axis == y_semi_axis
-        raise ArgumentError.new('Semi axis length must be different!')
+      if major_axis.inclined? or minor_axis.inclined?
+        raise ArgumentError.new('Axes must not be inclined!')
       end
 
-      b2 = y_semi_axis ** 2
-      a2 = x_semi_axis ** 2
+      if major_axis.horizontal? and minor_axis.horizontal?
+        raise ArgumentError.new('Axes can not be both horizontal!')
+      end
 
-      self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
+      if major_axis.vertical? and minor_axis.vertical?
+        raise ArgumentError.new('Axes can not be both vertical!')
+      end
+
+      if major_axis.mid != minor_axis.mid
+        raise ArgumentError.new('Axes must be the same mid point!')
+      end
+
+      if major_axis.horizontal?
+        a2 = Rational(major_axis.length, 2)**2
+        b2 = Rational(minor_axis.length, 2)**2
+      else
+        a2 = Rational(minor_axis.length, 2)**2
+        b2 = Rational(major_axis.length, 2)**2
+      end
+
+      center = focal_axis.mid
+
+      self.build_by(a2, b2, center)
     end
 
     def self.by_points(center:, point1:, point2:)
@@ -103,7 +122,7 @@ module Cartesius
       Point.distance(focus1, focus2)
     end
 
-    def sum_of_distances
+    def distance
       if a2 > b2
         2 * Math.sqrt(a2)
       else
@@ -157,6 +176,11 @@ module Cartesius
         raise ArgumentError.new('Invalid coefficients!')
       end
     end
+
+    def self.build_by(a2, b2, center)
+      self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
+    end
+
 
   end
 

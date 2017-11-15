@@ -52,6 +52,10 @@ module Cartesius
     end
 
     def self.by_canonical(transverse_axis:, not_transverse_axis:)
+      #TODO vedi ellisse per i todo sotto
+      #TODO Verificare che non siano coincidenti ==
+      #TODO Verificare che non siano coincidenti che siano uno orizzontale e l'altro verticale (es: uno sottoinsieme dell'altro: ----- e ---)
+
       if transverse_axis.inclined? or not_transverse_axis.inclined?
         raise ArgumentError.new('Axes must not be inclined!')
       end
