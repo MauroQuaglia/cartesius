@@ -5,3 +5,5 @@
 * scrivere meglio i test della new
 * rinominare right and up position in x e y
 * rinominare by_canonical in by_axes
+* readme ellisse e hyperbole
+* chancge log ellisse e iperbole
