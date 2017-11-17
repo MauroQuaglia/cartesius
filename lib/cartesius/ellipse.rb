@@ -118,45 +118,39 @@ module Cartesius
       end
     end
 
-    def focal_distance
-      Point.distance(focus1, focus2)
-    end
-
     def distance
-      if a2 > b2
-        2 * Math.sqrt(a2)
-      else
-        2 * Math.sqrt(b2)
-      end
+      discriminating(2 * a, 2 * b)
     end
 
-    def x_semi_axis_length
-      Math.sqrt(a2)
+    def focal_axis
+      Segment.new(extreme1: focus1, extreme2: focus2)
     end
 
-    def y_semi_axis_length
-      Math.sqrt(b2)
+    def major_axis
+      discriminating(
+          Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y)),
+          Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
+      )
     end
 
-    def major_semi_axis
-      [x_semi_axis_length, y_semi_axis_length].max
-    end
-
-    def minor_semi_axis
-      [x_semi_axis_length, y_semi_axis_length].min
+    def minor_axis
+      discriminating(
+          Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
+          Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))
+      )
     end
 
     def vertices
       [
-          Point.new(x: center.x + x_semi_axis_length, y: center.y),
-          Point.new(x: center.x, y: center.y - y_semi_axis_length),
-          Point.new(x: center.x - x_semi_axis_length, y: center.y),
-          Point.new(x: center.x, y: center.y + y_semi_axis_length)
+          Point.new(x: center.x + a, y: center.y),
+          Point.new(x: center.x, y: center.y - b),
+          Point.new(x: center.x - a, y: center.y),
+          Point.new(x: center.x, y: center.y + b)
       ]
     end
 
     def eccentricity
-      Rational(focal_distance, 2 * major_semi_axis)
+      Rational(focal_axis.length, major_axis.length)
     end
 
     def congruent?(ellipse)
@@ -166,7 +160,7 @@ module Cartesius
 
     def == (ellipse)
       ellipse.instance_of?(Ellipse) and
-          ellipse.focus1 == self.focus1 and ellipse.focus2 == self.focus2 and ellipse.sum_of_distances == self.sum_of_distances
+          ellipse.focus1 == self.focus1 and ellipse.focus2 == self.focus2 and ellipse.distance == self.distance
     end
 
     private
@@ -181,6 +175,29 @@ module Cartesius
       self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
     end
 
+    def discriminating(x_position, y_position)
+      if a2 > b2
+        x_position
+      else
+        y_position
+      end
+    end
+
+    def a
+      Math.sqrt(a2)
+    end
+
+    def b
+      Math.sqrt(b2)
+    end
+
+    def cx
+      Math.sqrt(a2 - b2)
+    end
+
+    def cy
+      Math.sqrt(b2 - a2)
+    end
 
   end
 

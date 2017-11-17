@@ -203,16 +203,16 @@ module Cartesius
       end
     end
 
-    def c
-      Math.sqrt(a2 + b2)
-    end
-
     def a
       Math.sqrt(a2)
     end
 
     def b
       Math.sqrt(b2)
+    end
+
+    def c
+      Math.sqrt(a2 + b2)
     end
 
   end
