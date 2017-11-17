@@ -7,3 +7,9 @@
 * rinominare by_canonical in by_axes
 * readme ellisse e hyperbole
 * chancge log ellisse e iperbole
+* mettere le lambda nella if iperbole
+* sistemare == ellisse
+
+
+definizione
+The Ellipse is the locus of points such that for any point P of the set, the sum of distances from two fixed points, the foci, is constant.

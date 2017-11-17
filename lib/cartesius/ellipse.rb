@@ -103,23 +103,21 @@ module Cartesius
     end
 
     def focus1
-      if a2 > b2
-        Point.new(x: center.x + Math.sqrt(a2 - b2), y: center.y)
-      else
-        Point.new(x: center.x, y: center.y + Math.sqrt(b2 - a2))
-      end
+      discriminating(
+          lambda {Point.new(x: center.x + cx, y: center.y)},
+          lambda {Point.new(x: center.x, y: center.y + cy)}
+      )
     end
 
     def focus2
-      if a2 > b2
-        Point.new(x: center.x - Math.sqrt(a2 - b2), y: center.y)
-      else
-        Point.new(x: center.x, y: center.y - Math.sqrt(b2 - a2))
-      end
+      discriminating(
+          lambda {Point.new(x: center.x - cx, y: center.y)},
+          lambda {Point.new(x: center.x, y: center.y - cy)}
+      )
     end
 
     def distance
-      discriminating(2 * a, 2 * b)
+      discriminating(lambda {2 * a}, lambda {2 * b})
     end
 
     def focal_axis
@@ -128,15 +126,15 @@ module Cartesius
 
     def major_axis
       discriminating(
-          Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y)),
-          Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
+          lambda {Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))},
+          lambda {Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b))},
       )
     end
 
     def minor_axis
       discriminating(
-          Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
-          Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))
+          lambda{Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b))},
+          lambda{Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))}
       )
     end
 
@@ -177,9 +175,9 @@ module Cartesius
 
     def discriminating(x_position, y_position)
       if a2 > b2
-        x_position
+        x_position.call
       else
-        y_position
+        y_position.call
       end
     end
 
