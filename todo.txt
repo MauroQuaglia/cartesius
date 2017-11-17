@@ -1,2 +1,5 @@
 * Hyperbola: Normalize fa già il to_r. Lo posso togliere da sotto.
 * Introdurre il metodo traslazione così mi viene più facile traslare i punti
+* Quando costruisco con Cramere cambiare eccezione
+* test su punti non validi in versione traslata
+* scrivere meglio i test della new

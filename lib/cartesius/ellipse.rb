@@ -73,7 +73,7 @@ module Cartesius
         b2 = Rational(major_axis.length, 2)**2
       end
 
-      center = focal_axis.mid
+      center = major_axis.mid
 
       self.build_by(a2, b2, center)
     end
@@ -88,18 +88,18 @@ module Cartesius
 
       begin
         alfa, beta = Cramer.solution2(
-            [shifted1.x ** 2, shifted1.y ** 2],
-            [shifted2.x ** 2, shifted2.y ** 2],
+            [shifted1.x**2, shifted1.y**2],
+            [shifted2.x**2, shifted2.y**2],
             [1, 1]
         )
       rescue
-        raise ArgumentError.new('No Ellipse for these points!')
+        raise ArgumentError.new('Center and points are not valid!')
       end
 
       a2 = Rational(1, alfa)
       b2 = Rational(1, beta)
 
-      self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
+      self.build_by(a2, b2, center)
     end
 
     def focus1
