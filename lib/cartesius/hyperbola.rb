@@ -116,20 +116,20 @@ module Cartesius
 
     def focus1
       discriminating(
-          Point.new(x: center.x + c, y: center.y),
-          Point.new(x: center.x, y: center.y + c)
+          lambda {Point.new(x: center.x + c, y: center.y)},
+          lambda {Point.new(x: center.x, y: center.y + c)}
       )
     end
 
     def focus2
       discriminating(
-          Point.new(x: center.x - c, y: center.y),
-          Point.new(x: center.x, y: center.y - c)
+          lambda {Point.new(x: center.x - c, y: center.y)},
+          lambda {Point.new(x: center.x, y: center.y - c)}
       )
     end
 
     def distance
-      discriminating(2 * a, 2 * b)
+      discriminating(lambda {2 * a}, lambda {2 * b})
     end
 
     def focal_axis
@@ -138,22 +138,22 @@ module Cartesius
 
     def transverse_axis
       discriminating(
-          Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y)),
-          Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
+          lambda {Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))},
+          lambda {Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b))},
       )
     end
 
     def not_transverse_axis
       discriminating(
-          Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b)),
-          Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))
+          lambda {Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b))},
+          lambda {Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))}
       )
     end
 
     def vertices
       discriminating(
-          [Point.new(x: center.x - a, y: center.y), Point.new(x: center.x + a, y: center.y)],
-          [Point.new(x: center.x, y: center.y - b), Point.new(x: center.x, y: center.y + b)]
+          lambda {[Point.new(x: center.x - a, y: center.y), Point.new(x: center.x + a, y: center.y)]},
+          lambda {[Point.new(x: center.x, y: center.y - b), Point.new(x: center.x, y: center.y + b)]}
       )
     end
 
@@ -197,9 +197,9 @@ module Cartesius
 
     def discriminating(right_position, up_position)
       if signum(determinator - @k_coeff) == 1
-        right_position
+        right_position.call
       else
-        up_position
+        up_position.call
       end
     end
 

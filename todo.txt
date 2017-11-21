@@ -7,8 +7,7 @@
 * rinominare by_canonical in by_axes
 * readme ellisse e hyperbole
 * chancge log ellisse e iperbole
-* mettere le lambda nella if iperbole
-* sistemare == ellisse
+
 
 
 definizione
