@@ -207,8 +207,8 @@ describe Cartesius::Ellipse do
     end
   end
 
-  describe '.by_canonical' do
-    subject {described_class.by_canonical(major_axis: major_axis, minor_axis: minor_axis)}
+  describe '.by_axes' do
+    subject {described_class.by_axes(major_axis: major_axis, minor_axis: minor_axis)}
 
     context 'bad parameters' do
 

@@ -16,8 +16,7 @@ module Cartesius
 
     # Conic equation type: ax^2 + by^2 + dx + ey + f = 0
     def initialize(x2:, y2:, x:, y:, k:)
-      x2, y2, x, y, k = normalize(x2, y2, x, y, k)
-      @x2_coeff, @y2_coeff, @x_coeff, @y_coeff, @k_coeff = x2.to_r, y2.to_r, x.to_r, y.to_r, k.to_r
+      @x2_coeff, @y2_coeff, @x_coeff, @y_coeff, @k_coeff = normalize(x2, y2, x, y, k)
       validation
     end
 
@@ -51,13 +50,21 @@ module Cartesius
       self.build_by(a2, b2, center, position)
     end
 
-    def self.by_canonical(transverse_axis:, not_transverse_axis:)
-      #TODO vedi ellisse per i todo sotto
-      #TODO Verificare che non siano coincidenti ==
-      #TODO Verificare che non siano coincidenti che siano uno orizzontale e l'altro verticale (es: uno sottoinsieme dell'altro: ----- e ---)
+    def self.by_axes(transverse_axis:, not_transverse_axis:)
+      if transverse_axis == not_transverse_axis
+        raise ArgumentError.new('Axes must be different!')
+      end
 
       if transverse_axis.inclined? or not_transverse_axis.inclined?
         raise ArgumentError.new('Axes must not be inclined!')
+      end
+
+      if transverse_axis.horizontal? and not_transverse_axis.horizontal?
+        raise ArgumentError.new('Axes can not be both horizontal!')
+      end
+
+      if transverse_axis.vertical? and not_transverse_axis.vertical?
+        raise ArgumentError.new('Axes can not be both vertical!')
       end
 
       if transverse_axis.mid != not_transverse_axis.mid
@@ -105,7 +112,7 @@ module Cartesius
             [position, position]
         )
       rescue
-        raise ArgumentError.new('No Hyperbola for these points!')
+        raise ArgumentError.new('Center, vertex and point are not valid!')
       end
 
       a2 = Rational(1, alfa)
@@ -195,11 +202,11 @@ module Cartesius
       self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
     end
 
-    def discriminating(right_position, up_position)
+    def discriminating(horizontal_focus_type, vertical_focus_type)
       if signum(determinator - @k_coeff) == 1
-        right_position.call
+        horizontal_focus_type.call
       else
-        up_position.call
+        vertical_focus_type.call
       end
     end
 

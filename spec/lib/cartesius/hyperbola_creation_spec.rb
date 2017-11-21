@@ -143,8 +143,8 @@ describe Cartesius::Hyperbola do
     end
   end
 
-  describe '.by_canonical' do
-    subject {described_class.by_canonical(transverse_axis: transverse_axis, not_transverse_axis: not_transverse_axis)}
+  describe '.by_axes' do
+    subject {described_class.by_axes(transverse_axis: transverse_axis, not_transverse_axis: not_transverse_axis)}
 
     context 'bad parameters' do
 
@@ -257,7 +257,7 @@ describe Cartesius::Hyperbola do
         let(:point1) {point.new(x: 4, y: 0)}
 
         it 'should be fail' do
-          expect {subject}.to raise_error(ArgumentError, 'No Hyperbola for these points!')
+          expect {subject}.to raise_error(ArgumentError, 'Center, vertex and point are not valid!')
         end
       end
 

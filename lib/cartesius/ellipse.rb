@@ -11,8 +11,7 @@ module Cartesius
     # Conic
     # Conic equation type: ax^2 + by^2 + dx + ey + f = 0
     def initialize(x2:, y2:, x:, y:, k:)
-      x2, y2, x, y, k = normalize(x2, y2, x, y, k)
-      @x2_coeff, @y2_coeff, @x_coeff, @y_coeff, @k_coeff = x2.to_r, y2.to_r, x.to_r, y.to_r, k.to_r
+      @x2_coeff, @y2_coeff, @x_coeff, @y_coeff, @k_coeff = normalize(x2, y2, x, y, k)
       validation
     end
 
@@ -44,7 +43,7 @@ module Cartesius
       self.build_by(a2, b2, center)
     end
 
-    def self.by_canonical(major_axis:, minor_axis:)
+    def self.by_axes(major_axis:, minor_axis:)
       if major_axis == minor_axis
         raise ArgumentError.new('Axes must be different!')
       end
@@ -133,8 +132,8 @@ module Cartesius
 
     def minor_axis
       discriminating(
-          lambda{Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b))},
-          lambda{Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))}
+          lambda {Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b))},
+          lambda {Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))}
       )
     end
 
@@ -173,11 +172,11 @@ module Cartesius
       self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
     end
 
-    def discriminating(x_position, y_position)
+    def discriminating(horizontal_focus_type, vertical_focus_type)
       if a2 > b2
-        x_position.call
+        horizontal_focus_type.call
       else
-        y_position.call
+        vertical_focus_type.call
       end
     end
 

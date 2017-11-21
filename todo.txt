@@ -1,14 +1,1 @@
-* Hyperbola: Normalize fa già il to_r. Lo posso togliere da sotto.
-* Introdurre il metodo traslazione così mi viene più facile traslare i punti
-* Quando costruisco con Cramere cambiare eccezione
 * test su punti non validi in versione traslata
-* scrivere meglio i test della new
-* rinominare right and up position in x e y
-* rinominare by_canonical in by_axes
-* readme ellisse e hyperbole
-* chancge log ellisse e iperbole
-
-
-
-definizione
-The Ellipse is the locus of points such that for any point P of the set, the sum of distances from two fixed points, the foci, is constant.
