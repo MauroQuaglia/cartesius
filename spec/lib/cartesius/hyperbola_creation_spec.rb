@@ -148,6 +148,15 @@ describe Cartesius::Hyperbola do
 
     context 'bad parameters' do
 
+      context 'when axes are the same' do
+        let(:transverse_axis) {segment.new(extreme1: point.origin, extreme2: point.new(x: 1, y: 1))}
+        let(:not_transverse_axis) {segment.new(extreme1: point.origin, extreme2: point.new(x: 1, y: 1))}
+
+        it 'should be fail' do
+          expect {subject}.to raise_error(ArgumentError, 'Axes must be different!')
+        end
+      end
+
       context 'when transverse axis is inclined' do
         let(:transverse_axis) {segment.new(extreme1: point.origin, extreme2: point.new(x: 1, y: 1))}
         let(:not_transverse_axis) {segment.new(extreme1: point.origin, extreme2: point.new(x: 1, y: 0))}
@@ -163,6 +172,24 @@ describe Cartesius::Hyperbola do
 
         it 'should be fail' do
           expect {subject}.to raise_error(ArgumentError, 'Axes must not be inclined!')
+        end
+      end
+
+      context 'when axes are horizontal' do
+        let(:transverse_axis) {segment.new(extreme1: point.origin, extreme2: point.new(x: 2, y: 0))}
+        let(:not_transverse_axis) {segment.new(extreme1: point.origin, extreme2: point.new(x: -2, y: 0))}
+
+        it 'should be fail' do
+          expect {subject}.to raise_error(ArgumentError, 'Axes can not be both horizontal!')
+        end
+      end
+
+      context 'when axes are vertical' do
+        let(:transverse_axis) {segment.new(extreme1: point.origin, extreme2: point.new(x: 0, y: 2))}
+        let(:not_transverse_axis) {segment.new(extreme1: point.origin, extreme2: point.new(x: 0, y: -2))}
+
+        it 'should be fail' do
+          expect {subject}.to raise_error(ArgumentError, 'Axes can not be both vertical!')
         end
       end
 
