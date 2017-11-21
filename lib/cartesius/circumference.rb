@@ -50,15 +50,19 @@ module Cartesius
     end
 
     def self.unitary
-      new(x: 0, y: 0, k: -1)
+      build_by(Point.origin, 1)
+    end
+
+    def unitary?
+      self == Circumference.unitary
     end
 
     def radius
       Math.sqrt(a2)
     end
 
-    def unitary?
-      self == Circumference.unitary
+    def eccentricity
+      0
     end
 
     def == (circumference)
