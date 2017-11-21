@@ -98,8 +98,50 @@ describe Cartesius::Circumference do
   describe '.by_diameter' do
     subject {described_class.by_diameter(diameter: diameter)}
 
+    context 'when center in origin' do
+      let(:diameter) {segment.new(extreme1: point.new(x: -1, y: 0), extreme2: point.new(x: 1, y: 0))}
+
+      it 'should be valid: x^2 + y^2 = 1' do
+        expect(subject.center).to eq(point.origin)
+        expect(subject.radius).to eq(1)
+      end
+    end
+
+    context 'when center not in origin' do
+      let(:diameter) {segment.new(extreme1: point.new(x: 1, y: 2), extreme2: point.new(x: 1, y: 0))}
+      let(:radius) {1}
+
+      it 'should be valid: (x - 1)^2 + (y - 1)^2 = 1' do
+        expect(subject.center).to eq(point.new(x: 1, y: 1))
+        expect(subject.radius).to eq(1)
+      end
+    end
+
+  end
+
+  describe '.by_points' do
+    subject {described_class.by_points(point1: point1, point2: point2, point3: point3)}
+
+    context 'bad parameters' do
+
+      context 'when points are not distinct' do
+        let(:point1) {point.origin}
+        let(:point2) {point.origin}
+        let(:point3) {point.origin}
+
+        it 'should be fail' do
+          expect {subject}.to raise_error(ArgumentError, 'Points must be different!')
+        end
+      end
+
+    end
+
+    context 'good parameters' do
+
       context 'when center in origin' do
-        let(:diameter) {segment.new(extreme1: point.new(x: -1, y: 0), extreme2: point.new(x: 1, y: 0))}
+        let(:point1) {point.new(x: -1, y: 0)}
+        let(:point2) {point.new(x: 0, y: -1)}
+        let(:point3) {point.new(x: 1, y: 0)}
 
         it 'should be valid: x^2 + y^2 = 1' do
           expect(subject.center).to eq(point.origin)
@@ -108,8 +150,9 @@ describe Cartesius::Circumference do
       end
 
       context 'when center not in origin' do
-        let(:diameter) {segment.new(extreme1: point.new(x: 1, y: 2), extreme2: point.new(x: 1, y: 0))}
-        let(:radius) {1}
+        let(:point1) {point.new(x: 0, y: 1)}
+        let(:point2) {point.new(x: 1, y: 0)}
+        let(:point3) {point.new(x: 2, y: 1)}
 
         it 'should be valid: (x - 1)^2 + (y - 1)^2 = 1' do
           expect(subject.center).to eq(point.new(x: 1, y: 1))
@@ -117,6 +160,7 @@ describe Cartesius::Circumference do
         end
       end
 
+    end
   end
-
+  
 end

@@ -32,24 +32,22 @@ module Cartesius
 
     def self.by_points(point1:, point2:, point3:)
       if point1 == point2 or point1 == point3 or point2 == point3
-        raise ArgumentError.new('Points must be distinct!')
+        raise ArgumentError.new('Points must be different!')
       end
 
-      line = Line.by_points(point1: point1, point2: point2)
-      if line.include?(point3)
-        raise ArgumentError.new('Points must not be aligned!')
+      begin
+        alfa, beta, gamma = Cramer.solution3(
+            [point1.x, point1.y, 1],
+            [point2.x, point2.y, 1],
+            [point3.x, point3.y, 1],
+            [-(point1.x ** 2 + point1.y ** 2), -(point2.x ** 2 + point2.y ** 2), -(point3.x ** 2 + point3.y ** 2)]
+        )
+      rescue
+        raise ArgumentError.new('Points are not valid!')
       end
-
-      alfa, beta, gamma = Cramer.solution3(
-          [point1.x, point1.y, 1],
-          [point2.x, point2.y, 1],
-          [point3.x, point3.y, 1],
-          [-(point1.x ** 2 + point1.y ** 2), -(point2.x ** 2 + point2.y ** 2), -(point3.x ** 2 + point3.y ** 2)]
-      )
 
       self.new(x: alfa, y: beta, k: gamma)
     end
-
 
     def self.unitary
       new(x: 0, y: 0, k: -1)
