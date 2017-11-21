@@ -6,7 +6,7 @@ describe Cartesius::Ellipse do
   let(:point) {Cartesius::Point}
   let(:segment) {Cartesius::Segment}
 
-  describe '.new old' do
+  describe '.new' do
 
     describe 'empty set' do
 

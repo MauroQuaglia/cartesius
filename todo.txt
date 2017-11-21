@@ -1,1 +1,1 @@
-* test su punti non validi in versione traslata
+* valutare se mettere o meno il metodo build per la circonferenza.
