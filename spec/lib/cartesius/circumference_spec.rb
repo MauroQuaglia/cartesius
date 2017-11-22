@@ -64,5 +64,4 @@ describe Cartesius::Circumference do
     end
 
   end
-
 end

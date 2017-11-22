@@ -5,6 +5,7 @@
 Breaking changes
 - Hyperbola: methods for creation are changes, now you can use segment.
 - Ellipse: methods for creation are changes, now you can use segment.
+- Circumference: methods for creation are changes.
 
 News
 - Hyperbola: you can have some characteristics of the hyperbola.

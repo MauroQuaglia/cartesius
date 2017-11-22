@@ -14,6 +14,7 @@ describe Cartesius::Circumference do
     expect(circumference.center).to eq(point.origin)
     expect(circumference.radius).to eq(2)
     expect(circumference.eccentricity).to eq(0)
+    expect(circumference.goniometric?).to be_falsey
     expect(circumference.to_equation).to eq('+1x^2 +1y^2 -4 = 0')
   end
 
@@ -24,6 +25,7 @@ describe Cartesius::Circumference do
     expect(circumference.center).to eq(point.new(x:1,y:1))
     expect(circumference.radius).to eq(2)
     expect(circumference.eccentricity).to eq(0)
+    expect(circumference.goniometric?).to be_falsey
     expect(circumference.to_equation).to eq('+1x^2 +1y^2 -2x -2y -2 = 0')
   end
 
