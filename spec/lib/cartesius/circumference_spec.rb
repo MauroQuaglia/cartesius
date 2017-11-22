@@ -4,61 +4,63 @@ require('cartesius/point')
 
 describe Cartesius::Circumference do
 
+  describe 'congruent?' do
 
-  describe '#==' do
+    # x^2 + y^2 = 1 --> x^2 + y^2 - 1 = 0
+    let(:circumference) {
+      described_class.new(x: 0, y: 0, k: -1)
+    }
 
     it 'should be false when not circumference' do
-      expect(
-          described_class.unitary == NilClass
-      ).to be_falsey
+      expect(circumference.congruent?(NilClass)).to be_falsey
+    end
+
+    it 'should be false when different radius' do
+      # x^2 + y^2 = 2 --> x^2 + y^2 - 2 = 0
+      circumference1 = described_class.new(x: 0, y: 0, k: -2)
+
+      expect(circumference.congruent?(circumference1)).to be_falsey
+    end
+
+    it 'should be true when same radius' do
+      # (x - 1)^2 + (y - 1)^2 = 1 --> x^2 + y^2 -2x -2y +1 = 0
+      circumference1 = described_class.new(x: -2, y: -2, k: 1)
+
+      expect(circumference.congruent?(circumference1)).to be_truthy
     end
 
   end
 
-  describe '.unitary?' do
+  describe '==?' do
 
-    it 'should be false' do
-      circumference = described_class.new(x: -2, y: 2, k: -2)
+    # x^2 + y^2 = 1 --> x^2 + y^2 - 1 = 0
+    let(:circumference) {
+      described_class.new(x: 0, y: 0, k: -1)
+    }
 
-      expect(
-          circumference.unitary?
-      ).to be_falsey
+    it 'should be false when not circumference' do
+      expect(circumference == NilClass).to be_falsey
+    end
+
+    it 'should be false when different radius' do
+      # x^2 + y^2 = 2 --> x^2 + y^2 - 2 = 0
+      circumference1 = described_class.new(x: 0, y: 0, k: -2)
+
+      expect(circumference == circumference1).to be_falsey
+    end
+
+    it 'should be false when traslated' do
+      # (x - 1)^2 + (y - 1)^2 = 1 --> x^2 + y^2 -2x -2y +1 = 0
+      circumference1 = described_class.new(x: -2, y: -2, k: 1)
+
+      expect(circumference == circumference1).to be_falsey
     end
 
     it 'should be true' do
-      circumference = described_class.unitary
+      # x^2 + y^2 = 1 --> x^2 + y^2 - 1 = 0
+      circumference1 = described_class.new(x: 0, y: 0, k: -1)
 
-      expect(
-          circumference.unitary?
-      ).to be_truthy
-    end
-
-  end
-
-  describe '#congruent?' do
-
-    it 'should not be congruent when not circumference' do
-      circumference = described_class.by_definition(focus: Cartesius::Point.origin, radius: 1)
-
-      expect(circumference.congruent?(Cartesius::Point.origin)).to be_falsey
-    end
-
-    it 'should not be congruent when different radius' do
-      circumference1 = described_class.by_definition(focus: Cartesius::Point.origin, radius: 1)
-      circumference2 = described_class.by_definition(focus: Cartesius::Point.origin, radius: 2)
-
-      expect(
-          circumference1.congruent?(circumference2)
-      ).to be_falsey
-    end
-
-    it 'should be congruent' do
-      circumference1 = described_class.by_definition(focus: Cartesius::Point.origin, radius: 1)
-      circumference2 = described_class.by_definition(focus: Cartesius::Point.new(x: 1, y: 1), radius: 1)
-
-      expect(
-          circumference1.congruent?(circumference2)
-      ).to be_truthy
+      expect(circumference == circumference1).to be_truthy
     end
 
   end

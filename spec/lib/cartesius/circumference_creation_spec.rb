@@ -163,10 +163,10 @@ describe Cartesius::Circumference do
     end
   end
 
-  describe '.unitary' do
+  describe '.goniometric' do
 
     it 'should be valid: x^2 + y^2 = 1' do
-      subject = described_class.unitary
+      subject = described_class.goniometric
       expect(subject.center).to eq(point.origin)
       expect(subject.radius).to eq(1)
     end

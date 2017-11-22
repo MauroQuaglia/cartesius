@@ -49,12 +49,12 @@ module Cartesius
       self.new(x: alfa, y: beta, k: gamma)
     end
 
-    def self.unitary
+    def self.goniometric
       build_by(Point.origin, 1)
     end
 
-    def unitary?
-      self == Circumference.unitary
+    def goniometric?
+      self == Circumference.goniometric
     end
 
     def radius
@@ -65,17 +65,14 @@ module Cartesius
       0
     end
 
+    def congruent?(circumference)
+      circumference.instance_of?(Circumference) and
+          circumference.radius == self.radius
+    end
+
     def == (circumference)
       circumference.instance_of?(Circumference) and
           circumference.center == self.center and circumference.radius == self.radius
-    end
-
-    def congruent?(circumference)
-      unless circumference.instance_of?(self.class)
-        return false
-      end
-
-      circumference.radius == self.radius
     end
 
     private
