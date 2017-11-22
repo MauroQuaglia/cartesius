@@ -15,14 +15,6 @@ module Cartesius
       validation
     end
 
-    def self.unitary_convex
-      new(x2: 1, x: 0, k: 0)
-    end
-
-    def self.unitary_concave
-      new(x2: -1, x: 0, k: 0)
-    end
-
     def self.by_definition(directrix:, focus:)
       if directrix.include?(focus)
         raise ArgumentError.new('Focus belongs to directrix!')
@@ -36,33 +28,24 @@ module Cartesius
       b = -2 * a * focus.x
       c = a * (focus.x ** 2) + focus.y - Rational(1, 4 * a)
 
-      self.new(x2: -a, x: -b, k: -c)
-    end
-
-    def self.by_canonical(focus:, gap:)
-      if gap.zero?
-        raise ArgumentError.new('Gap must not be zero!')
-      end
-
-      a = gap
-      b = -2 * a * focus.x
-      c = (focus.x ** 2) + focus.y - Rational(1, 4 * a)
-
-      self.new(x2: -a, x: -b, k: -c)
+      self.new(x2: a, x: b, k: c)
     end
 
     def self.by_points(point1:, point2:, point3:)
-
       if point1 == point2 or point1 == point3 or point2 == point3
-        raise ArgumentError.new('Points must be distinct!')
+        raise ArgumentError.new('Points must be different!')
       end
 
-      a, b, c = Cramer.solution3(
-          [point1.x ** 2, point1.x, 1],
-          [point2.x ** 2, point2.x, 1],
-          [point3.x ** 2, point3.x, 1],
-          [point1.y, point2.y, point3.y]
-      )
+      begin
+        a, b, c = Cramer.solution3(
+            [point1.x ** 2, point1.x, 1],
+            [point2.x ** 2, point2.x, 1],
+            [point3.x ** 2, point3.x, 1],
+            [point1.y, point2.y, point3.y]
+        )
+      rescue
+        raise ArgumentError.new('Points are not valid!')
+      end
 
       self.new(x2: -a, x: -b, k: -c)
     end
