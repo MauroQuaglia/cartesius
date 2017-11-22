@@ -22,7 +22,20 @@ Circumference is a conic and the general equation is:
 x^2 + y^2 + dx + ey + f = 0
 ```
 
-Cartesius allow you to create all the ellipsis with axes parallel to the coordinate axes in some way.
+# Parabola
+A parabola is the locus of points in the Euclidean plan for which the distance from a line (the directrix) and a point (the focus) is the same.
+
+In symbols:
+```ruby   
+|Pd| = |PF|, where F not in directrix. 
+```
+
+Parabola is a conic and the general equation is:
+```ruby 
+ax^2 + dx - y + f = 0
+```
+
+Cartesius allow you to create all the parabola with directrix parallel to the x-axis. 
 
 
 # Ellipse

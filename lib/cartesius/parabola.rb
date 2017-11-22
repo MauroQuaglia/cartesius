@@ -66,23 +66,18 @@ module Cartesius
       Line.vertical(known_term: Rational(-@x_coeff, 2* @x2_coeff))
     end
 
-    def unitary_convex?
-      self == Parabola.unitary_convex
+    def eccentricity
+      @x2_coeff.abs
     end
 
-    def unitary_concave?
-      self == Parabola.unitary_concave
+    def congruent?(parabola)
+      parabola.instance_of?(Parabola) and
+          parabola.eccentricity == self.eccentricity
     end
 
     def == (parabola)
       parabola.instance_of?(Parabola) and
           parabola.focus == self.focus and parabola.directrix == self.directrix
-    end
-
-    def to_equation
-      equationfy(
-          'x^2' => @x2_coeff, 'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
-      )
     end
 
     private
