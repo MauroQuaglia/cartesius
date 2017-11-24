@@ -47,7 +47,7 @@ module Cartesius
         raise ArgumentError.new('Points are not valid!')
       end
 
-      self.new(x2: -a, x: -b, k: -c)
+      self.new(x2: a, x: b, k: c)
     end
 
     def directrix
@@ -68,6 +68,12 @@ module Cartesius
 
     def eccentricity
       @x2_coeff.abs
+    end
+
+    def to_equation
+      equationfy(
+          'x^2' => @x2_coeff, 'x' => @x_coeff, 'y' => -1, '1' => @k_coeff
+      )
     end
 
     def congruent?(parabola)

@@ -85,22 +85,12 @@ describe Cartesius::Parabola do
       end
 
       context 'the generic convex parabola' do
-        let(:directrix) {line.new(x: 0, y: 1, k: '-11/4')}
-        let(:focus) {point.new(x: '3/4', y: 3)}
+        let(:directrix) {line.new(x: 0, y: 1, k: '-3/4')}
+        let(:focus) {point.new(x: 1, y: '5/4')}
 
-        it 'should be valid' do
-          expect(subject.directrix).to eq(line.new(x: 0, y: 1, k: '-11/4'))
-          expect(subject.focus).to eq(point.new(x: '3/4', y: 3))
-        end
-      end
-
-      context 'the generic convex parabola' do
-        let(:directrix) {line.new(x: 0, y: 1, k: '11/4')}
-        let(:focus) {point.new(x: '3/4', y: -3)}
-
-        it 'should be valid' do
-          expect(subject.directrix).to eq(line.new(x: 0, y: 1, k: '11/4'))
-          expect(subject.focus).to eq(point.new(x: '3/4', y: -3))
+        it 'should be valid: x^2 -2x -y +2 = 0' do
+          expect(subject.directrix).to eq(line.new(x: 0, y: 1, k: '-3/4'))
+          expect(subject.focus).to eq(point.new(x: 1, y: '5/4'))
         end
       end
 
@@ -127,27 +117,39 @@ describe Cartesius::Parabola do
 
     context 'good parameters' do
 
-      context 'when vertex in origin (convex)' do
+      context 'the simplest convex parabola' do
         let(:point1) {point.new(x: -1, y: 1)}
         let(:point2) {point.origin}
         let(:point3) {point.new(x: 1, y: 1)}
 
-        it 'should be valid: y = x^2' do
+        it 'should be valid: x^2 - y = 0' do
           expect(subject.directrix).to eq(line.new(x: 0, y: 1, k: '1/4'))
           expect(subject.focus).to eq(point.new(x: 0, y: '1/4'))
         end
       end
 
-      context 'when vertex in origin (concave)' do
+      context 'the simplest concave parabola' do
         let(:point1) {point.new(x: -1, y: -1)}
         let(:point2) {point.origin}
         let(:point3) {point.new(x: 1, y: -1)}
 
-        it 'should be valid: y = x^2' do
+        it 'should be valid: x^2 + y = 0' do
           expect(subject.directrix).to eq(line.new(x: 0, y: 1, k: '-1/4'))
           expect(subject.focus).to eq(point.new(x: 0, y: '-1/4'))
         end
       end
+
+      context 'the generic convex parabola' do
+        let(:point1) {point.new(x: 0, y: 2)}
+        let(:point2) {point.new(x: 1, y: 1)}
+        let(:point3) {point.new(x: 2, y: 2)}
+
+        it 'should be valid: x^2 -2x -y +2 = 0' do
+          expect(subject.directrix).to eq(line.new(x: 0, y: 1, k: '-3/4'))
+          expect(subject.focus).to eq(point.new(x: 1, y: '5/4'))
+        end
+      end
+
 
     end
 
