@@ -9,8 +9,6 @@ The models you are:
 * Ellipse
 * Hyperbola
 
-=====
-
 # Point
 The point is a fundamental entity and there isn't a definition. 
 The general equation is like:
