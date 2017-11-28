@@ -2,15 +2,17 @@ require_relative('../../spec_helper')
 require('cartesius/segment')
 
 describe Cartesius::Segment do
+  let(:point) {Cartesius::Point}
+  let(:line) {Cartesius::Line}
 
   describe '#to_line' do
 
     it 'should get line which contains it' do
       segment = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: 1)
+          extreme1: point.origin, extreme2: point.new(x: 1, y: 1)
       )
 
-      expect(segment.to_line == Cartesius::Line.ascending_bisector)
+      expect(segment.to_line == line.ascending_bisector)
     end
 
   end
@@ -19,7 +21,7 @@ describe Cartesius::Segment do
 
     it 'should be horizontal' do
       segment = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: 0)
+          extreme1: point.origin, extreme2: point.new(x: 1, y: 0)
       )
 
       expect(segment.horizontal?).to be_truthy
@@ -31,7 +33,7 @@ describe Cartesius::Segment do
 
     it 'should be vertical' do
       segment = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 0, y: 1)
+          extreme1: point.origin, extreme2: point.new(x: 0, y: 1)
       )
 
       expect(segment.horizontal?).to be_falsey
@@ -43,7 +45,7 @@ describe Cartesius::Segment do
 
     it 'should be ascending' do
       segment = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: 1)
+          extreme1: point.origin, extreme2: point.new(x: 1, y: 1)
       )
 
       expect(segment.horizontal?).to be_falsey
@@ -55,7 +57,7 @@ describe Cartesius::Segment do
 
     it 'should be descending' do
       segment = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: -1, y: 1)
+          extreme1: point.origin, extreme2: point.new(x: -1, y: 1)
       )
 
       expect(segment.horizontal?).to be_falsey
@@ -66,19 +68,15 @@ describe Cartesius::Segment do
     end
   end
 
-
-
-
-
   describe '#extremes' do
 
     it 'should get the extremes' do
       segment = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: 1)
+          extreme1: point.origin, extreme2: point.new(x: 1, y: 1)
       )
 
-      expect(segment.extremes.first).to eq(Cartesius::Point.origin)
-      expect(segment.extremes.last).to eq(Cartesius::Point.new(x: 1, y: 1))
+      expect(segment.extremes.first).to eq(point.origin)
+      expect(segment.extremes.last).to eq(point.new(x: 1, y: 1))
     end
 
   end
@@ -87,7 +85,7 @@ describe Cartesius::Segment do
 
     it 'should be false when not segment' do
       segment = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: -1, y: 1)
+          extreme1: point.origin, extreme2: point.new(x: -1, y: 1)
       )
 
       expect(segment == NilClass).to be_falsey
@@ -95,11 +93,11 @@ describe Cartesius::Segment do
 
     it 'should be false when different extremes' do
       segment1 = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: -1, y: 1)
+          extreme1: point.origin, extreme2: point.new(x: -1, y: 1)
       )
 
       segment2 = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: -1)
+          extreme1: point.origin, extreme2: point.new(x: 1, y: -1)
       )
 
       expect(segment1 == segment2).to be_falsey
@@ -107,15 +105,15 @@ describe Cartesius::Segment do
 
     it 'should be true when same extremes' do
       segment1 = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: 1)
+          extreme1: point.origin, extreme2: point.new(x: 1, y: 1)
       )
 
       segment2 = described_class.new(
-          extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: 1)
+          extreme1: point.origin, extreme2: point.new(x: 1, y: 1)
       )
 
       segment3 = described_class.new(
-          extreme1: Cartesius::Point.new(x: 1, y: 1), extreme2: Cartesius::Point.origin
+          extreme1: point.new(x: 1, y: 1), extreme2: point.origin
       )
 
       expect(segment1 == segment2).to be_truthy
@@ -128,7 +126,7 @@ describe Cartesius::Segment do
 
     it 'should be false when not segment' do
       segment = described_class.new(
-          extreme1: Cartesius::Point.new(x: 0, y: 1), extreme2: Cartesius::Point.new(x: 1, y: 3)
+          extreme1: point.new(x: 0, y: 1), extreme2: point.new(x: 1, y: 3)
       )
 
       expect(segment.congruent?(NilClass)).to be_falsey
@@ -136,11 +134,11 @@ describe Cartesius::Segment do
 
     it 'should be false when different length' do
       segment1 = described_class.new(
-          extreme1: Cartesius::Point.new(x: 0, y: 0), extreme2: Cartesius::Point.new(x: 1, y: 1)
+          extreme1: point.new(x: 0, y: 0), extreme2: point.new(x: 1, y: 1)
       )
 
       segment2 = described_class.new(
-          extreme1: Cartesius::Point.new(x: 0, y: 0), extreme2: Cartesius::Point.new(x: 2, y: 2)
+          extreme1: point.new(x: 0, y: 0), extreme2: point.new(x: 2, y: 2)
       )
 
       expect(segment1.congruent?(segment2)).to be_falsey
@@ -148,11 +146,11 @@ describe Cartesius::Segment do
 
     it 'should be true when same length' do
       segment1 = described_class.new(
-          extreme1: Cartesius::Point.new(x: 0, y: 0), extreme2: Cartesius::Point.new(x: 1, y: 1)
+          extreme1: point.new(x: 0, y: 0), extreme2: point.new(x: 1, y: 1)
       )
 
       segment2 = described_class.new(
-          extreme1: Cartesius::Point.new(x: 0, y: 0), extreme2: Cartesius::Point.new(x: -1, y: -1)
+          extreme1: point.new(x: 0, y: 0), extreme2: point.new(x: -1, y: -1)
       )
 
       expect(segment1.congruent?(segment2)).to be_truthy
@@ -164,10 +162,10 @@ describe Cartesius::Segment do
 
     it 'should be the mid point' do
       segment = described_class.new(
-          extreme1: Cartesius::Point.new(x: 0, y: 0), extreme2: Cartesius::Point.new(x: 2, y: 2)
+          extreme1: point.new(x: 0, y: 0), extreme2: point.new(x: 2, y: 2)
       )
 
-      expect(segment.mid).to eq(Cartesius::Point.new(x: 1, y: 1))
+      expect(segment.mid).to eq(point.new(x: 1, y: 1))
     end
 
   end
@@ -176,7 +174,7 @@ describe Cartesius::Segment do
 
     it 'should be positive' do
       segment = described_class.new(
-          extreme1: Cartesius::Point.new(x: 0, y: 0), extreme2: Cartesius::Point.new(x: 3, y: 4)
+          extreme1: point.new(x: 0, y: 0), extreme2: point.new(x: 3, y: 4)
       )
 
       expect(segment.length).to eq(5)

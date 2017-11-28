@@ -29,11 +29,11 @@ module Cartesius
         raise ArgumentError.new('Points must be different!')
       end
 
-      if point1.aligned_horizontally_with?(point2)
+      if point1.y == point2.y
         return horizontal(known_term: point1.y)
       end
 
-      if point1.aligned_vertically_with?(point2)
+      if point1.x == point2.x
         return vertical(known_term: point1.x)
       end
 
@@ -143,7 +143,7 @@ module Cartesius
     end
 
     def == (line)
-      congruent?(line) and
+      line.instance_of?(Line) and
           line.slope == self.slope and line.known_term == self.known_term
     end
 

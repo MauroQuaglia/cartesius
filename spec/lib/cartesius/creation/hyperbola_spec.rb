@@ -1,4 +1,4 @@
-require_relative('../../spec_helper')
+require_relative('../../../spec_helper')
 require('cartesius/hyperbola')
 require('cartesius/point')
 require('cartesius/segment')

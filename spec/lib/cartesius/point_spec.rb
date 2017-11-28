@@ -3,41 +3,6 @@ require('cartesius/point')
 
 describe Cartesius::Point do
 
-  describe '.new' do
-
-    it 'should be the origin' do
-      point = described_class.new(x: 0, y: 0)
-
-      expect(point.x).to eq(0)
-      expect(point.y).to eq(0)
-    end
-
-    it 'should be a generic point' do
-      point = described_class.new(x: 1, y: -1)
-
-      expect(point.x).to eq(1)
-      expect(point.y).to eq(-1)
-    end
-
-    it 'should be a generic point with string parameters' do
-      point = described_class.new(x: '1', y: '-1')
-
-      expect(point.x).to eq(1)
-      expect(point.y).to eq(-1)
-    end
-  end
-
-  describe '.origin' do
-
-    it 'should be the origin' do
-      point = described_class.origin
-
-      expect(point.x).to eq(0)
-      expect(point.y).to eq(0)
-    end
-
-  end
-
   describe '.distance' do
 
     it 'should be 0 for same points' do
@@ -69,42 +34,6 @@ describe Cartesius::Point do
       point = described_class.origin
 
       expect(point.origin?).to be_truthy
-    end
-
-  end
-
-  describe '#aligned_horizontally_with?' do
-
-    it 'should be aligned horizontally' do
-      point1 = described_class.new(x: -1, y: 1)
-      point2 = described_class.new(x: 1, y: 1)
-
-      expect(point1.aligned_horizontally_with?(point2)).to be_truthy
-    end
-
-    it 'should not be aligned horizontally' do
-      point1 = described_class.new(x: -1, y: 2)
-      point2 = described_class.new(x: 1, y: 1)
-
-      expect(point1.aligned_horizontally_with?(point2)).to be_falsey
-    end
-
-  end
-
-  describe '#aligned_vertically_with?' do
-
-    it 'should be aligned vertically' do
-      point1 = described_class.new(x: 1, y: -1)
-      point2 = described_class.new(x: 1, y: 1)
-
-      expect(point1.aligned_vertically_with?(point2)).to be_truthy
-    end
-
-    it 'should not be aligned vertically' do
-      point1 = described_class.new(x: 1, y: -1)
-      point2 = described_class.new(x: 2, y: 1)
-
-      expect(point1.aligned_vertically_with?(point2)).to be_falsey
     end
 
   end
