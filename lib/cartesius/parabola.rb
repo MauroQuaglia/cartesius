@@ -36,16 +36,12 @@ module Cartesius
         raise ArgumentError.new('Points must be different!')
       end
 
-      begin
-        a, b, c = Cramer.solution3(
-            [point1.x ** 2, point1.x, 1],
-            [point2.x ** 2, point2.x, 1],
-            [point3.x ** 2, point3.x, 1],
-            [point1.y, point2.y, point3.y]
-        )
-      rescue
-        raise ArgumentError.new('Points are not valid!')
-      end
+      a, b, c = Cramer.solution3(
+          [point1.x ** 2, point1.x, 1],
+          [point2.x ** 2, point2.x, 1],
+          [point3.x ** 2, point3.x, 1],
+          [point1.y, point2.y, point3.y]
+      )
 
       self.new(x2: a, x: b, k: c)
     end

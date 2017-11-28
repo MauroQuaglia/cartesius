@@ -9,46 +9,122 @@ The models you are:
 * Ellipse
 * Hyperbola
 
-# Note
-The new method allow you to create the conic by coefficients. Not all combinations of coefficients are allowed, and an exception could be raised.
-So, if you want, you can use alternative methods (eg: by_points, by_definition, ...) to build the conic you want.
-You can use number or string for your creation, for example you can use indifferently -1, '-1', 0, '1/2'.
-
 #Point
-You can create all points in the plane.
+The point is a fundamental entity and there isn't a definition. 
+The general equation is like:
+```ruby 
+    x^2 + y^2 + dx + ey + f = 0; 
+    with d, e, f in R.
+```
+You can create all points in the plan.
 
 #Line
-You can create all lines in the plane. 
-It's equation is like this:
+The line is a fundamental entity and there isn't a definition. 
+The general equation is like:
 ```ruby 
-dx + ey + f = 0
+    dx + ey + f = 0;
+    with d, e, f in R;
 ```
-#Circumference
-You can create all circumferences in the plane.
-Remember that circumference is a conic and its equation is like this:
+You can create all lines in the plan.
+
+#Segment
+The segment is a line bounded by two points, called extremes. 
+The general equation is like:
 ```ruby 
-x^2 + y^2 + dx + ey + f = 0
+    dx + ey + f = 0;
+    with d, e, f in R;
+    with restriction for x and y;
 ```
-#Parabola
-You can create all parabola in the plane with axis of symmetry parallel to the y-axis.
-Remember that parabola is a conic and its equation is like this:
+You can create all segments in the plan.
+
+# Circumference
+A circumference is the locus of points in the plan for which the distances from one fixed points (the center) is constant.
+
+In symbols:
+```ruby   
+    |PC| = d;
+    where P is the point, C the center and d > 0;
+```
+
+Circumference is a conic and the general equation is:
 ```ruby 
-ax^2 + dx - y + f = 0
+    x^2 + y^2 + dx + ey + f = 0;
+    with d, e, f in R;
 ```
+
+You can create all circumferences in the plan.
+
+# Parabola
+A parabola is the locus of points in the plan for which the distance from a line (the directrix) and a point (the focus) is the same.
+
+In symbols:
+```ruby   
+    |Pd| = |PF|
+    where P is the point, d the directrix and F the focus;
+    where F not in directrix;
+```
+
+Parabola is a conic and the general equation is:
+```ruby 
+    ax^2 + dx - y + f = 0;
+    with a, d, f in R;
+```
+You can create all the parabola with directrix parallel to the x-axis in the plan.
+
+
+# Ellipse
+A ellipse is the locus of points in the plan for which the sum of the distances from two fixed points (the foci) is constant.
+
+In symbols:
+```ruby   
+    |PF1 + PF2| = d;
+    where P is a point, and F1, F2 the foci;
+    where F1 != F2 and d > |F1F2|
+```
+
+Ellipse is a conic and the general equation is:
+```ruby 
+    ax^2 + by^2 + dx + ey + f = 0
+    with a, b, d, e, f in R;
+```
+
+You can create all the ellipsis with axes parallel to the coordinate axes in the plan.
+
+
+# Hyperbola
+A hyperbola is the locus of points in the plan for which the difference of the distances from two fixed points (the foci) is constant.
+
+In symbols:
+```ruby  
+    |PF1 - PF2| = d, 
+    where P is a point, and F1, F2 the foci;
+    where F1 != F2 and d < |F1F2|
+```
+
+Hyperbola is a conic and the general equation is:
+```ruby 
+    ax^2 + by^2 + dx + ey + f = 0
+    with a, b, d, e, f in R;
+```
+
+You can create all the hyperbola with axes parallel to the coordinate axes in the plan. 
+
 
 ## Getting Started
 Edit your Gemfile and add:
 ```ruby 
-gem 'cartesius'
+    gem 'cartesius'
 ```
 Now you can update your gemset with bundle.
 
-## Coverage
-Test coverage.
+## Code Quality
+Test coverage at 100%.
 
 ## License
-Conics is released under the MIT License.
+Cartesius is released under the MIT License.
 
 ## Author
 Mauro Quaglia
 
+
+    
