@@ -3,13 +3,17 @@
 ## [v1.0.0]
 
 Breaking changes
+Some breaking changes in this release. 
+Now we have the segment object for building object more complex like ellipse and hyperbola 
+- Point: remove some trivial methods.
+- Circumference: methods for creation are changes.
+- Parabola: remove some trivial methods.
 - Hyperbola: methods for creation are changes, now you can use segment.
 - Ellipse: methods for creation are changes, now you can use segment.
-- Circumference: methods for creation are changes.
 
 News
-- Hyperbola: you can have some characteristics of the hyperbola.
 - Add some test and bug fixing.
+- Add some method for the characteristics of all object in the plane.
 
 ## [v0.0.1]
 - First release.

@@ -1,2 +1,0 @@
-* Sistemare le intercette. Si può fare per tutte le classi.
-* Per la linea quando conicide con l'asse ora torno nil, ma dovrei tornare tutto l'asse.

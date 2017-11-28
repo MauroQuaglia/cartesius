@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'cartesius'
-  s.version = '0.0.1'
+  s.version = '1.0.0'
   s.summary = 'The cartesian coordinate system.'
   s.description = 'The cartesian plan and its elements.'
   s.author = 'Mauro Quaglia'
