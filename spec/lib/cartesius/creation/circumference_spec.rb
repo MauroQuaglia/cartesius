@@ -1,7 +1,4 @@
 require_relative('../../../spec_helper')
-require('cartesius/circumference')
-require('cartesius/segment')
-require('cartesius/point')
 
 describe Cartesius::Circumference do
   let(:point) {Cartesius::Point}

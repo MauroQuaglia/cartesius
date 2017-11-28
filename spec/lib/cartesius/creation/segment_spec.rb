@@ -1,14 +1,14 @@
 require_relative('../../../spec_helper')
-require('cartesius/segment')
 
 describe Cartesius::Segment do
+  let(:point) {Cartesius::Point}
 
   describe '.new' do
 
     describe 'point' do
 
       it 'should be reject' do
-        expect {described_class.new(extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.origin)}.to raise_error(ArgumentError)
+        expect {described_class.new(extreme1: point.origin, extreme2: point.origin)}.to raise_error(ArgumentError)
       end
 
     end
@@ -16,7 +16,7 @@ describe Cartesius::Segment do
     describe 'segment' do
 
       it 'should be accept' do
-        expect {described_class.new(extreme1: Cartesius::Point.origin, extreme2: Cartesius::Point.new(x: 1, y: 1))}.not_to raise_error
+        expect {described_class.new(extreme1: point.origin, extreme2: point.new(x: 1, y: 1))}.not_to raise_error
       end
 
     end

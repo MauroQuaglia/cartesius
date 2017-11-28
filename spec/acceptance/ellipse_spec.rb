@@ -1,7 +1,4 @@
 require_relative('../spec_helper')
-require('cartesius/ellipse')
-require('cartesius/point')
-require('cartesius/segment')
 
 describe Cartesius::Ellipse do
   let(:point) {Cartesius::Point}

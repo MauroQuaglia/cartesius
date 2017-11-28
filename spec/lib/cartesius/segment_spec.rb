@@ -1,5 +1,4 @@
 require_relative('../../spec_helper')
-require('cartesius/segment')
 
 describe Cartesius::Segment do
   let(:point) {Cartesius::Point}

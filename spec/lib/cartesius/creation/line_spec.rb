@@ -1,6 +1,4 @@
 require_relative('../../../spec_helper')
-require('cartesius/line')
-require('cartesius/point')
 
 describe Cartesius::Line do
 

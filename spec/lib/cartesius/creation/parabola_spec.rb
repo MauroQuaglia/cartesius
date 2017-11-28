@@ -1,5 +1,4 @@
 require_relative('../../../spec_helper')
-require('cartesius/parabola')
 
 describe Cartesius::Parabola do
   let(:point) {Cartesius::Point}

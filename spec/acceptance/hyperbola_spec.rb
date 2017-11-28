@@ -1,7 +1,4 @@
 require_relative('../spec_helper')
-require('cartesius/hyperbola')
-require('cartesius/point')
-require('cartesius/segment')
 
 describe Cartesius::Hyperbola do
   let(:point) {Cartesius::Point}

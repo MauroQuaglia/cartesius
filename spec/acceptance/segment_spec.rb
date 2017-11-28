@@ -1,5 +1,4 @@
 require_relative('../spec_helper')
-require('cartesius/line')
 
 describe Cartesius::Line do
   let(:line) {Cartesius::Line}

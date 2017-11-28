@@ -1,6 +1,4 @@
 require_relative('../../spec_helper')
-require('cartesius/ellipse')
-require('cartesius/point')
 
 describe Cartesius::Ellipse do
 
