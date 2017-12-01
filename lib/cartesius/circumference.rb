@@ -31,18 +31,15 @@ module Cartesius
     end
 
     def self.by_points(point1:, point2:, point3:)
-      if point1 == point2 or point1 == point3 or point2 == point3
-        raise ArgumentError.new('Points must be different!')
-      end
-
       alfa, beta, gamma = Cramer.solution3(
           [point1.x, point1.y, 1],
           [point2.x, point2.y, 1],
           [point3.x, point3.y, 1],
           [-(point1.x ** 2 + point1.y ** 2), -(point2.x ** 2 + point2.y ** 2), -(point3.x ** 2 + point3.y ** 2)]
       )
-
       self.new(x: alfa, y: beta, k: gamma)
+    rescue
+      raise ArgumentError.new('Invalid points!')
     end
 
     def self.goniometric
@@ -71,16 +68,18 @@ module Cartesius
           circumference.center == self.center and circumference.radius == self.radius
     end
 
+    def self.build_by(center, radius)
+      self.new(x: -2 * center.x, y: -2 * center.y, k: center.x ** 2 + center.y ** 2 - radius.to_r ** 2)
+    end
+
+    private_class_method(:build_by)
+
     private
 
     def validation
       if determinator <= @k_coeff
         raise ArgumentError.new('Invalid coefficients!')
       end
-    end
-
-    def self.build_by(center, radius)
-      self.new(x: -2 * center.x, y: -2 * center.y, k: center.x**2 + center.y**2 - radius.to_r**2)
     end
 
   end

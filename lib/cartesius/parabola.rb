@@ -32,10 +32,6 @@ module Cartesius
     end
 
     def self.by_points(point1:, point2:, point3:)
-      if point1 == point2 or point1 == point3 or point2 == point3
-        raise ArgumentError.new('Points must be different!')
-      end
-
       a, b, c = Cramer.solution3(
           [point1.x ** 2, point1.x, 1],
           [point2.x ** 2, point2.x, 1],
@@ -44,6 +40,8 @@ module Cartesius
       )
 
       self.new(x2: a, x: b, k: c)
+    rescue
+      raise ArgumentError.new('Invalid points!')
     end
 
     def directrix

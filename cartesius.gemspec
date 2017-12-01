@@ -1,4 +1,6 @@
 Gem::Specification.new do |s|
+  s.platform = Gem::Platform::RUBY
+  s.required_ruby_version = '>= 2.4.0'
   s.name = 'cartesius'
   s.version = '1.0.0'
   s.summary = 'The cartesian coordinate system.'

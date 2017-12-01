@@ -127,7 +127,17 @@ describe Cartesius::Circumference do
         let(:point3) {point.origin}
 
         it 'should be fail' do
-          expect {subject}.to raise_error(ArgumentError, 'Points must be different!')
+          expect {subject}.to raise_error(ArgumentError, 'Invalid points!')
+        end
+      end
+
+      context 'when points are aligned' do
+        let(:point1) {point.new(x: -1, y: 0)}
+        let(:point2) {point.origin}
+        let(:point3) {point.new(x: 1, y: 0)}
+
+        it 'should be fail' do
+          expect {subject}.to raise_error(ArgumentError, 'Invalid points!')
         end
       end
 

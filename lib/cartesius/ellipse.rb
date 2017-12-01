@@ -29,18 +29,18 @@ module Cartesius
         raise ArgumentError.new('Sum of distances must be greater than focal distance!')
       end
 
-      c2 = Rational(focal_axis.length, 2)**2
+      c2 = Rational(focal_axis.length, 2) ** 2
       if focal_axis.horizontal?
-        a2 = Rational(distance, 2)**2
+        a2 = Rational(distance, 2) ** 2
         b2 = a2 - c2
       else
-        b2 = Rational(distance, 2)**2
+        b2 = Rational(distance, 2) ** 2
         a2 = b2 - c2
       end
 
       center = focal_axis.mid
 
-      self.build_by(a2, b2, center)
+      build_by(a2, b2, center)
     end
 
     def self.by_axes(major_axis:, minor_axis:)
@@ -65,16 +65,16 @@ module Cartesius
       end
 
       if major_axis.horizontal?
-        a2 = Rational(major_axis.length, 2)**2
-        b2 = Rational(minor_axis.length, 2)**2
+        a2 = Rational(major_axis.length, 2) ** 2
+        b2 = Rational(minor_axis.length, 2) ** 2
       else
-        a2 = Rational(minor_axis.length, 2)**2
-        b2 = Rational(major_axis.length, 2)**2
+        a2 = Rational(minor_axis.length, 2) ** 2
+        b2 = Rational(major_axis.length, 2) ** 2
       end
 
       center = major_axis.mid
 
-      self.build_by(a2, b2, center)
+      build_by(a2, b2, center)
     end
 
     def self.by_points(center:, point1:, point2:)
@@ -87,8 +87,8 @@ module Cartesius
 
       begin
         alfa, beta = Cramer.solution2(
-            [shifted1.x**2, shifted1.y**2],
-            [shifted2.x**2, shifted2.y**2],
+            [shifted1.x ** 2, shifted1.y ** 2],
+            [shifted2.x ** 2, shifted2.y ** 2],
             [1, 1]
         )
       rescue
@@ -98,7 +98,7 @@ module Cartesius
       a2 = Rational(1, alfa)
       b2 = Rational(1, beta)
 
-      self.build_by(a2, b2, center)
+      build_by(a2, b2, center)
     end
 
     def focus1
@@ -127,7 +127,7 @@ module Cartesius
       discriminating(
           lambda {Segment.new(extreme1: Point.new(x: center.x - a, y: center.y), extreme2: Point.new(x: center.x + a, y: center.y))},
           lambda {Segment.new(extreme1: Point.new(x: center.x, y: center.y - b), extreme2: Point.new(x: center.x, y: center.y + b))},
-      )
+          )
     end
 
     def minor_axis
@@ -160,16 +160,18 @@ module Cartesius
           ellipse.focus1 == self.focus1 and ellipse.focus2 == self.focus2 and ellipse.distance == self.distance
     end
 
+    def self.build_by(a2, b2, center)
+      self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
+    end
+
+    private_class_method(:build_by)
+
     private
 
     def validation
       if @x2_coeff <= 0 or @y2_coeff <= 0 or @x2_coeff == @y2_coeff or determinator <= @k_coeff
         raise ArgumentError.new('Invalid coefficients!')
       end
-    end
-
-    def self.build_by(a2, b2, center)
-      self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
     end
 
     def discriminating(horizontal_focus_type, vertical_focus_type)

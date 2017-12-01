@@ -47,7 +47,7 @@ module Cartesius
 
       center = focal_axis.mid
 
-      self.build_by(a2, b2, center, position)
+      build_by(a2, b2, center, position)
     end
 
     def self.by_axes(transverse_axis:, not_transverse_axis:)
@@ -83,7 +83,7 @@ module Cartesius
 
       center = transverse_axis.mid
 
-      self.build_by(a2, b2, center, position)
+      build_by(a2, b2, center, position)
     end
 
     def self.by_points(center:, vertex:, point:)
@@ -118,7 +118,7 @@ module Cartesius
       a2 = Rational(1, alfa)
       b2 = Rational(1, beta)
 
-      self.build_by(a2, b2, center, position)
+      build_by(a2, b2, center, position)
     end
 
     def focus1
@@ -190,16 +190,18 @@ module Cartesius
           hyperbola.focus1 == self.focus1 and hyperbola.focus2 == self.focus2 and hyperbola.distance == self.distance
     end
 
+    def self.build_by(a2, b2, center, position)
+      self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
+    end
+
+    private_class_method(:build_by)
+
     private
 
     def validation
       if signum(@x2_coeff * @y2_coeff) >= 0 or determinator == @k_coeff
         raise ArgumentError.new('Invalid coefficients!')
       end
-    end
-
-    def self.build_by(a2, b2, center, position)
-      self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
     end
 
     def discriminating(horizontal_focus_type, vertical_focus_type)
