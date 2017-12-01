@@ -1,3 +1,5 @@
+[![Gem Version](https://badge.fury.io/rb/cartesius.svg)](https://badge.fury.io/rb/cartesius)
+
 # cartesius
 Cartesius is a Ruby gem which allows you to solve some problems related to conics and geometry in the cartesian plane.
 The models you are:
