@@ -2,49 +2,6 @@ require_relative('../../spec_helper')
 
 describe Cartesius::Line do
 
-  describe 'gradient' do
-
-    it 'should be horizontal' do
-      line = described_class.horizontal(known_term: 1)
-
-      expect(line.horizontal?).to be_truthy
-      expect(line.vertical?).to be_falsey
-      expect(line.inclined?).to be_falsey
-      expect(line.ascending?).to be_falsey
-      expect(line.descending?).to be_falsey
-    end
-
-    it 'should be vertical' do
-      line = described_class.vertical(known_term: 1)
-
-      expect(line.horizontal?).to be_falsey
-      expect(line.vertical?).to be_truthy
-      expect(line.inclined?).to be_falsey
-      expect(line.ascending?).to be_falsey
-      expect(line.descending?).to be_falsey
-    end
-
-    it 'should be ascending' do
-      line = described_class.ascending_bisector
-
-      expect(line.horizontal?).to be_falsey
-      expect(line.vertical?).to be_falsey
-      expect(line.inclined?).to be_truthy
-      expect(line.ascending?).to be_truthy
-      expect(line.descending?).to be_falsey
-    end
-
-    it 'should be descending' do
-      line = described_class.descending_bisector
-
-      expect(line.horizontal?).to be_falsey
-      expect(line.vertical?).to be_falsey
-      expect(line.inclined?).to be_truthy
-      expect(line.ascending?).to be_falsey
-      expect(line.descending?).to be_truthy
-    end
-  end
-
   describe '#==' do
 
     it 'should be false when not line' do

@@ -16,57 +16,6 @@ describe Cartesius::Segment do
 
   end
 
-  describe 'gradient' do
-
-    it 'should be horizontal' do
-      segment = described_class.new(
-          extreme1: point.origin, extreme2: point.new(x: 1, y: 0)
-      )
-
-      expect(segment.horizontal?).to be_truthy
-      expect(segment.vertical?).to be_falsey
-      expect(segment.inclined?).to be_falsey
-      expect(segment.ascending?).to be_falsey
-      expect(segment.descending?).to be_falsey
-    end
-
-    it 'should be vertical' do
-      segment = described_class.new(
-          extreme1: point.origin, extreme2: point.new(x: 0, y: 1)
-      )
-
-      expect(segment.horizontal?).to be_falsey
-      expect(segment.vertical?).to be_truthy
-      expect(segment.inclined?).to be_falsey
-      expect(segment.ascending?).to be_falsey
-      expect(segment.descending?).to be_falsey
-    end
-
-    it 'should be ascending' do
-      segment = described_class.new(
-          extreme1: point.origin, extreme2: point.new(x: 1, y: 1)
-      )
-
-      expect(segment.horizontal?).to be_falsey
-      expect(segment.vertical?).to be_falsey
-      expect(segment.inclined?).to be_truthy
-      expect(segment.ascending?).to be_truthy
-      expect(segment.descending?).to be_falsey
-    end
-
-    it 'should be descending' do
-      segment = described_class.new(
-          extreme1: point.origin, extreme2: point.new(x: -1, y: 1)
-      )
-
-      expect(segment.horizontal?).to be_falsey
-      expect(segment.vertical?).to be_falsey
-      expect(segment.inclined?).to be_truthy
-      expect(segment.ascending?).to be_falsey
-      expect(segment.descending?).to be_truthy
-    end
-  end
-
   describe '#extremes' do
 
     it 'should get the extremes' do

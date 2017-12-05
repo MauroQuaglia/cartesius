@@ -1,5 +1,8 @@
 # Change Log
 
+## Next release
+- Refactor test suite.
+
 ## [v1.0.0]
 
 Breaking changes
