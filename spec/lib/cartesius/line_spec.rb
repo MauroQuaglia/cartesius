@@ -2,43 +2,6 @@ require_relative('../../spec_helper')
 
 describe Cartesius::Line do
 
-  describe '#==' do
-
-    it 'should be false when not line' do
-      expect(
-          described_class.x_axis == NilClass
-      ).to be_falsey
-    end
-
-    it 'should be false when different slope' do
-      line1 = described_class.create(slope: 1, known_term: 2)
-      line2 = described_class.create(slope: -1, known_term: 2)
-
-      expect(
-          line1 == line2
-      ).to be_falsey
-    end
-
-    it 'should be false when different known term' do
-      line1 = described_class.create(slope: 1, known_term: 2)
-      line2 = described_class.create(slope: 1, known_term: -2)
-
-      expect(
-          line1 == line2
-      ).to be_falsey
-    end
-
-    it 'should be true' do
-      line1 = described_class.create(slope: 1, known_term: 2)
-      line2 = described_class.create(slope: 1, known_term: 2)
-
-      expect(
-          line1 == line2
-      ).to be_truthy
-    end
-
-  end
-
   describe '.x_axis?' do
 
     it 'should be false' do
@@ -137,28 +100,6 @@ describe Cartesius::Line do
       line = described_class.create(slope: 2, known_term: 1)
 
       expect(line.to_equation).to eq('+2x -1y +1 = 0')
-    end
-
-  end
-
-  describe '#congruent?' do
-
-    it 'should be false when not line' do
-      expect(described_class.x_axis == NilClass).to be_falsey
-    end
-
-    it 'should be true when same line' do
-      line1 = described_class.x_axis
-      line2 = described_class.x_axis
-
-      expect(line1.congruent?(line2)).to be_truthy
-    end
-
-    it 'should be true when generic points' do
-      line1 = described_class.x_axis
-      line2 = described_class.y_axis
-
-      expect(line1.congruent?(line2)).to be_truthy
     end
 
   end

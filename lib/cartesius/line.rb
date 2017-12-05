@@ -83,22 +83,27 @@ module Cartesius
       self == Line.descending_bisector
     end
 
+    # OK
     def horizontal?
       slope == HORIZONTAL_SLOPE
     end
 
+    # OK
     def vertical?
       slope == VERTICAL_SLOPE
     end
 
+    # OK
     def inclined?
-      (not horizontal?) and (not vertical?)
+      ascending? or descending?
     end
 
+    # OK
     def ascending?
       slope != VERTICAL_SLOPE and slope > 0
     end
 
+    # OK
     def descending?
       slope < 0
     end
@@ -138,13 +143,15 @@ module Cartesius
       )
     end
 
+    # OK
     def congruent?(line)
-      line.instance_of?(Line)
+      line.instance_of?(self.class)
     end
 
+    # OK
     def == (line)
-      line.instance_of?(Line) and
-          line.slope == self.slope and line.known_term == self.known_term
+      line.instance_of?(self.class) and
+          line.slope == slope and line.known_term == known_term
     end
 
     private

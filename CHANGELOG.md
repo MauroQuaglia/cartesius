@@ -2,6 +2,7 @@
 
 ## Next release
 - Refactor test suite.
+- Bug fix.
 
 ## [v1.0.0]
 

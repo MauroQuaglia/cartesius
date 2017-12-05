@@ -1,3 +1,4 @@
+require('set')
 require('cartesius/point')
 require('cartesius/line')
 
@@ -6,7 +7,7 @@ module Cartesius
   class Segment
     extend Forwardable
     attr_reader :extreme1, :extreme2
-    def_delegators(:@line, :horizontal?, :vertical?, :inclined?, :ascending?, :descending?)
+    def_delegators(:@line, :horizontal?, :vertical?, :inclined?, :ascending?, :descending?) # OK
 
     def initialize(extreme1:, extreme2:)
       @extreme1, @extreme2 = extreme1, extreme2
@@ -33,18 +34,18 @@ module Cartesius
       [@extreme1, @extreme2]
     end
 
+    # OK
     def congruent?(segment)
-      segment.instance_of?(Segment) and
+      segment.instance_of?(self.class) and
           segment.length == self.length
     end
 
+    # OK
     def == (segment)
-      unless segment.instance_of?(Segment)
-        return false
-      end
-
-      (segment.extreme1 == self.extreme1 and segment.extreme2 == self.extreme2) or
-          (segment.extreme1 == self.extreme2 and segment.extreme2 == self.extreme1)
+      segment.instance_of?(self.class) and (
+      (segment.extreme1 == extreme1 and segment.extreme2 == extreme2) or
+          (segment.extreme1 == extreme2 and segment.extreme2 == extreme1)
+      )
     end
 
     private

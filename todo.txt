@@ -1,0 +1,23 @@
+* Point
+
+* Line
+** gradient
+** congruent?
+** ==?
+
+* Segment
+** gradient
+** congruent?
+** ==?
+
+* Circumference
+
+* Parabola
+
+* Ellipse
+
+* Hyperbola
+
+
+------------------------------------------------------------------------------------------------------------------------
+* == senza ?
