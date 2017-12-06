@@ -108,8 +108,9 @@ module Cartesius
       slope < 0
     end
 
+    # OK
     def parallel?(line)
-      slope == line.slope
+      line.slope == slope
     end
 
     def perpendicular?(line)

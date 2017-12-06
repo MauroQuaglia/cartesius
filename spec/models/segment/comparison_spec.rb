@@ -35,7 +35,7 @@ describe 'Comparison of segment' do
 
   end
 
-  describe '#==?' do
+  describe '#==' do
     subject {
       segment.new(extreme1: point.origin, extreme2: point.new(x: 1, y: 0)) == a_segment
     }
