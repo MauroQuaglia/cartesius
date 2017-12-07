@@ -7,19 +7,23 @@ module Cartesius
     VERTICAL_SLOPE = Float::INFINITY
     HORIZONTAL_SLOPE = 0
 
+    # OK
     def initialize(x:, y:, k:)
       @x_coeff, @y_coeff, @k_coeff = x.to_r, y.to_r, k.to_r
       validation
     end
 
+    # OK
     def self.create(slope:, known_term:)
       new(x: -slope.to_r, y: 1, k: -known_term.to_r)
     end
 
+    # OK
     def self.horizontal(known_term:)
       new(x: 0, y: 1, k: -known_term.to_r)
     end
 
+    # OK
     def self.vertical(known_term:)
       new(x: 1, y: 0, k: -known_term.to_r)
     end
@@ -29,18 +33,14 @@ module Cartesius
         raise ArgumentError.new('Points must be different!')
       end
 
-      if point1.y == point2.y
-        return horizontal(known_term: point1.y)
-      end
-
       if point1.x == point2.x
         return vertical(known_term: point1.x)
+      else
+        slope = Rational(point2.y - point1.y, point2.x - point1.x)
+        known_term = point1.y - slope * point1.x
+
+        create(slope: slope, known_term: known_term)
       end
-
-      slope = Rational(point2.y - point1.y, point2.x - point1.x)
-      known_term = point1.y - slope * point1.x
-
-      create(slope: slope, known_term: known_term)
     end
 
     def self.x_axis
