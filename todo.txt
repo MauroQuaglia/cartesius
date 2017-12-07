@@ -3,12 +3,14 @@
 * Line
 ** gradient
 ** congruent?
-** ==?
+** ==
+** parallel?
+** perpendicular?
 
 * Segment
 ** gradient
 ** congruent?
-** ==?
+** ==
 
 * Circumference
 

@@ -2,42 +2,6 @@ require_relative('../../../spec_helper')
 
 describe Cartesius::Line do
 
-  describe '.new' do
-
-    describe 'empty set' do
-
-      it 'should reject a simple equation' do
-        # 1 = 0
-        expect {described_class.new(x: 0, y: 0, k: 1)}.to raise_error(ArgumentError)
-      end
-
-    end
-
-    describe 'line' do
-
-      it 'should accept a simple equation' do
-        # y = 0
-        expect {described_class.new(x: 0, y: 1, k: 0)}.not_to raise_error
-      end
-
-      it 'should accept a general equation' do
-        # y = -x - 1 --> x + y + 1 = 0
-        expect {described_class.new(x: 1, y: 1, k: 1)}.not_to raise_error
-      end
-
-    end
-
-    describe 'plane' do
-
-      it 'should reject the equation' do
-        # 0 = 0
-        expect {described_class.new(x: 0, y: 0, k: 0)}.to raise_error(ArgumentError)
-      end
-
-    end
-
-  end
-
   describe '.create' do
 
     it 'should be a generic line' do

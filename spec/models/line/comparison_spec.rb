@@ -64,7 +64,6 @@ describe 'Comparison of line' do
         expect(subject.parallel?(line.x_axis)).to be_truthy
         expect(subject.parallel?(line.horizontal(known_term: 1))).to be_truthy
         expect(subject.parallel?(line.y_axis)).to be_falsey
-        expect(subject.parallel?(line.ascending_bisector)).to be_falsey
       end
     end
 
@@ -75,7 +74,6 @@ describe 'Comparison of line' do
         expect(subject.parallel?(line.y_axis)).to be_truthy
         expect(subject.parallel?(line.vertical(known_term: 1))).to be_truthy
         expect(subject.parallel?(line.x_axis)).to be_falsey
-        expect(subject.parallel?(line.ascending_bisector)).to be_falsey
       end
     end
 
@@ -86,7 +84,40 @@ describe 'Comparison of line' do
         expect(subject.parallel?(line.ascending_bisector)).to be_truthy
         expect(subject.parallel?(line.create(slope: 1, known_term: 1))).to be_truthy
         expect(subject.parallel?(line.descending_bisector)).to be_falsey
-        expect(subject.parallel?(line.x_axis)).to be_falsey
+      end
+    end
+
+  end
+
+  describe '#perpendicular?' do
+
+    context 'when x-axis' do
+      subject {line.x_axis}
+
+      it 'should be perpendicular' do
+        expect(subject.perpendicular?(line.x_axis)).to be_falsey
+        expect(subject.perpendicular?(line.y_axis)).to be_truthy
+        expect(subject.perpendicular?(line.ascending_bisector)).to be_falsey
+      end
+    end
+
+    context 'when y-axis' do
+      subject {line.y_axis}
+
+      it 'should be parallel' do
+        expect(subject.perpendicular?(line.y_axis)).to be_falsey
+        expect(subject.perpendicular?(line.x_axis)).to be_truthy
+        expect(subject.perpendicular?(line.ascending_bisector)).to be_falsey
+      end
+    end
+
+    context 'when ascending bisector' do
+      subject {line.ascending_bisector}
+
+      it 'should be parallel' do
+        expect(subject.perpendicular?(line.ascending_bisector)).to be_falsey
+        expect(subject.perpendicular?(line.descending_bisector)).to be_truthy
+        expect(subject.perpendicular?(line.x_axis)).to be_falsey
       end
     end
 

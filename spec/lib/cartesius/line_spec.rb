@@ -161,24 +161,4 @@ describe Cartesius::Line do
 
   end
 
-  describe '#perpendicular?' do
-
-    it 'axis should be perpendicular' do
-      line1 = Cartesius::Line.x_axis
-      line2 = Cartesius::Line.y_axis
-
-      expect(line1.perpendicular?(line2)).to be_truthy
-      expect(line2.perpendicular?(line1)).to be_truthy
-    end
-
-    it 'should be inclined parallel' do
-      line1 = Cartesius::Line.ascending_bisector
-      line2 = Cartesius::Line.descending_bisector
-
-      expect(line1.perpendicular?(line2)).to be_truthy
-      expect(line2.perpendicular?(line1)).to be_truthy
-    end
-
-  end
-
 end

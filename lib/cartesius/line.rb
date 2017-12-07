@@ -113,14 +113,15 @@ module Cartesius
       line.slope == slope
     end
 
+    # OK
     def perpendicular?(line)
-      if slope == 0
-        return line.slope == VERTICAL_SLOPE
+      if line.slope == HORIZONTAL_SLOPE
+        slope == VERTICAL_SLOPE
+      elsif line.slope == VERTICAL_SLOPE
+        slope == HORIZONTAL_SLOPE
+      else
+        line.slope * slope == -1
       end
-      if slope == VERTICAL_SLOPE
-        return line.slope == 0
-      end
-      slope * line.slope == -1
     end
 
     def include?(point)
