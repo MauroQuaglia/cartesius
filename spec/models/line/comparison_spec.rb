@@ -123,4 +123,120 @@ describe 'Comparison of line' do
 
   end
 
+  context 'when x-axis' do
+    subject {line.x_axis}
+
+    it 'should be horizontal' do
+      expect(subject.horizontal?).to be_truthy
+      expect(subject.vertical?).to be_falsey
+      expect(subject.inclined?).to be_falsey
+      expect(subject.ascending?).to be_falsey
+      expect(subject.descending?).to be_falsey
+    end
+  end
+
+  context 'when y-axis' do
+    subject {line.y_axis}
+
+    it 'should be vertical' do
+      expect(subject.horizontal?).to be_falsey
+      expect(subject.vertical?).to be_truthy
+      expect(subject.inclined?).to be_falsey
+      expect(subject.ascending?).to be_falsey
+      expect(subject.descending?).to be_falsey
+    end
+  end
+
+  context 'when ascending bisector' do
+    subject {line.ascending_bisector}
+
+    it 'should be ascending' do
+      expect(subject.horizontal?).to be_falsey
+      expect(subject.vertical?).to be_falsey
+      expect(subject.inclined?).to be_truthy
+      expect(subject.ascending?).to be_truthy
+      expect(subject.descending?).to be_falsey
+    end
+  end
+
+  context 'when on descending bisector' do
+    subject {line.descending_bisector}
+
+    it 'should be descending' do
+      expect(subject.horizontal?).to be_falsey
+      expect(subject.vertical?).to be_falsey
+      expect(subject.inclined?).to be_truthy
+      expect(subject.ascending?).to be_falsey
+      expect(subject.descending?).to be_truthy
+    end
+  end
+
+  describe '.x_axis?' do
+    subject {a_line.x_axis?}
+
+    context 'when x-axis' do
+      let(:a_line) {line.x_axis}
+
+      it {is_expected.to be_truthy}
+    end
+
+    context 'when not x-axis' do
+      let(:a_line) {line.y_axis}
+
+      it {is_expected.to be_falsey}
+    end
+
+  end
+
+  describe '.y_axis?' do
+    subject {a_line.y_axis?}
+
+    context 'when y-axis' do
+      let(:a_line) {line.y_axis}
+
+      it {is_expected.to be_truthy}
+    end
+
+    context 'when not y-axis' do
+      let(:a_line) {line.x_axis}
+
+      it {is_expected.to be_falsey}
+    end
+
+  end
+
+  describe '.ascending_bisector?' do
+    subject {a_line.ascending_bisector?}
+
+    context 'when ascending bisector' do
+      let(:a_line) {line.ascending_bisector}
+
+      it {is_expected.to be_truthy}
+    end
+
+    context 'when not ascending bisector' do
+      let(:a_line) {line.x_axis}
+
+      it {is_expected.to be_falsey}
+    end
+
+  end
+
+  describe '.descending_bisector?' do
+    subject {a_line.descending_bisector?}
+
+    context 'when descending bisector' do
+      let(:a_line) {line.descending_bisector}
+
+      it {is_expected.to be_truthy}
+    end
+
+    context 'when not descending bisector' do
+      let(:a_line) {line.x_axis}
+
+      it {is_expected.to be_falsey}
+    end
+
+  end
+
 end

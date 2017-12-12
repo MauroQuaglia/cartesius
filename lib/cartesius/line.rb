@@ -7,23 +7,23 @@ module Cartesius
     VERTICAL_SLOPE = Float::INFINITY
     HORIZONTAL_SLOPE = 0
 
-    # OK
+    private_constant(:VERTICAL_SLOPE)
+    private_constant(:HORIZONTAL_SLOPE)
+
+    # equation type: dx + ey + f = 0
     def initialize(x:, y:, k:)
       @x_coeff, @y_coeff, @k_coeff = x.to_r, y.to_r, k.to_r
       validation
     end
 
-    # OK
     def self.create(slope:, known_term:)
       new(x: -slope.to_r, y: 1, k: -known_term.to_r)
     end
 
-    # OK
     def self.horizontal(known_term:)
-      new(x: 0, y: 1, k: -known_term.to_r)
+      create(slope: HORIZONTAL_SLOPE, known_term: known_term)
     end
 
-    # OK
     def self.vertical(known_term:)
       new(x: 1, y: 0, k: -known_term.to_r)
     end
@@ -36,10 +36,12 @@ module Cartesius
       if point1.x == point2.x
         return vertical(known_term: point1.x)
       else
-        slope = Rational(point2.y - point1.y, point2.x - point1.x)
-        known_term = point1.y - slope * point1.x
-
-        create(slope: slope, known_term: known_term)
+        m, q = Cramer.solution2(
+            [point1.x, 1],
+            [point2.x, 1],
+            [point1.y, point2.y]
+        )
+        create(slope: m, known_term: q)
       end
     end
 
@@ -52,19 +54,21 @@ module Cartesius
     end
 
     def self.ascending_bisector
-      new(x: -1, y: 1, k: 0)
+      create(slope: 1, known_term: 0)
     end
 
     def self.descending_bisector
-      new(x: 1, y: 1, k: 0)
+      create(slope: -1, known_term: 0)
     end
 
+    #TODO ACC
     def slope
-      @y_coeff == 0 ? VERTICAL_SLOPE : Rational(-@x_coeff, @y_coeff)
+      @y_coeff.zero? ? VERTICAL_SLOPE : Rational(-@x_coeff, @y_coeff)
     end
 
+    #TODO ACC
     def known_term
-      @y_coeff == 0 ? Rational(-@k_coeff, @x_coeff) : Rational(-@k_coeff, @y_coeff)
+      @y_coeff.zero? ? Rational(-@k_coeff, @x_coeff) : Rational(-@k_coeff, @y_coeff)
     end
 
     def x_axis?
@@ -83,32 +87,26 @@ module Cartesius
       self == Line.descending_bisector
     end
 
-    # OK
     def horizontal?
       slope == HORIZONTAL_SLOPE
     end
 
-    # OK
     def vertical?
       slope == VERTICAL_SLOPE
     end
 
-    # OK
     def inclined?
       ascending? or descending?
     end
 
-    # OK
     def ascending?
-      slope != VERTICAL_SLOPE and slope > 0
+      slope != VERTICAL_SLOPE and slope > HORIZONTAL_SLOPE
     end
 
-    # OK
     def descending?
-      slope < 0
+      slope < HORIZONTAL_SLOPE
     end
 
-    # OK
     def parallel?(line)
       line.slope == slope
     end
@@ -126,17 +124,22 @@ module Cartesius
 
     def include?(point)
       if vertical?
-        return known_term == point.x
+        point.x == known_term
+      else
+        point.y == slope * point.x + known_term
       end
-      point.y == slope * point.x + known_term
     end
 
     def x_intercept
-      @x_coeff.zero? ? nil : -Rational(@k_coeff, @x_coeff)
+      unless @x_coeff.zero?
+        -Rational(@k_coeff, @x_coeff)
+      end
     end
 
     def y_intercept
-      @y_coeff.zero? ? nil : -Rational(@k_coeff, @y_coeff)
+      unless @y_coeff.zero?
+        -Rational(@k_coeff, @y_coeff)
+      end
     end
 
     def to_equation
@@ -145,12 +148,10 @@ module Cartesius
       )
     end
 
-    # OK
     def congruent?(line)
       line.instance_of?(self.class)
     end
 
-    # OK
     def == (line)
       line.instance_of?(self.class) and
           line.slope == slope and line.known_term == known_term
@@ -159,7 +160,7 @@ module Cartesius
     private
 
     def validation
-      if (@x_coeff == 0 and @y_coeff == 0)
+      if @x_coeff.zero? and @y_coeff.zero?
         raise ArgumentError.new('Invalid coefficients!')
       end
     end

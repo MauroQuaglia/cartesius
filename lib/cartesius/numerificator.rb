@@ -29,6 +29,15 @@ module Numerificator
     number.to_s
   end
 
+  # TODO: test
+  def numberfy(numerator, denominator)
+    if denominator == 1
+      numerator
+    else
+      Rational(numerator, denominator)
+    end
+  end
+
   def monomial(number_part, letter_part = nil)
     number_string = if number_part.denominator == 1
                       number_part.numerator.abs.to_s
