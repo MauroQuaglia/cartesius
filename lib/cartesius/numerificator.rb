@@ -33,6 +33,8 @@ module Numerificator
   def numberfy(numerator, denominator)
     if denominator == 1
       numerator
+    elsif denominator == -1
+      -numerator
     else
       Rational(numerator, denominator)
     end

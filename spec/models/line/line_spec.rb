@@ -138,22 +138,42 @@ describe Cartesius::Line do
 
     context 'should be horizontal' do
       let(:a_line) {described_class.horizontal(known_term: 1)}
-      it {is_expected.to be(0)}
+      it {is_expected.to eq(0)}
     end
 
     context 'should be vertical' do
       let(:a_line) {described_class.vertical(known_term: 1)}
-      it {is_expected.to be(Float::INFINITY)}
+      it {is_expected.to eq(Float::INFINITY)}
     end
 
     context 'should be ascending' do
       let(:a_line) {described_class.create(slope: 1, known_term: 1)}
-      it {is_expected.to be(1)}
+      it {is_expected.to eq(1)}
     end
 
     context 'should be descending' do
       let(:a_line) {described_class.create(slope: -1, known_term: 1)}
-      it {is_expected.to be(-1)}
+      it {is_expected.to eq(-1)}
+    end
+
+  end
+
+  describe '#known_term' do
+    subject {a_line.known_term}
+
+    context 'should be positive' do
+      let(:a_line) {described_class.vertical(known_term: 1)}
+      it {is_expected.to eq(1)}
+    end
+
+    context 'should be zero' do
+      let(:a_line) {described_class.x_axis}
+      it {is_expected.to eq(0)}
+    end
+
+    context 'should be negative' do
+      let(:a_line) {described_class.create(slope: 1, known_term: -1)}
+      it {is_expected.to eq(-1)}
     end
 
   end

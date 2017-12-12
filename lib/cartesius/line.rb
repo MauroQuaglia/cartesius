@@ -61,14 +61,20 @@ module Cartesius
       create(slope: -1, known_term: 0)
     end
 
-    #TODO ACC
     def slope
-      @y_coeff.zero? ? VERTICAL_SLOPE : Rational(-@x_coeff, @y_coeff)
+      if @y_coeff.zero?
+        VERTICAL_SLOPE
+      else
+        numberfy(-@x_coeff, @y_coeff)
+      end
     end
 
-    #TODO ACC
     def known_term
-      @y_coeff.zero? ? Rational(-@k_coeff, @x_coeff) : Rational(-@k_coeff, @y_coeff)
+      if @y_coeff.zero?
+        numberfy(-@k_coeff, @x_coeff)
+      else
+        numberfy(-@k_coeff, @y_coeff)
+      end
     end
 
     def x_axis?
@@ -111,7 +117,6 @@ module Cartesius
       line.slope == slope
     end
 
-    # OK
     def perpendicular?(line)
       if line.slope == HORIZONTAL_SLOPE
         slope == VERTICAL_SLOPE
@@ -132,20 +137,18 @@ module Cartesius
 
     def x_intercept
       unless @x_coeff.zero?
-        -Rational(@k_coeff, @x_coeff)
+        numberfy(-@k_coeff, @x_coeff)
       end
     end
 
     def y_intercept
       unless @y_coeff.zero?
-        -Rational(@k_coeff, @y_coeff)
+        numberfy(-@k_coeff, @y_coeff)
       end
     end
 
     def to_equation
-      equationfy(
-          'x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff
-      )
+      equationfy('x' => @x_coeff, 'y' => @y_coeff, '1' => @k_coeff)
     end
 
     def congruent?(line)
