@@ -33,8 +33,6 @@ describe 'Creation of a line' do
       let(:known_term) {1}
 
       it 'should be valid' do
-        expect {subject}.not_to raise_error
-
         expect(subject.slope).to eq(-1)
         expect(subject.known_term).to eq(-1)
       end

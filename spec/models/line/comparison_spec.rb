@@ -159,7 +159,7 @@ describe 'Comparison of line' do
     end
   end
 
-  context 'when on descending bisector' do
+  context 'when descending bisector' do
     subject {line.descending_bisector}
 
     it 'should be descending' do

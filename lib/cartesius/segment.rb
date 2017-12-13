@@ -6,23 +6,27 @@ module Cartesius
 
   class Segment
     extend Forwardable
-    attr_reader :extreme1, :extreme2
+    attr_reader :extreme1, :extreme2 # OK
     def_delegators(:@line, :horizontal?, :vertical?, :inclined?, :ascending?, :descending?) # OK
 
+    # OK
     def initialize(extreme1:, extreme2:)
       @extreme1, @extreme2 = extreme1, extreme2
       validation
       @line = Line.by_points(point1: @extreme1, point2: @extreme2)
     end
 
+    # OK
     def to_line
       @line
     end
 
+    # OK
     def length
       Point.distance(@extreme1, @extreme2)
     end
 
+    # OK
     def mid
       Point.new(
           x: Rational(@extreme1.x + @extreme2.x, 2),
