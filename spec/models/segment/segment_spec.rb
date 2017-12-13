@@ -4,30 +4,43 @@ describe Cartesius::Segment do
   let(:point) {Cartesius::Point}
   let(:line) {Cartesius::Line}
   let(:segment) {Cartesius::Segment}
-  
-  describe '#to_line' do
-    subject {segment.new(extreme1: point.origin, extreme2: point.new(x: 1, y: 0)).to_line}
 
-    it {is_expected.to eq(line.x_axis)}
+  subject {segment.new(extreme1: extreme1, extreme2: extreme2)}
+
+  describe '#to_line' do
+    let(:extreme1) {point.origin}
+    let(:extreme2) {point.new(x: 1, y: 0)}
+
+    it 'should be a line' do
+      expect(subject.to_line).to eq(line.x_axis)
+    end
   end
 
   describe '#length' do
-    subject {segment.new(extreme1: point.origin, extreme2: point.new(x: 1, y: 0)).length}
+    let(:extreme1) {point.origin}
+    let(:extreme2) {point.new(x: 1, y: 0)}
 
-    it {is_expected.to eq(1)}
+    it 'should be 1' do
+      expect(subject.length).to eq(1)
+    end
   end
 
   describe '#mid' do
-    subject {segment.new(extreme1: point.new(x: -1, y: -1), extreme2: point.new(x: 1, y: 1)).mid}
+    let(:extreme1) {point.new(x: -1, y: 0)}
+    let(:extreme2) {point.new(x: 1, y: 0)}
 
-    it {is_expected.to eq(point.origin)}
+    it 'should be the origin' do
+      expect(subject.mid).to eq(point.origin)
+    end
   end
 
   describe '#extremes' do
-    subject {segment.new(extreme1: point.new(x: -1, y: -1), extreme2: point.new(x: 1, y: 1)).extremes}
+    let(:extreme1) {point.new(x: -1, y: -1)}
+    let(:extreme2) {point.new(x: 1, y: 1)}
 
-    it {is_expected.to eq([point.new(x: -1, y: -1), point.new(x: 1, y: 1)])}
+    it 'should be the extremes' do
+      expect(subject.extremes).to eq([extreme1, extreme2])
+    end
   end
-
 
 end
