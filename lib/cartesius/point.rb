@@ -1,7 +1,6 @@
 require('cartesius/numerificator')
 
 module Cartesius
-
   class Point
     include Numerificator
     attr_reader :x, :y
@@ -15,15 +14,11 @@ module Cartesius
     end
 
     def self.distance(point1, point2)
-      Math.sqrt((point1.x - point2.x)** 2 + (point1.y - point2.y)** 2)
+      Math.sqrt((point1.x - point2.x) ** 2 + (point1.y - point2.y) ** 2)
     end
 
     def origin?
       self == Point.origin
-    end
-
-    def distance_from(point)
-      Math.sqrt((@x - point.x)** 2 + (@y - point.y)** 2)
     end
 
     def to_coordinates
@@ -31,20 +26,16 @@ module Cartesius
     end
 
     def to_equation
-      equationfy(
-          'x^2' => 1, 'y^2' => 1, 'x' => -2 * @x, 'y' => -2 * @y, '1' => @x ** 2 + @y ** 2
-      )
+      equationfy('x^2' => 1, 'y^2' => 1, 'x' => -2 * @x, 'y' => -2 * @y, '1' => @x ** 2 + @y ** 2)
     end
 
     def congruent?(point)
-      point.instance_of?(Point)
+      point.instance_of?(self.class)
     end
 
     def == (point)
-      point.instance_of?(Point) and
+      point.instance_of?(self.class) and
           point.x == @x and point.y == @y
     end
-
   end
-
 end
