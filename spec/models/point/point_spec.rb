@@ -3,6 +3,24 @@ require_relative('../../spec_helper')
 describe Cartesius::Point do
   let(:point) {described_class}
 
+  describe '#x' do
+    subject {a_point.x}
+
+    context 'abscissa' do
+      let(:a_point) {point.new(x: 1, y: -1)}
+      it {is_expected.to eq(1)}
+    end
+  end
+
+  describe '#y' do
+    subject {a_point.y}
+
+    context 'ordinate' do
+      let(:a_point) {point.new(x: 1, y: -1)}
+      it {is_expected.to eq(-1)}
+    end
+  end
+
   describe '.distance' do
     subject {point.distance(point1, point2)}
 

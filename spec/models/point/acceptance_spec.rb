@@ -25,5 +25,5 @@ describe Cartesius::Point do
     expect(point.congruent?(described_class.origin)).to be_truthy
     expect(point == described_class.origin).to be_falsey
   end
-  
+
 end
