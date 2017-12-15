@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.platform = Gem::Platform::RUBY
-  s.required_ruby_version = '>= 2.4.0'
+  s.required_ruby_version = '>= 2.1.0'
   s.name = 'cartesius'
   s.version = '1.0.0'
   s.summary = 'The cartesian coordinate system.'
@@ -14,7 +14,8 @@ Gem::Specification.new do |s|
       'lib/cartesius/circumference.rb',
       'lib/cartesius/parabola.rb',
       'lib/cartesius/ellipse.rb',
-      'lib/cartesius/hyperbola.rb'
+      'lib/cartesius/hyperbola.rb',
+      'lib/cartesius/triangle.rb',
   ]
   s.homepage = 'https://github.com/MauroQuaglia/cartesius'
   s.license = 'MIT'

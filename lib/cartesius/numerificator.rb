@@ -6,7 +6,7 @@ module Numerificator
     coefficients.delete_if {|_, value| value.zero?}
 
     if coefficients.first.last < 0
-      coefficients.transform_values! {|value| -value}
+      coefficients.each {|k, v| coefficients[k] = -v}
     end
 
     equation = []

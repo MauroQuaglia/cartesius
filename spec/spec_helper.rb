@@ -8,6 +8,7 @@ require('cartesius/circumference')
 require('cartesius/parabola')
 require('cartesius/ellipse')
 require('cartesius/hyperbola')
+require('cartesius/triangle')
 
 require('cartesius/cramer')
 require('cartesius/determinator')

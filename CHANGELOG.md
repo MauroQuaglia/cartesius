@@ -2,7 +2,9 @@
 
 ## Next release
 - Refactor test suite.
-- Bug fix.
+- Add base version of triangle.
+- New README, with wiki.
+- Downgrade required ruby version (from 2.4.0 to 2.1.0)
 
 ## [v1.0.0]
 

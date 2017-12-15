@@ -1,0 +1,14 @@
+sempre in ordine alfabetico
+
+new
+* metodi di creazione statici
+** prima quelli utente
+** poi quelli prefabricati
+
+* metodi normali di utilizzo
+
+* metodi di comparazione (?)
+
+* statici privati
+* privati
+
