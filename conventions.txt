@@ -12,3 +12,5 @@ new
 * statici privati
 * privati
 
+* ==, equal? alla fine
+
