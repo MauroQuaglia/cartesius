@@ -37,5 +37,11 @@ module Cartesius
       point.instance_of?(self.class) and
           point.x == @x and point.y == @y
     end
+
+    def hash
+      @x.hash ^ @y.hash
+    end
+
+    alias_method(:eql?, :==)
   end
 end
