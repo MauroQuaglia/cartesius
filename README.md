@@ -13,7 +13,7 @@ The models you are:
 * Hyperbola
 
 # Full Reference
-Visit the wiki for the full documentation.
+Visit the [wiki](https://github.com/MauroQuaglia/cartesius/wiki) for the full documentation.
 
 ## Getting Started
 Edit your Gemfile and add:
