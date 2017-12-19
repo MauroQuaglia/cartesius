@@ -4,7 +4,7 @@ describe Cartesius::Triangle do
   let(:point) {Cartesius::Point}
 
   describe '.new' do
-    subject {described_class.new(vertex1: vertex1, vertex2: vertex2, vertex3: vertex3)}
+    subject {described_class.new(v1: vertex1, v2: vertex2, v3: vertex3)}
 
     context 'same vertices' do
       let(:vertex1) {point.origin}
@@ -32,9 +32,9 @@ describe Cartesius::Triangle do
       let(:vertex3) {point.new(x: 1, y: 0)}
 
       it 'should be valid' do
-        expect(subject.vertex1).to eq(vertex1)
-        expect(subject.vertex2).to eq(vertex2)
-        expect(subject.vertex3).to eq(vertex3)
+        expect(subject.v1).to eq(vertex1)
+        expect(subject.v2).to eq(vertex2)
+        expect(subject.v3).to eq(vertex3)
       end
     end
   end

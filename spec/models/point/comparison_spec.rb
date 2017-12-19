@@ -49,6 +49,29 @@ describe 'Comparison of point' do
 
   end
 
+  describe '#eql?' do
+    subject {point.origin.eql?(a_point)}
+
+    context 'with a non-point' do
+      let(:a_point) {NilClass}
+
+      it {is_expected.to be_falsey}
+    end
+
+    context 'with itself' do
+      let(:a_point) {point.origin}
+
+      it {is_expected.to be_truthy}
+    end
+
+    context 'with different point' do
+      let(:a_point) {point.new(x: 0, y: 1)}
+
+      it {is_expected.to be_falsey}
+    end
+
+  end
+
   describe '#origin?' do
     subject {a_point.origin?}
 

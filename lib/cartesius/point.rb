@@ -38,10 +38,12 @@ module Cartesius
           point.x == @x and point.y == @y
     end
 
+    alias_method(:eql?, :==)
+
+    private
+
     def hash
       @x.hash ^ @y.hash
     end
-
-    alias_method(:eql?, :==)
   end
 end

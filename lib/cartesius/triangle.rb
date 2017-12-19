@@ -4,27 +4,36 @@ require('cartesius/segment')
 module Cartesius
 
   class Triangle
-    attr_reader(:vertex1, :vertex2, :vertex3)
-    attr_reader(:side12, :side13, :side23)
+    attr_reader(:v1, :v2, :v3)
+    attr_reader(:s12, :s13, :s23)
 
-    def initialize(vertex1:, vertex2:, vertex3:)
-      validation(vertex1, vertex2, vertex3)
-      @vertex1, @vertex2, @vertex3 = vertex1, vertex2, vertex3
-      @side12 = Segment.new(extreme1: @vertex1, extreme2: @vertex2)
-      @side13 = Segment.new(extreme1: @vertex1, extreme2: @vertex3)
-      @side23 = Segment.new(extreme1: @vertex2, extreme2: @vertex3)
+    # OK
+    def initialize(v1:, v2:, v3:)
+      validation(v1, v2, v3)
+      @v1, @v2, @v3 = v1, v2, v3
+      @s12 = Segment.new(extreme1: @v1, extreme2: @v2)
+      @s13 = Segment.new(extreme1: @v1, extreme2: @v3)
+      @s23 = Segment.new(extreme1: @v2, extreme2: @v3)
     end
 
     def vertices
-      [@vertex1, @vertex2, @vertex3]
+      [@v1, @v2, @v3]
     end
 
     def sides
-      [@side12, @side13, @side23]
+      [@s12, @s13, @s23]
     end
 
-    def congruent?(triangle)
-      triangle.instance_of?(self.class)
+
+    #OK
+    def == (triangle)
+      triangle.instance_of?(self.class) and
+          triangle.vertices.to_set == self.vertices.to_set
+    end
+
+    def congruent? (triangle)
+      triangle.instance_of?(self.class) and
+          sides_length(triangle) == sides_length(self)
     end
 
     private
@@ -36,6 +45,10 @@ module Cartesius
       if Line.by_points(point1: vertex1, point2: vertex2).include?(vertex3)
         raise ArgumentError.new('Vertices must not be aligned!')
       end
+    end
+
+    def sides_length(triangle)
+      triangle.sides.collect {|side| side.length}.sort
     end
 
   end

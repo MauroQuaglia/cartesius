@@ -1,0 +1,14 @@
+# Logfile created on 2017-12-19 14:30:54 +0100 by logger.rb/44203
+I, [2017-12-19T14:30:54.111016 #18010]  INFO -- : 0:  rake (12.3.0) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/rake-12.3.0.gemspec
+I, [2017-12-19T14:30:54.121513 #18010]  INFO -- : 0:  cartesius (1.0.0) from /home/xpuser/mauro-quaglia/cartesius/cartesius.gemspec
+I, [2017-12-19T14:30:54.121784 #18010]  INFO -- : 0:  diff-lcs (1.3) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/diff-lcs-1.3.gemspec
+I, [2017-12-19T14:30:54.121998 #18010]  INFO -- : 0:  docile (1.1.5) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/docile-1.1.5.gemspec
+I, [2017-12-19T14:30:54.122221 #18010]  INFO -- : 0:  json (2.1.0) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/json-2.1.0.gemspec
+I, [2017-12-19T14:30:54.122438 #18010]  INFO -- : 0:  rspec-support (3.7.0) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/rspec-support-3.7.0.gemspec
+I, [2017-12-19T14:30:54.122653 #18010]  INFO -- : 0:  rspec-core (3.7.0) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/rspec-core-3.7.0.gemspec
+I, [2017-12-19T14:30:54.122866 #18010]  INFO -- : 0:  rspec-expectations (3.7.0) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/rspec-expectations-3.7.0.gemspec
+I, [2017-12-19T14:30:54.123073 #18010]  INFO -- : 0:  rspec-mocks (3.7.0) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/rspec-mocks-3.7.0.gemspec
+I, [2017-12-19T14:30:54.123283 #18010]  INFO -- : 0:  rspec (3.7.0) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/rspec-3.7.0.gemspec
+I, [2017-12-19T14:30:54.123491 #18010]  INFO -- : 0:  simplecov-html (0.10.2) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/simplecov-html-0.10.2.gemspec
+I, [2017-12-19T14:30:54.123699 #18010]  INFO -- : 0:  simplecov (0.15.1) from /home/xpuser/.rvm/gems/ruby-2.1.0@cartesius/specifications/simplecov-0.15.1.gemspec
+I, [2017-12-19T14:30:54.123893 #18010]  INFO -- : 0:  bundler (1.5.1) from /home/xpuser/.rvm/gems/ruby-2.1.0@global/specifications/bundler-1.5.1.gemspec
