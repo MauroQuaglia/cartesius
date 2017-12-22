@@ -1,0 +1,4 @@
+* Usare il validator dove necessario.
+* provare a togliere l'array dal validator e usare *
+* C'è da finire il triangolo (ma mi serve il concetto di angolo)
+* Finire refactor dei test

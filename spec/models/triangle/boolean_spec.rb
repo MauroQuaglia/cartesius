@@ -4,9 +4,9 @@ describe Cartesius::Triangle do
 
   describe '#==' do
     subject {@triangle.new(
-        v1: @point.new(x: -1, y: 0),
-        v2: @point.new(x: 0, y: 1),
-        v3: @point.new(x: 1, y: 0)
+        a: @point.new(x: -1, y: 0),
+        b: @point.new(x: 0, y: 1),
+        c: @point.new(x: 1, y: 0)
     ) == a_triangle}
 
     context 'with a non-triangle' do
@@ -16,27 +16,27 @@ describe Cartesius::Triangle do
 
     context 'with itself' do
       let(:a_triangle) {@triangle.new(
-          v1: @point.new(x: -1, y: 0),
-          v2: @point.new(x: 0, y: 1),
-          v3: @point.new(x: 1, y: 0)
+          a: @point.new(x: -1, y: 0),
+          b: @point.new(x: 0, y: 1),
+          c: @point.new(x: 1, y: 0)
       )}
       it {is_expected.to be_truthy}
     end
 
     context 'with same vertices' do
       let(:a_triangle) {@triangle.new(
-          v1: @point.new(x: 1, y: 0),
-          v2: @point.new(x: 0, y: 1),
-          v3: @point.new(x: -1, y: 0)
+          a: @point.new(x: 1, y: 0),
+          b: @point.new(x: 0, y: 1),
+          c: @point.new(x: -1, y: 0)
       )}
       it {is_expected.to be_truthy}
     end
 
     context 'with different vertices' do
       let(:a_triangle) {@triangle.new(
-          v1: @point.new(x: -1, y: 0),
-          v2: @point.new(x: 0, y: -1),
-          v3: @point.new(x: 1, y: 0)
+          a: @point.new(x: -1, y: 0),
+          b: @point.new(x: 0, y: -1),
+          c: @point.new(x: 1, y: 0)
       )}
       it {is_expected.to be_falsey}
     end
@@ -44,9 +44,9 @@ describe Cartesius::Triangle do
 
   describe '#congruent?' do
     subject {@triangle.new(
-        v1: @point.new(x: -1, y: 0),
-        v2: @point.new(x: 0, y: 1),
-        v3: @point.new(x: 1, y: 0)
+        a: @point.new(x: -1, y: 0),
+        b: @point.new(x: 0, y: 1),
+        c: @point.new(x: 1, y: 0)
     ).congruent?(a_triangle)}
 
     context 'with a non-triangle' do
@@ -56,36 +56,36 @@ describe Cartesius::Triangle do
 
     context 'with itself' do
       let(:a_triangle) {@triangle.new(
-          v1: @point.new(x: -1, y: 0),
-          v2: @point.new(x: 0, y: 1),
-          v3: @point.new(x: 1, y: 0)
+          a: @point.new(x: -1, y: 0),
+          b: @point.new(x: 0, y: 1),
+          c: @point.new(x: 1, y: 0)
       )}
       it {is_expected.to be_truthy}
     end
 
     context 'with same vertices' do
       let(:a_triangle) {@triangle.new(
-          v1: @point.new(x: 1, y: 0),
-          v2: @point.new(x: 0, y: 1),
-          v3: @point.new(x: -1, y: 0)
+          a: @point.new(x: 1, y: 0),
+          b: @point.new(x: 0, y: 1),
+          c: @point.new(x: -1, y: 0)
       )}
       it {is_expected.to be_truthy}
     end
 
     context 'with different vertices' do
       let(:a_triangle) {@triangle.new(
-          v1: @point.new(x: -1, y: 0),
-          v2: @point.new(x: 0, y: -1),
-          v3: @point.new(x: 1, y: 0)
+          a: @point.new(x: -1, y: 0),
+          b: @point.new(x: 0, y: -1),
+          c: @point.new(x: 1, y: 0)
       )}
       it {is_expected.to be_truthy}
     end
 
     context 'with itself translated' do
       let(:a_triangle) {@triangle.new(
-          v1: @point.new(x: 0, y: 1),
-          v2: @point.new(x: 1, y: 2),
-          v3: @point.new(x: 2, y: 1)
+          a: @point.new(x: 0, y: 1),
+          b: @point.new(x: 1, y: 2),
+          c: @point.new(x: 2, y: 1)
       )}
       it {is_expected.to be_truthy}
     end

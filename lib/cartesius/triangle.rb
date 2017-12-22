@@ -1,35 +1,36 @@
 require('cartesius/validator')
-require('cartesius/line')
 require('cartesius/segment')
 
 module Cartesius
 
   class Triangle
-    attr_reader(:v1, :v2, :v3)
-    attr_reader(:s12, :s13, :s23)
 
     # OK
-    def initialize(v1:, v2:, v3:)
-      validation(v1, v2, v3)
-      @v1, @v2, @v3 = v1, v2, v3
-      @s12 = Segment.new(extreme1: @v1, extreme2: @v2)
-      @s13 = Segment.new(extreme1: @v1, extreme2: @v3)
-      @s23 = Segment.new(extreme1: @v2, extreme2: @v3)
+    def initialize(a:, b:, c:)
+      validation(a, b, c)
+      @a, @b, @c = a, b, c
+      @s_ab = Segment.new(extreme1: @a, extreme2: @b)
+      @s_ac = Segment.new(extreme1: @a, extreme2: @c)
+      @s_bc = Segment.new(extreme1: @b, extreme2: @c)
     end
 
-    def vertices
-      [@v1, @v2, @v3]
+    # TODO
+    def angles
+      {a: nil, b: nil, c: nil}
     end
 
     def sides
-      [@s12, @s13, @s23]
+      {a: @s_bc, b: @s_ac, c: @s_ab}
     end
 
+    def vertices
+      {a: @a, b: @b, c: @c}
+    end
 
     #OK
     def == (triangle)
       triangle.instance_of?(self.class) and
-          triangle.vertices.to_set == self.vertices.to_set
+          triangle.vertices.values.to_set == self.vertices.values.to_set
     end
 
     #OK
@@ -40,13 +41,13 @@ module Cartesius
 
     private
 
-    def validation(v1, v2, v3)
-      Validator.same_points([v1, v2, v3])
-      Validator.aligned_points([v1, v2, v3])
+    def validation(a, b, c)
+      Validator.same_points([a, b, c])
+      Validator.aligned_points([a, b, c])
     end
 
     def sides_length(triangle)
-      triangle.sides.collect {|side| side.length}.sort
+      triangle.sides.values.collect {|side| side.length}.sort
     end
 
   end
