@@ -2,3 +2,6 @@
 * provare a togliere l'array dal validator e usare *
 * C'è da finire il triangolo (ma mi serve il concetto di angolo)
 * Finire refactor dei test
+* Implementare uguaglianza tra le linee come per i punti e spsotarli nel validatore
+* vedere come si passa un enum al metodo
+* vedere come usare gli enumeratori

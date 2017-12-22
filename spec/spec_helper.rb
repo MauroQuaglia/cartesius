@@ -9,6 +9,7 @@ require('cartesius/parabola')
 require('cartesius/ellipse')
 require('cartesius/hyperbola')
 require('cartesius/triangle')
+require('cartesius/angle')
 
 require('cartesius/cramer')
 require('cartesius/determinator')
@@ -124,6 +125,7 @@ RSpec.configure do |config|
     @ellipse = Cartesius::Ellipse
     @hyperbola = Cartesius::Hyperbola
     @triangle = Cartesius::Triangle
+    @angle = Cartesius::Angle
   end
 
 end

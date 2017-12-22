@@ -9,6 +9,7 @@ module Cartesius
       end
     end
 
+    # TODO: cambiare nome... ne bastano 3 allineati, ma se sono 4 per eccezione ne bastano tre allineati.
     def self.aligned_points(points)
       if points.count >= 3
         line = Line.by_points(point1: points.shift, point2: points.pop)
