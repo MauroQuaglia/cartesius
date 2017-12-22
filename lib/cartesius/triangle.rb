@@ -5,7 +5,6 @@ require('cartesius/segment')
 module Cartesius
 
   class Triangle
-    include Validator
     attr_reader(:v1, :v2, :v3)
     attr_reader(:s12, :s13, :s23)
 
@@ -42,11 +41,8 @@ module Cartesius
     private
 
     def validation(v1, v2, v3)
-      same_points_validator([v1, v2, v3])
-
-      if Line.by_points(point1: v1, point2: v2).include?(v3)
-        raise ArgumentError.new('Vertices must not be aligned!')
-      end
+      Validator.same_points([v1, v2, v3])
+      Validator.aligned_points([v1, v2, v3])
     end
 
     def sides_length(triangle)

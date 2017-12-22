@@ -1,16 +1,21 @@
-module Validator
+require('cartesius/line')
 
-  private
+module Cartesius
 
-  def same_points_validator(points)
-    if points.count > 1 and points.count != points.to_set.count
-      raise ArgumentError.new('Points are not distinct!')
+  class Validator
+    def self.same_points(points)
+      if points.count != points.to_set.count
+        raise ArgumentError.new('Points must be distinct!')
+      end
     end
-  end
 
-  def aligned_points_validator(points)
-    if points.count > 1 and points.count != points.to_set.count
-      raise ArgumentError.new('Points are not distinct!')
+    def self.aligned_points(points)
+      if points.count >= 3
+        line = Line.by_points(point1: points.shift, point2: points.pop)
+        points.each do |point|
+          raise ArgumentError.new('Points must not be aligned!') if line.include?(point)
+        end
+      end
     end
   end
 
