@@ -1,6 +1,5 @@
 module Cartesius
   class Angle
-    #enum angle: [:acute, :obtuse, :right]
 
     # OK
     private_class_method(:new)
@@ -11,13 +10,33 @@ module Cartesius
 
     # Vedere se si può togliere il return
     def self.by_lines(line1:, line2:, type: :acute)
-      if line1 == line2
-       return new(0) if type == :acute
-       return new(180) if type == :obtuse
-       raise ArgumentError
-      else
-
+      case
+        when line1 == line2
+          self.null if type == :acute
+          self.flat if type == :obtuse
+        when line1.perpendicular?(line2)
+          self.right if type == :right
+        when true
+          self.right if type == :right
+        else
+          raise ArgumentError
       end
+
+      if line1 == line2
+        return self.null if type == :acute
+        return self.flat if type == :obtuse
+        raise ArgumentError
+      elsif line1.parallel?(line2)
+        raise ArgumentError
+      elsif line1.perpendicular?(line2)
+        return self.right if type == :right
+        raise ArgumentError
+      elsif true
+        #calcolo
+      else
+        #eccezione
+      end
+
     end
 
     def self.by_degrees
@@ -26,30 +45,20 @@ module Cartesius
     def self.by_radiants
     end
 
-    def self.right
-      new(90)
-    end
-
     def self.null
       new(0)
     end
 
-    def null?
+    def self.right
+      new(90)
     end
 
-    def right?
+    def self.flat
+      new(180)
     end
 
-    def flat?
-    end
-
-    def full?
-    end
-
-    def acute?
-    end
-
-    def obtuse?
+    def self.full
+      new(360)
     end
 
     def degrees
