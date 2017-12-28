@@ -5,5 +5,5 @@ gemspec
 group(:test) do
   gem('rake')
   gem('rspec', require: false)
-  gem('simplecov', require: false)
+  gem('codecov', require: false)
 end

@@ -1,6 +1,9 @@
 require 'simplecov'
 SimpleCov.start
 
+require 'codecov'
+SimpleCov.formatter = SimpleCov::Formatter::Codecov
+
 require('cartesius/point')
 require('cartesius/line')
 require('cartesius/segment')
