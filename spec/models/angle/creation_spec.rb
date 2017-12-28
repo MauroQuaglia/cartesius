@@ -10,70 +10,76 @@ describe Cartesius::Angle do
     end
   end
 
-  xdescribe '.by_lines' do
-    subject {described_class.by_lines(line1: line1, line2: line2, type: type)}
+  describe '.by_degrees' do
+    subject {described_class.by_degrees(degrees)}
 
-    context 'nil angle' do
-      let(:line1) {Line.x_axis}
-      let(:line2) {Line.horizontal(known_term: 1)}
-      let(:type) {:any}
-
-      it 'should be reject' do
-        expect {subject}.to raise_error(ArgumentError)
+    context 'null angle' do
+      let(:degrees) {0}
+      it 'should be valid' do
+        expect(subject.degrees).to eq(0)
+        expect(subject.radiants).to eq(0)
       end
     end
 
-    context 'null angle' do
-      let(:line1) {Line.x_axis}
-      let(:line2) {Line.x_axis}
-      let(:type) {:acute}
-
+    context '45 degree angle' do
+      let(:degrees) {45}
       it 'should be valid' do
-        expect(subject.degrees).to eq(0)
+        expect(subject.degrees).to eq(45)
+        expect(subject.radiants).to eq(Rational(Math::PI, 4))
+      end
+    end
+
+    context 'right angle' do
+      let(:degrees) {90}
+      it 'should be valid' do
+        expect(subject.degrees).to eq(90)
+        expect(subject.radiants).to eq(Rational(Math::PI, 2))
       end
     end
 
     context 'flat angle' do
-      let(:line1) {Line.x_axis}
-      let(:line2) {Line.x_axis}
-      let(:type) {:obtuse}
-
+      let(:degrees) {180}
       it 'should be valid' do
         expect(subject.degrees).to eq(180)
+        expect(subject.radiants).to eq(Rational(Math::PI))
+      end
+    end
+  end
+
+  describe '.by_radiants' do
+    subject {described_class.by_radiants(radiants)}
+
+    context 'null angle' do
+      let(:radiants) {0}
+      it 'should be valid' do
+        expect(subject.radiants).to eq(0)
+        expect(subject.degrees).to eq(0)
       end
     end
 
-    context 'acute angle' do
-      let(:line1) {Line.x_axis}
-      let(:line2) {Line.ascending_bisector}
-      let(:type) {:acute}
-
+    context 'π/4 radiants angle' do
+      let(:radiants) {Rational(Math::PI, 4)}
       it 'should be valid' do
+        expect(subject.radiants).to eq(Rational(Math::PI, 4))
         expect(subject.degrees).to eq(45)
       end
     end
 
     context 'right angle' do
-      let(:line1) {Line.x_axis}
-      let(:line2) {Line.y_axis}
-      let(:type) {:right}
-
+      let(:radiants) {Rational(Math::PI, 2)}
       it 'should be valid' do
         expect(subject.degrees).to eq(90)
+        expect(subject.radiants).to eq(Rational(Math::PI, 2))
       end
     end
 
-    context 'obtuse angle' do
-      let(:line1) {Line.x_axis}
-      let(:line2) {Line.ascending_bisector}
-      let(:type) {:obtuse}
-
+    context 'flat angle' do
+      let(:radiants) {Math::PI}
       it 'should be valid' do
-        expect(subject.degrees).to eq(135)
+        expect(subject.radiants).to eq(Math::PI)
+        expect(subject.degrees).to eq(180)
       end
     end
-
-
   end
 
 
