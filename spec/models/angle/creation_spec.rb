@@ -25,7 +25,7 @@ describe Cartesius::Angle do
       let(:degrees) {45}
       it 'should be valid' do
         expect(subject.degrees).to eq(45)
-        expect(subject.radiants).to eq(Rational(Math::PI, 4))
+        expect(subject.radiants).to eq(0.785)
       end
     end
 
@@ -33,7 +33,7 @@ describe Cartesius::Angle do
       let(:degrees) {90}
       it 'should be valid' do
         expect(subject.degrees).to eq(90)
-        expect(subject.radiants).to eq(Rational(Math::PI, 2))
+        expect(subject.radiants).to eq(1.571)
       end
     end
 
@@ -41,7 +41,7 @@ describe Cartesius::Angle do
       let(:degrees) {180}
       it 'should be valid' do
         expect(subject.degrees).to eq(180)
-        expect(subject.radiants).to eq(Rational(Math::PI))
+        expect(subject.radiants).to eq(3.142)
       end
     end
   end
@@ -60,7 +60,7 @@ describe Cartesius::Angle do
     context 'π/4 radiants angle' do
       let(:radiants) {Rational(Math::PI, 4)}
       it 'should be valid' do
-        expect(subject.radiants).to eq(Rational(Math::PI, 4))
+        expect(subject.radiants).to eq(0.785)
         expect(subject.degrees).to eq(45)
       end
     end
@@ -69,18 +69,17 @@ describe Cartesius::Angle do
       let(:radiants) {Rational(Math::PI, 2)}
       it 'should be valid' do
         expect(subject.degrees).to eq(90)
-        expect(subject.radiants).to eq(Rational(Math::PI, 2))
+        expect(subject.radiants).to eq(1.571)
       end
     end
 
     context 'flat angle' do
       let(:radiants) {Math::PI}
       it 'should be valid' do
-        expect(subject.radiants).to eq(Math::PI)
+        expect(subject.radiants).to eq(3.142)
         expect(subject.degrees).to eq(180)
       end
     end
   end
-
 
 end
