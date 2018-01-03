@@ -25,15 +25,8 @@ Edit your Gemfile and add:
 ```
 Now you can update your gemset with bundle.
 
-## Code Quality
-Test coverage at 100%.
-
 ## License
 Cartesius is released under the MIT License.
 
 ## Author
 Mauro Quaglia
-
-
-
-    
