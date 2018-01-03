@@ -1,7 +1,10 @@
-#require('bigdecimal')
-
 module Cartesius
   class Angle
+    NULL, RIGHT, FLAT, FULL = 0, 90, 180, 360
+    private_constant(:NULL)
+    private_constant(:RIGHT)
+    private_constant(:FLAT)
+    private_constant(:FULL)
 
     def initialize(angle)
       @angle = angle
@@ -10,11 +13,39 @@ module Cartesius
     private_class_method(:new)
 
     def self.by_degrees(degrees)
-      new(degrees.to_r)
+      new(degrees)
     end
 
     def self.by_radiants(radiants)
-      new(Rational(radiants.to_r * 180, Math::PI))
+      by_degrees(radiants * FLAT / Math::PI)
+    end
+
+    def self.by_lines(line1:, line2:)
+      raise ArgumentError.new('Lines must not be parallel!') if line1.parallel?(line2)
+
+      if line1.perpendicular?(line2)
+        acute = right
+      else
+        acute = by_radiants(Math.atan(line1.slope - line2.slope / 1 + line1.slope * line2.slope).abs)
+      end
+
+      [acute, new(FLAT - acute.degrees)]
+    end
+
+    def self.null
+      by_degrees(NULL)
+    end
+
+    def self.right
+      by_degrees(RIGHT)
+    end
+
+    def self.flat
+      by_degrees(FLAT)
+    end
+
+    def self.full
+      by_degrees(FULL)
     end
 
     def degrees(precision = 3)
@@ -22,36 +53,44 @@ module Cartesius
     end
 
     def radiants(precision = 3)
-      Rational(@angle * Math::PI, 180).round(precision)
+      (@angle * Math::PI / FLAT).round(precision)
     end
 
     def null?
-      self.degrees == 0
+      degrees == NULL
     end
 
     def acute?
-      self.degrees > 0 and self.degrees < 90
+      degrees > NULL and degrees < RIGHT
     end
 
     def right?
-      self.degrees == 90
+      degrees == RIGHT
     end
 
     def obtuse?
-      self.degrees > 90 and self.degrees < 180
+      degrees > RIGHT and degrees < FLAT
     end
 
     def flat?
-      self.degrees == 180
+      degrees == FLAT
     end
 
     def full?
-      self.degrees == 360
+      degrees == FULL
     end
 
     def congruent?(angle)
       angle.instance_of?(self.class) and
           angle.degrees == self.degrees
+    end
+
+    alias_method(:eql?, :congruent?)
+
+    private
+
+    def hash
+      @angle.hash
     end
 
   end

@@ -23,6 +23,27 @@ describe Cartesius::Angle do
     end
   end
 
+  describe '#eql?' do
+    subject {
+      @angle.by_degrees(100).eql?(an_angle)
+    }
+
+    context 'with a non-angle' do
+      let(:an_angle) {NilClass}
+      it {is_expected.to be_falsey}
+    end
+
+    context 'when same width' do
+      let(:an_angle) {@angle.by_degrees(100)}
+      it {is_expected.to be_truthy}
+    end
+
+    context 'when different width' do
+      let(:an_angle) {@angle.by_degrees(50)}
+      it {is_expected.to be_falsey}
+    end
+  end
+
   context 'angular width' do
 
     context 'null angle' do
@@ -106,5 +127,10 @@ describe Cartesius::Angle do
 
   end
 
+  context 'set of angles' do
+
+
+
+  end
 
 end
