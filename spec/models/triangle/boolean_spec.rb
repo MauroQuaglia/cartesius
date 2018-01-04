@@ -91,5 +91,39 @@ describe Cartesius::Triangle do
     end
   end
 
+  describe 'type of triangle' do
+
+    context 'acute' do
+      subject {@triangle.new(a: @point.new(x: -1, y: 0), b: @point.new(x: 0, y: 2), c: @point.new(x: 1, y: 0))}
+
+      it 'should be acute' do
+        expect(subject.acute?).to be_truthy
+        expect(subject.rectangle?).to be_falsey
+        expect(subject.obtuse?).to be_falsey
+      end
+    end
+
+    context 'rectangle' do
+      subject {@triangle.new(a: @point.new(x: -1, y: 0), b: @point.origin, c: @point.new(x: 0, y: 1))}
+
+      it 'should be rectangle' do
+        expect(subject.acute?).to be_falsey
+        expect(subject.rectangle?).to be_truthy
+        expect(subject.obtuse?).to be_falsey
+      end
+    end
+
+    context 'obtuse' do
+      subject {@triangle.new(a: @point.new(x: -2, y: 1), b: @point.origin, c: @point.new(x: 1, y: 0))}
+
+      it 'should be obtuse' do
+        expect(subject.acute?).to be_falsey
+        expect(subject.rectangle?).to be_falsey
+        expect(subject.obtuse?).to be_truthy
+      end
+    end
+
+
+  end
 
 end

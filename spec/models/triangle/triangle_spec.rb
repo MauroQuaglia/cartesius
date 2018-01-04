@@ -38,11 +38,13 @@ describe Cartesius::Triangle do
 
         triangle = @triangle.new(a: a, b: b, c: c)
 
-        a = @angle.by_degrees(90)
-        b = @angle.by_degrees(45)
-        c = @angle.by_degrees(45)
+        angle_a = @angle.by_degrees(90)
+        angle_b = @angle.by_degrees(45)
+        angle_c = @angle.by_degrees(45)
 
-        expect(triangle.angles[:a].congruent?(a)).to be_truthy
+        expect(triangle.angles[:a].congruent?(angle_a)).to be_truthy
+        expect(triangle.angles[:b].congruent?(angle_b)).to be_truthy
+        expect(triangle.angles[:c].congruent?(angle_c)).to be_truthy
       end
     end
 

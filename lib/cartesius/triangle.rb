@@ -34,13 +34,23 @@ module Cartesius
       {a: @v_a, b: @v_b, c: @v_c}
     end
 
-    #OK
+    def rectangle?
+      angles.values.any? {|angle| angle.right?}
+    end
+
+    def obtuse?
+      angles.values.any? {|angle| angle.obtuse?}
+    end
+
+    def acute?
+      not rectangle? and not obtuse?
+    end
+
     def == (triangle)
       triangle.instance_of?(self.class) and
           triangle.vertices.values.to_set == self.vertices.values.to_set
     end
 
-    #OK
     def congruent? (triangle)
       triangle.instance_of?(self.class) and
           sides_length(triangle) == sides_length(self)
