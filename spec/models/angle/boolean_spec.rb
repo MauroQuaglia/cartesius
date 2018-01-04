@@ -128,9 +128,18 @@ describe Cartesius::Angle do
   end
 
   context 'set of angles' do
+    it 'should be the same set' do
+      set1 = [@angle.null, @angle.right].to_set
+      set2 = [@angle.right, @angle.null].to_set
 
+      expect(set1).to eq(set2)
+    end
 
+    it 'should be one angles' do
+      set = [@angle.null, @angle.null].to_set
 
+      expect(set.count).to eq(1)
+    end
   end
 
 end

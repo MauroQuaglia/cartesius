@@ -20,16 +20,18 @@ module Cartesius
       by_degrees(radiants * FLAT / Math::PI)
     end
 
+    def self.by_sexagesimal(deg:, min: 0, sec: 0)
+      by_degrees(deg + min * 60 + sec * 3600)
+    end
+
     def self.by_lines(line1:, line2:)
       raise ArgumentError.new('Lines must not be parallel!') if line1.parallel?(line2)
-
       if line1.perpendicular?(line2)
-        acute = right
+        [right, right]
       else
         acute = by_radiants(Math.atan(line1.slope - line2.slope / 1 + line1.slope * line2.slope).abs)
+        [acute, new(FLAT - acute.degrees)]
       end
-
-      [acute, new(FLAT - acute.degrees)]
     end
 
     def self.null
@@ -54,6 +56,10 @@ module Cartesius
 
     def radiants(precision = 3)
       (@angle * Math::PI / FLAT).round(precision)
+    end
+
+    def sexagesimal
+      
     end
 
     def null?
