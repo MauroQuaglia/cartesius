@@ -1,4 +1,4 @@
-require_relative('../spec_helper')
+require_relative('../../spec_helper')
 
 describe Cartesius::Hyperbola do
   let(:point) {Cartesius::Point}
