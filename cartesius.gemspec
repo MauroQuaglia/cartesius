@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
       'lib/cartesius/parabola.rb',
       'lib/cartesius/ellipse.rb',
       'lib/cartesius/hyperbola.rb',
-      'lib/cartesius/triangle.rb',
+      'lib/cartesius/triangle.rb'
   ]
   s.homepage = 'https://github.com/MauroQuaglia/cartesius'
   s.license = 'MIT'
