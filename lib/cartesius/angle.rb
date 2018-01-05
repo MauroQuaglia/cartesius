@@ -80,7 +80,7 @@ module Cartesius
 
     def congruent?(angle)
       angle.instance_of?(self.class) and
-          angle.degrees == self.degrees
+          angle.degrees == degrees
     end
 
     alias_method(:eql?, :congruent?)

@@ -8,15 +8,12 @@ module Cartesius
 
     def initialize(a:, b:, c:)
       validation(a, b, c)
-
       @v_a = a
       @v_b = b
       @v_c = c
-
       @s_a = Segment.new(extreme1: @v_b, extreme2: @v_c)
       @s_b = Segment.new(extreme1: @v_a, extreme2: @v_c)
       @s_c = Segment.new(extreme1: @v_a, extreme2: @v_b)
-
       @a_a = Angle.by_radiants(carnot(@s_a, @s_b, @s_c))
       @a_b = Angle.by_radiants(carnot(@s_b, @s_a, @s_c))
       @a_c = Angle.by_radiants(carnot(@s_c, @s_a, @s_b))
@@ -35,15 +32,27 @@ module Cartesius
     end
 
     def rectangle?
-      angles.values.any? {|angle| angle.right?}
+      angles.values.any?(&:right?)
     end
 
     def obtuse?
-      angles.values.any? {|angle| angle.obtuse?}
+      angles.values.any?(&:obtuse?)
     end
 
     def acute?
       not rectangle? and not obtuse?
+    end
+
+    def equilateral?(precision = 2)
+      sides_congruent(precision) == 1
+    end
+
+    def isosceles?(precision = 2)
+      equilateral? or sides_congruent(precision) == 2
+    end
+
+    def scalene?(precision = 2)
+      sides_congruent(precision) == 3
     end
 
     def perimeter
@@ -56,12 +65,17 @@ module Cartesius
 
     def == (triangle)
       triangle.instance_of?(self.class) and
-          triangle.vertices.values.to_set == self.vertices.values.to_set
+          triangle.vertices.values.to_set == vertices.values.to_set
     end
 
     def congruent? (triangle)
       triangle.instance_of?(self.class) and
           sides_length(triangle) == sides_length(self)
+    end
+
+    def similar?(triangle)
+      triangle.instance_of?(self.class) and
+          triangle.angles.values.to_set == angles.values.to_set
     end
 
     private
@@ -80,7 +94,11 @@ module Cartesius
     end
 
     def sides_length(triangle)
-      triangle.sides.values.collect {|side| side.length}.sort
+      triangle.sides.values.collect(&:length).sort
+    end
+
+    def sides_congruent(precision)
+      sides_length(self).map {|side| side.round(precision)}.uniq.count
     end
 
   end

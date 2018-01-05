@@ -37,7 +37,7 @@ module Cartesius
           [point3.x, point3.y, 1],
           [-(point1.x ** 2 + point1.y ** 2), -(point2.x ** 2 + point2.y ** 2), -(point3.x ** 2 + point3.y ** 2)]
       )
-      self.new(x: alfa, y: beta, k: gamma)
+      new(x: alfa, y: beta, k: gamma)
     rescue
       raise ArgumentError.new('Invalid points!')
     end
@@ -59,17 +59,17 @@ module Cartesius
     end
 
     def congruent?(circumference)
-      circumference.instance_of?(Circumference) and
-          circumference.radius == self.radius
+      circumference.instance_of?(self.class) and
+          circumference.radius == radius
     end
 
     def == (circumference)
-      circumference.instance_of?(Circumference) and
-          circumference.center == self.center and circumference.radius == self.radius
+      circumference.instance_of?(self.class) and
+          circumference.center == center and circumference.radius == radius
     end
 
     def self.build_by(center, radius)
-      self.new(x: -2 * center.x, y: -2 * center.y, k: center.x ** 2 + center.y ** 2 - radius.to_r ** 2)
+      new(x: -2 * center.x, y: -2 * center.y, k: center.x ** 2 + center.y ** 2 - radius.to_r ** 2)
     end
 
     private_class_method(:build_by)

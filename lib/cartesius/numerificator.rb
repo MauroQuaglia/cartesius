@@ -44,7 +44,7 @@ module Numerificator
     number_string = if number_part.denominator == 1
                       number_part.numerator.abs.to_s
                     else
-                      "(#{number_part.abs.to_s})"
+                      "(#{number_part.abs})"
                     end
     "#{signum_symbol(number_part)}#{number_string}#{letter_part}"
   end

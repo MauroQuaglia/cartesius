@@ -151,17 +151,17 @@ module Cartesius
     end
 
     def congruent?(ellipse)
-      ellipse.instance_of?(Ellipse) and
-          ellipse.eccentricity == self.eccentricity
+      ellipse.instance_of?(self.class) and
+          ellipse.eccentricity == eccentricity
     end
 
     def == (ellipse)
-      ellipse.instance_of?(Ellipse) and
-          ellipse.focus1 == self.focus1 and ellipse.focus2 == self.focus2 and ellipse.distance == self.distance
+      ellipse.instance_of?(self.class) and
+          ellipse.focus1 == focus1 and ellipse.focus2 == focus2 and ellipse.distance == distance
     end
 
     def self.build_by(a2, b2, center)
-      self.new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
+      new(x2: b2, y2: a2, x: -2 * b2 * center.x, y: -2 * a2 * center.y, k: b2 * center.x ** 2 + a2 * center.y ** 2 - a2 * b2)
     end
 
     private_class_method(:build_by)

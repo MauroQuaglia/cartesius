@@ -28,7 +28,7 @@ module Cartesius
       b = -2 * a * focus.x
       c = a * (focus.x ** 2) + focus.y - Rational(1, 4 * a)
 
-      self.new(x2: a, x: b, k: c)
+      new(x2: a, x: b, k: c)
     end
 
     def self.by_points(point1:, point2:, point3:)
@@ -39,7 +39,7 @@ module Cartesius
           [point1.y, point2.y, point3.y]
       )
 
-      self.new(x2: a, x: b, k: c)
+      new(x2: a, x: b, k: c)
     rescue
       raise ArgumentError.new('Invalid points!')
     end
@@ -71,13 +71,13 @@ module Cartesius
     end
 
     def congruent?(parabola)
-      parabola.instance_of?(Parabola) and
-          parabola.eccentricity == self.eccentricity
+      parabola.instance_of?(self.class) and
+          parabola.eccentricity == eccentricity
     end
 
     def == (parabola)
-      parabola.instance_of?(Parabola) and
-          parabola.focus == self.focus and parabola.directrix == self.directrix
+      parabola.instance_of?(self.class) and
+          parabola.focus == focus and parabola.directrix == directrix
     end
 
     private

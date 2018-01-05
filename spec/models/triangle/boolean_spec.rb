@@ -91,7 +91,47 @@ describe Cartesius::Triangle do
     end
   end
 
-  describe 'properties' do
+  describe '#similar?' do
+    subject {@triangle.new(
+        a: @point.new(x: -1, y: 0),
+        b: @point.new(x: 0, y: 1),
+        c: @point.new(x: 1, y: 0)
+    ).similar?(a_triangle)}
+
+    context 'with a non-triangle' do
+      let(:a_triangle) {NilClass}
+      it {is_expected.to be_falsey}
+    end
+
+    context 'with itself' do
+      let(:a_triangle) {@triangle.new(
+          a: @point.new(x: -1, y: 0),
+          b: @point.new(x: 0, y: 1),
+          c: @point.new(x: 1, y: 0)
+      )}
+      it {is_expected.to be_truthy}
+    end
+
+    context 'with same angles' do
+      let(:a_triangle) {@triangle.new(
+          a: @point.new(x: 2, y: 0),
+          b: @point.new(x: 0, y: -2),
+          c: @point.new(x: -2, y: 0)
+      )}
+      it {is_expected.to be_truthy}
+    end
+
+    context 'with different angles' do
+      let(:a_triangle) {@triangle.new(
+          a: @point.new(x: -2, y: 0),
+          b: @point.new(x: 0, y: -1),
+          c: @point.new(x: 1, y: 0)
+      )}
+      it {is_expected.to be_falsey}
+    end
+  end
+
+  describe 'angles properties' do
 
     context 'acute' do
       subject {@triangle.new(a: @point.new(x: -1, y: 0), b: @point.new(x: 0, y: 2), c: @point.new(x: 1, y: 0))}
@@ -123,6 +163,51 @@ describe Cartesius::Triangle do
       end
     end
 
+  end
+
+  describe 'sides properties' do
+
+    context 'equilateral' do
+      subject {@triangle.new(
+          a: @point.new(x: '-1/2', y: 0),
+          b: @point.new(x: 0, y: Rational(Math.sqrt(3), 2)),
+          c: @point.new(x: '1/2', y: 0))
+      }
+
+      it 'should be equilateral' do
+        expect(subject.equilateral?).to be_truthy
+        expect(subject.isosceles?).to be_truthy
+        expect(subject.scalene?).to be_falsey
+      end
+    end
+
+    context 'isosceles' do
+      subject {@triangle.new(
+          a: @point.new(x: -1, y: 0),
+          b: @point.new(x: 0, y: 2),
+          c: @point.new(x: 1, y: 0))
+      }
+
+      it 'should be isosceles' do
+        expect(subject.equilateral?).to be_falsey
+        expect(subject.isosceles?).to be_truthy
+        expect(subject.scalene?).to be_falsey
+      end
+    end
+
+    context 'scalene' do
+      subject {@triangle.new(
+          a: @point.new(x: -1, y: 0),
+          b: @point.new(x: 0, y: 2),
+          c: @point.new(x: 3, y: 0))
+      }
+
+      it 'should be scalene' do
+        expect(subject.equilateral?).to be_falsey
+        expect(subject.isosceles?).to be_falsey
+        expect(subject.scalene?).to be_truthy
+      end
+    end
 
   end
 

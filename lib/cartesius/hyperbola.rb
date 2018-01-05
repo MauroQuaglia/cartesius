@@ -181,17 +181,17 @@ module Cartesius
     end
 
     def congruent?(hyperbola)
-      hyperbola.instance_of?(Hyperbola) and
-          hyperbola.eccentricity == self.eccentricity
+      hyperbola.instance_of?(self.class) and
+          hyperbola.eccentricity == eccentricity
     end
 
     def == (hyperbola)
-      hyperbola.instance_of?(Hyperbola) and
-          hyperbola.focus1 == self.focus1 and hyperbola.focus2 == self.focus2 and hyperbola.distance == self.distance
+      hyperbola.instance_of?(self.class) and
+          hyperbola.focus1 == focus1 and hyperbola.focus2 == focus2 and hyperbola.distance == distance
     end
 
     def self.build_by(a2, b2, center, position)
-      self.new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
+      new(x2: b2, y2: -a2, x: -2 * b2 * center.x, y: 2 * a2 * center.y, k: b2 * center.x ** 2 - a2 * center.y ** 2 + -position * a2 * b2)
     end
 
     private_class_method(:build_by)
