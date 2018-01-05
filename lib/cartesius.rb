@@ -1,3 +1,4 @@
+require('cartesius/angle')
 require('cartesius/point')
 require('cartesius/line')
 require('cartesius/segment')
