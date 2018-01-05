@@ -2,9 +2,11 @@
 
 ## Next release
 - Refactor test suite.
-- Add base version of triangle.
 - New README, with wiki.
 - Downgrade required ruby version (from 2.4.0 to 2.1.0)
+- Add Triangle element with some properties.
+- Add Angle element with some properties.
+- Add some tools to monitory the quality code: Travis CI, Codecov, Gemnasium, Rubocop.
 
 ## [v1.0.0]
 
