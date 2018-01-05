@@ -91,7 +91,7 @@ describe Cartesius::Triangle do
     end
   end
 
-  describe 'type of triangle' do
+  describe 'properties' do
 
     context 'acute' do
       subject {@triangle.new(a: @point.new(x: -1, y: 0), b: @point.new(x: 0, y: 2), c: @point.new(x: 1, y: 0))}

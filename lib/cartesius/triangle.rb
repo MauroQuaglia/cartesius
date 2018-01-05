@@ -46,6 +46,14 @@ module Cartesius
       not rectangle? and not obtuse?
     end
 
+    def perimeter
+      sides.values.inject(0) {|sum, side| sum + side.length}
+    end
+
+    def area(precision = 2)
+      Rational(sides[:a].length * sides[:b].length * Math.sin(angles[:c].radiants), 2).round(precision)
+    end
+
     def == (triangle)
       triangle.instance_of?(self.class) and
           triangle.vertices.values.to_set == self.vertices.values.to_set

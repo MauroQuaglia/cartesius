@@ -48,8 +48,18 @@ describe Cartesius::Triangle do
       end
     end
 
-
   end
 
+  describe '.perimeter' do
+    subject {@triangle.new(a: @point.new(x: 0, y: 4), b: @point.origin, c: @point.new(x: 3, y: 0)).perimeter}
+
+    it {is_expected.to eq(12)}
+  end
+
+  describe '.area' do
+    subject {@triangle.new(a: @point.new(x: 0, y: 4), b: @point.origin, c: @point.new(x: 3, y: 0)).area}
+
+    it {is_expected.to eq(6)}
+  end
 
 end
