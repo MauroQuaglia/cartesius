@@ -3,17 +3,8 @@
 [![codecov](https://codecov.io/gh/MauroQuaglia/cartesius/branch/master/graph/badge.svg)](https://codecov.io/gh/MauroQuaglia/cartesius)
 [![Dependency Status](https://gemnasium.com/badges/github.com/MauroQuaglia/cartesius.svg)](https://gemnasium.com/github.com/MauroQuaglia/cartesius)
 
-
 # cartesius
 Cartesius is a Ruby gem which allows you to solve some problems related to conics and geometry in the cartesian plane.
-The models you are:
-* Point
-* Line
-* Segment
-* Circumference
-* Parabola
-* Ellipse
-* Hyperbola
 
 # Full Reference
 Visit the [wiki](https://github.com/MauroQuaglia/cartesius/wiki) for the full documentation.
@@ -21,7 +12,7 @@ Visit the [wiki](https://github.com/MauroQuaglia/cartesius/wiki) for the full do
 ## Getting Started
 Edit your Gemfile and add:
 ```ruby
-    gem 'cartesius'
+gem 'cartesius'
 ```
 Now you can update your gemset with bundle.
 
