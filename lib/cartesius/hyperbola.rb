@@ -55,15 +55,15 @@ module Cartesius
         raise ArgumentError.new('Axes must be different!')
       end
 
-      if transverse_axis.inclined? or not_transverse_axis.inclined?
+      if transverse_axis.inclined? || not_transverse_axis.inclined?
         raise ArgumentError.new('Axes must not be inclined!')
       end
 
-      if transverse_axis.horizontal? and not_transverse_axis.horizontal?
+      if transverse_axis.horizontal? && not_transverse_axis.horizontal?
         raise ArgumentError.new('Axes can not be both horizontal!')
       end
 
-      if transverse_axis.vertical? and not_transverse_axis.vertical?
+      if transverse_axis.vertical? && not_transverse_axis.vertical?
         raise ArgumentError.new('Axes can not be both vertical!')
       end
 
@@ -87,7 +87,7 @@ module Cartesius
     end
 
     def self.by_points(center:, vertex:, point:)
-      if center == vertex or center == point or vertex == point
+      if center == vertex || center == point || vertex == point
         raise ArgumentError.new('Points must be different!')
       end
 
@@ -181,13 +181,13 @@ module Cartesius
     end
 
     def congruent?(hyperbola)
-      hyperbola.instance_of?(self.class) and
+      hyperbola.instance_of?(self.class) &&
           hyperbola.eccentricity == eccentricity
     end
 
     def == (hyperbola)
-      hyperbola.instance_of?(self.class) and
-          hyperbola.focus1 == focus1 and hyperbola.focus2 == focus2 and hyperbola.distance == distance
+      hyperbola.instance_of?(self.class) &&
+          hyperbola.focus1 == focus1 && hyperbola.focus2 == focus2 && hyperbola.distance == distance
     end
 
     def self.build_by(a2, b2, center, position)
@@ -199,7 +199,7 @@ module Cartesius
     private
 
     def validation
-      if signum(@x2_coeff * @y2_coeff) >= 0 or determinator == @k_coeff
+      if signum(@x2_coeff * @y2_coeff) >= 0 || determinator == @k_coeff
         raise ArgumentError.new('Invalid coefficients!')
       end
     end

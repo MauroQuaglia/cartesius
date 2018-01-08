@@ -48,15 +48,15 @@ module Cartesius
         raise ArgumentError.new('Axes must be different!')
       end
 
-      if major_axis.inclined? or minor_axis.inclined?
+      if major_axis.inclined? || minor_axis.inclined?
         raise ArgumentError.new('Axes must not be inclined!')
       end
 
-      if major_axis.horizontal? and minor_axis.horizontal?
+      if major_axis.horizontal? && minor_axis.horizontal?
         raise ArgumentError.new('Axes can not be both horizontal!')
       end
 
-      if major_axis.vertical? and minor_axis.vertical?
+      if major_axis.vertical? && minor_axis.vertical?
         raise ArgumentError.new('Axes can not be both vertical!')
       end
 
@@ -78,7 +78,7 @@ module Cartesius
     end
 
     def self.by_points(center:, point1:, point2:)
-      if center == point1 or center == point2 or point1 == point2
+      if center == point1 || center == point2 || point1 == point2
         raise ArgumentError.new('Points must be different!')
       end
 
@@ -151,13 +151,13 @@ module Cartesius
     end
 
     def congruent?(ellipse)
-      ellipse.instance_of?(self.class) and
+      ellipse.instance_of?(self.class) &&
           ellipse.eccentricity == eccentricity
     end
 
     def == (ellipse)
-      ellipse.instance_of?(self.class) and
-          ellipse.focus1 == focus1 and ellipse.focus2 == focus2 and ellipse.distance == distance
+      ellipse.instance_of?(self.class) &&
+          ellipse.focus1 == focus1 && ellipse.focus2 == focus2 && ellipse.distance == distance
     end
 
     def self.build_by(a2, b2, center)
@@ -169,7 +169,7 @@ module Cartesius
     private
 
     def validation
-      if @x2_coeff <= 0 or @y2_coeff <= 0 or @x2_coeff == @y2_coeff or determinator <= @k_coeff
+      if @x2_coeff <= 0 || @y2_coeff <= 0 || @x2_coeff == @y2_coeff || determinator <= @k_coeff
         raise ArgumentError.new('Invalid coefficients!')
       end
     end

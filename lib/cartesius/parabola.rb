@@ -71,13 +71,13 @@ module Cartesius
     end
 
     def congruent?(parabola)
-      parabola.instance_of?(self.class) and
+      parabola.instance_of?(self.class) &&
           parabola.eccentricity == eccentricity
     end
 
     def == (parabola)
-      parabola.instance_of?(self.class) and
-          parabola.focus == focus and parabola.directrix == directrix
+      parabola.instance_of?(self.class) &&
+          parabola.focus == focus && parabola.directrix == directrix
     end
 
     private

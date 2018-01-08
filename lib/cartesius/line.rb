@@ -102,11 +102,11 @@ module Cartesius
     end
 
     def inclined?
-      ascending? or descending?
+      ascending? || descending?
     end
 
     def ascending?
-      slope != VERTICAL_SLOPE and slope > HORIZONTAL_SLOPE
+      slope != VERTICAL_SLOPE && slope > HORIZONTAL_SLOPE
     end
 
     def descending?
@@ -156,14 +156,14 @@ module Cartesius
     end
 
     def == (line)
-      line.instance_of?(self.class) and
-          line.slope == slope and line.known_term == known_term
+      line.instance_of?(self.class) &&
+          line.slope == slope && line.known_term == known_term
     end
 
     private
 
     def validation
-      if @x_coeff.zero? and @y_coeff.zero?
+      if @x_coeff.zero? && @y_coeff.zero?
         raise ArgumentError.new('Invalid coefficients!')
       end
     end

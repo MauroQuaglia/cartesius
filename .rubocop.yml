@@ -10,3 +10,6 @@ Layout/SpaceInsideBlockBraces:
 
 Layout/SpaceInsideHashLiteralBraces:
   EnforcedStyle: no_space
+
+Layout/SpaceAroundOperators:
+  Enabled: false

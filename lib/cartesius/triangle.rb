@@ -40,7 +40,7 @@ module Cartesius
     end
 
     def acute?
-      not rectangle? and not obtuse?
+      !rectangle? && !obtuse?
     end
 
     def equilateral?(precision = 2)
@@ -48,7 +48,7 @@ module Cartesius
     end
 
     def isosceles?(precision = 2)
-      equilateral? or sides_congruent(precision) == 2
+      equilateral? || sides_congruent(precision) == 2
     end
 
     def scalene?(precision = 2)
@@ -64,17 +64,17 @@ module Cartesius
     end
 
     def == (triangle)
-      triangle.instance_of?(self.class) and
+      triangle.instance_of?(self.class) &&
           triangle.vertices.values.to_set == vertices.values.to_set
     end
 
     def congruent? (triangle)
-      triangle.instance_of?(self.class) and
+      triangle.instance_of?(self.class) &&
           sides_length(triangle) == sides_length(self)
     end
 
     def similar?(triangle)
-      triangle.instance_of?(self.class) and
+      triangle.instance_of?(self.class) &&
           triangle.angles.values.to_set == angles.values.to_set
     end
 

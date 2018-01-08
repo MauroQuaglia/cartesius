@@ -59,7 +59,7 @@ module Cartesius
     end
 
     def acute?
-      degrees > NULL and degrees < RIGHT
+      degrees > NULL && degrees < RIGHT
     end
 
     def right?
@@ -67,7 +67,7 @@ module Cartesius
     end
 
     def obtuse?
-      degrees > RIGHT and degrees < FLAT
+      degrees > RIGHT && degrees < FLAT
     end
 
     def flat?
@@ -79,7 +79,7 @@ module Cartesius
     end
 
     def congruent?(angle)
-      angle.instance_of?(self.class) and
+      angle.instance_of?(self.class) &&
           angle.degrees == degrees
     end
 

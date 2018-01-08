@@ -59,13 +59,13 @@ module Cartesius
     end
 
     def congruent?(circumference)
-      circumference.instance_of?(self.class) and
+      circumference.instance_of?(self.class) &&
           circumference.radius == radius
     end
 
     def == (circumference)
-      circumference.instance_of?(self.class) and
-          circumference.center == center and circumference.radius == radius
+      circumference.instance_of?(self.class) &&
+          circumference.center == center && circumference.radius == radius
     end
 
     def self.build_by(center, radius)

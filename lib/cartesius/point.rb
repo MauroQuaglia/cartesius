@@ -34,8 +34,8 @@ module Cartesius
     end
 
     def == (point)
-      point.instance_of?(self.class) and
-          point.x == @x and point.y == @y
+      point.instance_of?(self.class) &&
+          point.x == @x && point.y == @y
     end
 
     alias_method(:eql?, :==)

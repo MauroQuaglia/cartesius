@@ -35,14 +35,14 @@ module Cartesius
     end
 
     def congruent?(segment)
-      segment.instance_of?(self.class) and
+      segment.instance_of?(self.class) &&
           segment.length == self.length
     end
 
     def == (segment)
-      segment.instance_of?(self.class) and (
-      (segment.extreme1 == extreme1 and segment.extreme2 == extreme2) or
-          (segment.extreme1 == extreme2 and segment.extreme2 == extreme1)
+      segment.instance_of?(self.class) && (
+      (segment.extreme1 == extreme1 && segment.extreme2 == extreme2) ||
+          (segment.extreme1 == extreme2 && segment.extreme2 == extreme1)
       )
     end
 
