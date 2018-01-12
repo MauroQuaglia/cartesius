@@ -17,8 +17,5 @@ gem 'cartesius'
 ```
 Now you can update your gemset with bundle.
 
-## License
-Cartesius is released under the MIT License.
-
 ## Author
 Mauro Quaglia
