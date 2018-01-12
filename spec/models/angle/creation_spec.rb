@@ -13,6 +13,20 @@ describe Cartesius::Angle do
   describe '.by_degrees' do
     subject {described_class.by_degrees(degrees)}
 
+    context 'negative angle' do
+      let(:degrees) {-1}
+      it 'should be reject' do
+        expect {subject}.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'angle greater than full' do
+      let(:degrees) {361}
+      it 'should be reject' do
+        expect {subject}.to raise_error(ArgumentError)
+      end
+    end
+
     context 'null angle' do
       let(:degrees) {0}
       it 'should be valid' do

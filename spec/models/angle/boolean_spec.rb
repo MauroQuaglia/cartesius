@@ -44,11 +44,11 @@ describe Cartesius::Angle do
     end
   end
 
-  context 'angular width' do
+  context 'angles' do
+    let(:tolerance) {Rational(1, 100)}
 
     context 'null angle' do
       subject {@angle.by_degrees(0)}
-
       it 'should be null' do
         expect(subject.null?).to be_truthy
         expect(subject.acute?).to be_falsey
@@ -59,9 +59,20 @@ describe Cartesius::Angle do
       end
     end
 
-    context 'acute angle' do
-      subject {@angle.by_degrees(45)}
+    context 'approximately null angle (right)' do
+      subject {@angle.by_degrees(tolerance / 2)}
+      it 'should be null' do
+        expect(subject.null?).to be_truthy
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_falsey
+      end
+    end
 
+    context 'acute angle (left)' do
+      subject {@angle.by_degrees(tolerance)}
       it 'should be acute' do
         expect(subject.null?).to be_falsey
         expect(subject.acute?).to be_truthy
@@ -72,10 +83,33 @@ describe Cartesius::Angle do
       end
     end
 
-    context 'right angle' do
-      subject {@angle.by_degrees(90)}
+    context 'acute angle' do
+      subject {@angle.by_degrees(45)}
+      it 'should be acute' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_truthy
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_falsey
+      end
+    end
 
-      it 'should be right' do
+    context 'acute angle (right)' do
+      subject {@angle.by_degrees(90 - tolerance)}
+      it 'should be acute' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_truthy
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_falsey
+      end
+    end
+
+    context 'approximately right angle (left)' do
+      subject {@angle.by_degrees(90 - (tolerance / 2))}
+      it 'should be null' do
         expect(subject.null?).to be_falsey
         expect(subject.acute?).to be_falsey
         expect(subject.right?).to be_truthy
@@ -85,10 +119,33 @@ describe Cartesius::Angle do
       end
     end
 
-    context 'obtuse angle' do
-      subject {@angle.by_degrees(135)}
+    context 'right angle' do
+      subject {@angle.by_degrees(90)}
+      it 'should be null' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_truthy
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_falsey
+      end
+    end
 
-      it 'should be obtuse' do
+    context 'approximately right angle (right)' do
+      subject {@angle.by_degrees(90 + (tolerance / 2))}
+      it 'should be null' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_truthy
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_falsey
+      end
+    end
+
+    context 'obtuse angle (left)' do
+      subject {@angle.by_degrees(90 + tolerance)}
+      it 'should be acute' do
         expect(subject.null?).to be_falsey
         expect(subject.acute?).to be_falsey
         expect(subject.right?).to be_falsey
@@ -98,10 +155,33 @@ describe Cartesius::Angle do
       end
     end
 
-    context 'flat angle' do
-      subject {@angle.by_degrees(180)}
+    context 'obtuse angle' do
+      subject {@angle.by_degrees(135)}
+      it 'should be acute' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_truthy
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_falsey
+      end
+    end
 
-      it 'should be flat' do
+    context 'obtuse angle (right)' do
+      subject {@angle.by_degrees(180 - tolerance)}
+      it 'should be acute' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_truthy
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_falsey
+      end
+    end
+
+    context 'approximately flat angle (left)' do
+      subject {@angle.by_degrees(180 - (tolerance / 2))}
+      it 'should be null' do
         expect(subject.null?).to be_falsey
         expect(subject.acute?).to be_falsey
         expect(subject.right?).to be_falsey
@@ -111,10 +191,69 @@ describe Cartesius::Angle do
       end
     end
 
-    context 'full angle' do
-      subject {@angle.by_degrees(360)}
+    context 'flat angle' do
+      subject {@angle.by_degrees(180)}
+      it 'should be null' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_truthy
+        expect(subject.full?).to be_falsey
+      end
+    end
 
-      it 'should be full' do
+    context 'approximately flat angle (right)' do
+      subject {@angle.by_degrees(180 + (tolerance / 2))}
+      it 'should be null' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_truthy
+        expect(subject.full?).to be_falsey
+      end
+    end
+
+    context 'flat angle (right)' do
+      subject {@angle.by_degrees(180 + tolerance)}
+      it 'should be null' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_falsey
+      end
+    end
+
+    context '270 angle' do
+      subject {@angle.by_degrees(270)}
+      it 'should be null' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_falsey
+      end
+    end
+
+    context 'xxx' do
+      subject {@angle.by_degrees(360 - tolerance)}
+      it 'should be null' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_falsey
+      end
+    end
+
+    context 'approximately full angle (left)' do
+      subject {@angle.by_degrees(360 - (tolerance / 2))}
+      it 'should be null' do
         expect(subject.null?).to be_falsey
         expect(subject.acute?).to be_falsey
         expect(subject.right?).to be_falsey
@@ -124,6 +263,17 @@ describe Cartesius::Angle do
       end
     end
 
+    context 'full angle' do
+      subject {@angle.by_degrees(360)}
+      it 'should be null' do
+        expect(subject.null?).to be_falsey
+        expect(subject.acute?).to be_falsey
+        expect(subject.right?).to be_falsey
+        expect(subject.obtuse?).to be_falsey
+        expect(subject.flat?).to be_falsey
+        expect(subject.full?).to be_truthy
+      end
+    end
 
   end
 

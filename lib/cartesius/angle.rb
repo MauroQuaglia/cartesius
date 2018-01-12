@@ -1,5 +1,10 @@
+require('cartesius/neighbourhoods')
+
 module Cartesius
   class Angle
+    TOLERANCE = Rational(1, 100)
+    private_constant(:TOLERANCE)
+
     NULL, RIGHT, FLAT, FULL = 0, 90, 180, 360
     private_constant(:NULL)
     private_constant(:RIGHT)
@@ -7,6 +12,7 @@ module Cartesius
     private_constant(:FULL)
 
     def initialize(angle)
+      validation(angle)
       @angle = angle
     end
 
@@ -55,29 +61,30 @@ module Cartesius
     end
 
     def null?
-      degrees == NULL
+      OpenNeighbourhood.new(NULL, TOLERANCE).include?(degrees)
     end
 
     def acute?
-      degrees > NULL && degrees < RIGHT
+      CloseNeighbourhood.new(45, 45 - TOLERANCE).include?(degrees)
     end
 
     def right?
-      degrees == RIGHT
+      OpenNeighbourhood.new(RIGHT, TOLERANCE).include?(degrees)
     end
 
     def obtuse?
-      degrees > RIGHT && degrees < FLAT
+      CloseNeighbourhood.new(135, 45 - TOLERANCE).include?(degrees)
     end
 
     def flat?
-      degrees == FLAT
+      OpenNeighbourhood.new(FLAT, TOLERANCE).include?(degrees)
     end
 
     def full?
-      degrees == FULL
+      OpenNeighbourhood.new(FULL, TOLERANCE).include?(degrees)
     end
 
+    #TODO con gli intorni
     def congruent?(angle)
       angle.instance_of?(self.class) &&
           angle.degrees == degrees
@@ -86,6 +93,12 @@ module Cartesius
     alias_method(:eql?, :congruent?)
 
     private
+
+    def validation(angle)
+      if angle < NULL || angle > FULL
+        raise ArgumentError.new('Invalid angle!')
+      end
+    end
 
     def hash
       @angle.hash
