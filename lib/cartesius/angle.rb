@@ -52,8 +52,8 @@ module Cartesius
       by_degrees(FULL)
     end
 
-    def degrees(precision = 3)
-      @angle.round(precision)
+    def degrees
+      @angle
     end
 
     def radiants(precision = 3)
@@ -84,10 +84,9 @@ module Cartesius
       OpenNeighbourhood.new(FULL, TOLERANCE).include?(degrees)
     end
 
-    #TODO con gli intorni
-    def congruent?(angle)
-      angle.instance_of?(self.class) &&
-          angle.degrees == degrees
+    def congruent?(other)
+      other.instance_of?(self.class) &&
+          OpenNeighbourhood.new(NULL, TOLERANCE).include?((other.degrees - degrees).abs)
     end
 
     alias_method(:eql?, :congruent?)
