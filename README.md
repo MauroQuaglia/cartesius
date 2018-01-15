@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/MauroQuaglia/cartesius.svg?branch=master)](https://travis-ci.org/MauroQuaglia/cartesius)
 [![codecov](https://codecov.io/gh/MauroQuaglia/cartesius/branch/master/graph/badge.svg)](https://codecov.io/gh/MauroQuaglia/cartesius)
 [![Dependency Status](https://gemnasium.com/badges/github.com/MauroQuaglia/cartesius.svg)](https://gemnasium.com/github.com/MauroQuaglia/cartesius)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # cartesius
 Cartesius is a Ruby gem which allows you to solve some problems related to conics and geometry in the cartesian plane.
