@@ -1,11 +1,11 @@
-require('cartesius/numerificator')
+require('cartesius/config')
 require('cartesius/neighbourhoods')
+require('cartesius/numerificator')
 
 module Cartesius
   class Point
-    include Numerificator
+    include Config, Numerificator
     attr_reader :x, :y
-    TOLERANCE = Rational(1, 100)
 
     def initialize(x:, y:)
       @x, @y = x.to_r, y.to_r
