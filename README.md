@@ -19,3 +19,4 @@ Now you can update your gemset with bundle.
 
 ## Author
 Mauro Quaglia
+![alt text](https://rubygems.org/profiles/coturnix)
