@@ -7,3 +7,6 @@ require('cartesius/parabola')
 require('cartesius/ellipse')
 require('cartesius/hyperbola')
 require('cartesius/triangle')
+
+module Cartesius
+end

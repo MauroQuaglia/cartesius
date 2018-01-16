@@ -1,9 +1,11 @@
 require('cartesius/numerificator')
+require('cartesius/neighbourhoods')
 
 module Cartesius
   class Point
     include Numerificator
     attr_reader :x, :y
+    TOLERANCE = Rational(1, 100)
 
     def initialize(x:, y:)
       @x, @y = x.to_r, y.to_r
@@ -33,9 +35,17 @@ module Cartesius
       point.instance_of?(self.class)
     end
 
+    def horizontal?(point)
+      OpenNeighbourhood.new(@y, TOLERANCE).include?(point.y)
+    end
+
+    def vertical?(point)
+      OpenNeighbourhood.new(@x, TOLERANCE).include?(point.x)
+    end
+
     def == (point)
       point.instance_of?(self.class) &&
-          point.x == @x && point.y == @y
+          horizontal?(point) && vertical?(point)
     end
 
     alias_method(:eql?, :==)
