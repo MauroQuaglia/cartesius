@@ -43,16 +43,16 @@ module Cartesius
       !rectangle? && !obtuse?
     end
 
-    def equilateral?(precision = 2)
-      sides_congruent(precision) == 1
+    def equilateral?
+      sides_congruent == 1
     end
 
-    def isosceles?(precision = 2)
-      equilateral? || sides_congruent(precision) == 2
+    def isosceles?
+      equilateral? || sides_congruent == 2
     end
 
-    def scalene?(precision = 2)
-      sides_congruent(precision) == 3
+    def scalene?
+      sides_congruent == 3
     end
 
     def perimeter
@@ -94,11 +94,11 @@ module Cartesius
     end
 
     def sides_length(triangle)
-      triangle.sides.values.collect(&:length).sort
+      triangle.sides.values.collect(&:length)
     end
 
-    def sides_congruent(precision)
-      sides_length(self).map {|side| side.round(precision)}.uniq.count
+    def sides_congruent
+      sides_length(self).map {|s| s.round(3)}.to_set.count
     end
 
   end

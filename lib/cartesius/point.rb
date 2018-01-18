@@ -35,17 +35,9 @@ module Cartesius
       point.instance_of?(self.class)
     end
 
-    def horizontal?(point)
-      OpenNeighbourhood.new(@y, TOLERANCE).include?(point.y)
-    end
-
-    def vertical?(point)
-      OpenNeighbourhood.new(@x, TOLERANCE).include?(point.x)
-    end
-
     def == (point)
       point.instance_of?(self.class) &&
-          horizontal?(point) && vertical?(point)
+          point.x == @x && point.y == @y
     end
 
     alias_method(:eql?, :==)

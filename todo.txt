@@ -1,2 +1,0 @@
-* Test alias method without duplicate tests.
-* Use inverse matrix instead of Cramer.

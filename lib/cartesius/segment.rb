@@ -46,12 +46,18 @@ module Cartesius
       )
     end
 
+    alias_method(:eql?, :congruent?)
+
     private
 
     def validation
       if @extreme1 == @extreme2
         raise ArgumentError.new('Extremes cannot be the same!')
       end
+    end
+
+    def hash
+      length.hash
     end
 
   end

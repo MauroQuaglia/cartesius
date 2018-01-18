@@ -40,12 +40,6 @@ describe 'Comparison of point' do
       it {is_expected.to be_truthy}
     end
 
-    context 'when approximately itself' do
-      let(:a_point) {@point.new(x: Config::TOLERANCE / 2, y: Config::TOLERANCE / 3)}
-
-      it {is_expected.to be_truthy}
-    end
-
     context 'with different point' do
       let(:a_point) {@point.new(x: 0, y: 1)}
 
@@ -65,12 +59,6 @@ describe 'Comparison of point' do
 
     context 'with itself' do
       let(:a_point) {@point.origin}
-
-      it {is_expected.to be_truthy}
-    end
-
-    context 'when approximately itself' do
-      let(:a_point) {@point.new(x: Config::TOLERANCE / 2, y: Config::TOLERANCE / 3)}
 
       it {is_expected.to be_truthy}
     end
@@ -95,44 +83,6 @@ describe 'Comparison of point' do
     context 'when not origin' do
       let(:a_point) {@point.new(x: 0, y: 1)}
 
-      it {is_expected.to be_falsey}
-    end
-  end
-
-  describe '#horizontal?' do
-    subject {@point.origin.horizontal?(a_point)}
-
-    context 'when same y' do
-      let(:a_point) {@point.new(x: 1, y: 0)}
-      it {is_expected.to be_truthy}
-    end
-
-    context 'approximately same y' do
-      let(:a_point) {@point.new(x: 1, y: Config::TOLERANCE / 2)}
-      it {is_expected.to be_truthy}
-    end
-
-    context 'when different y' do
-      let(:a_point) {@point.new(x: 1, y: 1)}
-      it {is_expected.to be_falsey}
-    end
-  end
-
-  describe '#vertical?' do
-    subject {@point.origin.vertical?(a_point)}
-
-    context 'when same x' do
-      let(:a_point) {@point.new(x: 0, y: 1)}
-      it {is_expected.to be_truthy}
-    end
-
-    context 'approximately same x' do
-      let(:a_point) {@point.new(x: Config::TOLERANCE / 2, y: 1)}
-      it {is_expected.to be_truthy}
-    end
-
-    context 'when different x' do
-      let(:a_point) {@point.new(x: 1, y: 1)}
       it {is_expected.to be_falsey}
     end
   end

@@ -1,10 +1,8 @@
 require('cartesius/neighbourhoods')
+require('cartesius/config')
 
 module Cartesius
   class Angle
-    TOLERANCE = Rational(1, 100)
-    private_constant(:TOLERANCE)
-
     NULL, RIGHT, FLAT, FULL = 0, 90, 180, 360
     private_constant(:NULL)
     private_constant(:RIGHT)
@@ -61,32 +59,32 @@ module Cartesius
     end
 
     def null?
-      OpenNeighbourhood.new(NULL, TOLERANCE).include?(degrees)
+      OpenNeighbourhood.new(NULL, Config::TOLERANCE).include?(degrees)
     end
 
     def acute?
-      CloseNeighbourhood.new(45, 45 - TOLERANCE).include?(degrees)
+      CloseNeighbourhood.new(45, 45 - Config::TOLERANCE).include?(degrees)
     end
 
     def right?
-      OpenNeighbourhood.new(RIGHT, TOLERANCE).include?(degrees)
+      OpenNeighbourhood.new(RIGHT, Config::TOLERANCE).include?(degrees)
     end
 
     def obtuse?
-      CloseNeighbourhood.new(135, 45 - TOLERANCE).include?(degrees)
+      CloseNeighbourhood.new(135, 45 - Config::TOLERANCE).include?(degrees)
     end
 
     def flat?
-      OpenNeighbourhood.new(FLAT, TOLERANCE).include?(degrees)
+      OpenNeighbourhood.new(FLAT, Config::TOLERANCE).include?(degrees)
     end
 
     def full?
-      OpenNeighbourhood.new(FULL, TOLERANCE).include?(degrees)
+      OpenNeighbourhood.new(FULL, Config::TOLERANCE).include?(degrees)
     end
 
     def congruent?(other)
       other.instance_of?(self.class) &&
-          OpenNeighbourhood.new(NULL, TOLERANCE).include?((other.degrees - degrees).abs)
+          OpenNeighbourhood.new(NULL, Config::TOLERANCE).include?((other.degrees - degrees).abs)
     end
 
     alias_method(:eql?, :congruent?)

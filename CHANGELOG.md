@@ -1,6 +1,10 @@
 # Change Log
 
-## Next release
+## [v1.1.1]
+- Refactor test suite.
+- Approximations by neighbourhoods.
+
+## [v1.1.0]
 - Refactor test suite.
 - New README, with wiki.
 - Downgrade required ruby version (from 2.4.0 to 2.1.0)
