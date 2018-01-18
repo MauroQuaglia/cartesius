@@ -1,10 +1,9 @@
-require('cartesius/config')
 require('cartesius/neighbourhoods')
 require('cartesius/numerificator')
 
 module Cartesius
   class Point
-    include Config, Numerificator
+    include Numerificator
     attr_reader :x, :y
 
     def initialize(x:, y:)
