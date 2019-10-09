@@ -1,5 +1,8 @@
 # Change Log
 
+## [v1.1.2]
+- Minor fix.
+
 ## [v1.1.1]
 - Refactor test suite.
 - Approximations by neighbourhoods.
